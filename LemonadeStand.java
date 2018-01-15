@@ -8,53 +8,55 @@ import java.util.Scanner;
 
 public class LemonadeStand {
     static void printMenu1() {
-        System.out.println("Hi! Welcome to Lemonsville, California!");
-        System.out.print("In this small town, you are in charge of\n" +
-            "running your own lemonade stand. You can\n" +
-            "compete with as many other people as you\n" +
-            "wish, but how much profit you make is up\n" +
-            "to you (the other stands' sales will not\n" +
-            "affect your business in any way). If you\n" +
-            "make the most money, you're the winner!!\n") ;
-        System.out.println("\t(Hit return to continue)");
+        System.out.println("HI! WELCOME TO LEMONSVILLE, CALIFORNIA!");
+        System.out.println("IN THIS SMALL TOWN, YOU ARE IN CHARGE OF\n" +
+            "RUNNING YOUR OWN LEMONADE STAND. YOU CAN\n" +
+            "COMPETE WITH AS MANY OTHER PEOPLE AS YOU\n" +
+            "WISH, BUT HOW MUCH PROFIT YOU MAKE IS UP\n" +
+            "TO YOU (THE OTHER STANDS' SALES WILL NOT\n" +
+            "AFFECT YOUR BUSINESS IN ANY WAY). IF YOU\n" +
+            "MAKE THE MOST MONEY, YOU'RE THE WINNER!!") ;
+        System.out.println("\t(HIT RETURN TO CONTINUE)");
     }
     static void printMenu2() {
-                System.out.print("To manage your lemonade stand, you will\n" +
-	"need to make these decisions every day:\n\n");
-        System.out.print("1. How many glasses of lemonade to make\n" +
-                "(Only one batch is made each morning)\n\n" );
-        System.out.print("2. How many advertising signs to make\n" +
-                "(The signs cost fifteen cents each)\n\n" );
-        System.out.println("3. What price to charge for each glass\n" );
-        System.out.print("You will begin with $2.00 cash (assets).\n" +
-                "Because your mother gave you some sugar,\n" +
-                "your cost to make lemonade is two cents\n" +
-                "a glass (this may change in the future).\n" );
-        System.out.println("\t(Hit return to continue)");
+        System.out.println("TO MANAGE YOUR LEMONADE STAND, YOU WILL\n"
+            + "NEED TO MAKE THESE DECISIONS EVERY DAY:\n");
+        System.out.println("1. HOW MANY GLASSES OF LEMONADE TO MAKE");
+        System.out.printf("%40s%n", "(ONLY ONE BATCH IS MADE EACH MORNING)" );
+        System.out.println("2. HOW MANY ADVERTISING SIGNS TO MAKE");
+        System.out.printf("%38s%n", "(THE SIGNS COST FIFTEEN CENTS EACH)" );
+        System.out.println("3. WHAT PRICE TO CHARGE FOR EACH GLASS\n" );
+        System.out.println("YOU WILL BEGIN WITH $2.00 CASH (ASSETS).\n"
+            + "BECAUSE YOUR MOTHER GAVE YOU SOME SUGAR,\n"
+            + "YOUR COST TO MAKE LEMONADE IS TWO CENTS\n"
+            + "A GLASS (THIS MAY CHANGE IN THE FUTURE)." );
+        System.out.println("\t(HIT RETURN TO CONTINUE)");
     }
     static void printMenu3() {
-        System.out.print("Your expense are the sum of the cost of\n" +
-                "the lemonade and the cost of the signs.\n\n" );
-        System.out.print("Your profits are the difference between\n" +
-                "the income from the sales and your expenses\n\n" );
-        System.out.print("The number of glasses you sell each day\n" +
-                "depends on the price you charge, and on\n" +
-                "the number of advertising signs you use.\n\n" );
-        System.out.print("Keep track of your assets, because you\n" +
-                "can't spend more money than you have!\n" );
-        System.out.println("\t(Hit return to continue)");
+        System.out.println("YOUR EXPENSE ARE THE SUM OF THE COST OF\n"
+            + "THE LEMONADE AND THE COST OF THE SIGNS.\n" );
+        System.out.println("YOUR PROFITS ARE THE DIFFERENCE BETWEEN\n"
+            + "THE INCOME FROM THE SALES AND YOUR EXPENSES.\n" );
+        System.out.println("THE NUMBER OF GLASSES YOU SELL EACH DAY\n"
+            + "DEPENDS ON THE PRICE YOU CHARGE, AND ON\n"
+            + "THE NUMBER OF ADVERTISING SIGNS YOU USE.\n" );
+        System.out.println("KEEP TRACK OF YOUR ASSETS, BECAUSE YOU\n"
+            + "CAN'T SPEND MORE MONEY THAN YOU HAVE!" );
+        System.out.println("\t(HIT RETURN TO CONTINUE)");
     }
+    
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         Random rand = new Random();
-        byte day;
-        byte weather;
-        byte customers;
+        byte day = 1 , weather;
+        int customers;
         double cost;
         int cups;
+        int cupsSold;
         byte signs;
+        double sc = 0.15;
         int price;
-        double assests = 2;
+        double assests = 2.00;
         double profit;
         double income;
         double expense;
@@ -68,24 +70,20 @@ public class LemonadeStand {
         in.nextLine();
         
         // Process of one day
-        for(day = 1; day < 13; day++) {
-            weather = (byte) rand.nextInt(4);
+        while(day < 13) {
+            weather = (byte) rand.nextInt(3);
             switch(weather) {
                 case 0: // hot and dry
-                    System.out.println("Hot and dry");
+                    System.out.println("The forecast today is hot and dry");
                     customers = 100;
                     break;
                 case 1: // sunny
-                    System.out.println("Sunny");
+                    System.out.println("The forecast today is sunny");
                     customers = 70;
                     break;
                 case 2: // cloudy
-                    System.out.println("Cloudy");
+                    System.out.println("The forcast today is cloudy");
                     customers = 40;
-                    break;
-                case 3: // street closure
-                    System.out.println("Street closure");
-                    customers = 25;
                     break;
                 default:
                     customers = 0;
@@ -94,14 +92,14 @@ public class LemonadeStand {
             
             if(day < 3) {
                 cost = 0.02;
-                System.out.println("On day " + day + ", the cost of lemonade is $.02" );
+                System.out.println("On day " + day + ", the cost of lemonade is $.02\n" );
             } else if (day == 3) {
                 cost = 0.04;
                 System.out.println("On day " + day + ", the cost of lemonade is $.04" );
                 System.out.println("(Your mom quit giving you free sugar.)");
-            } else if (day < 3 && day > 7) {
+            } else if (day > 3 && day < 7) {
                 cost = 0.04;
-                System.out.println("On day " + day + ", the cost of lemonade is $.04" );
+                System.out.println("On day " + day + ", the cost of lemonade is $.04\n" );
             } 
             else if (day == 7) {
                 cost = 0.05;
@@ -109,9 +107,9 @@ public class LemonadeStand {
                 System.out.println("(The price of lemonade mix just went up)");
             } else {
                 cost = 0.05;
-                System.out.println("On day " + day + ", the cost of lemonade is $.05" );
+                System.out.println("On day " + day + ", the cost of lemonade is $.05\n" );
             }
-            System.out.printf("%s %s %.2f%n", "Lemondade Stand 1", "Assests", assests);
+            System.out.printf("%s \t %s %.2f%n", "Lemondade Stand 1", "Assests", assests);
             System.out.println("How many glasses of lemonade do you\n"
                     + "wish to make?");
             cups = in.nextInt();
@@ -124,15 +122,18 @@ public class LemonadeStand {
             System.out.println("How many signs (15 cents\n" +
                     "each) do you want to make?");
             signs = in.nextByte();
-            while( ((signs*15) > assests) || signs < 0  ) {
+            while( ((signs*.15) > assests) || signs < 0  ) {
                 System.out.println("Sorry, you can't make that many signs.");
                 System.out.println("Try a new number.");
                 signs = in.nextByte();
             }
+            assests -= (signs*.15);
             System.out.println("What price (in cents) do you wish to\n"
                     + "charge for lemonade?");
             price = in.nextInt();
             System.out.println("Do you want to change anything?");
+            
+            day++;
         }
     }
     
