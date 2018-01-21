@@ -48,20 +48,11 @@ public class LemonadeStand {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         Random rand = new Random();
-        boolean tryAgain = false;
-        byte day = 1 , weather;
-        double chance;
-        int customers;
-        double cost;
-        int cups;
-        int cupsSold;
-        byte signs;
-        double sc = 0.15;
-        int price;
+        boolean tryAgain;
+        byte day = 1 , weather, signs;
+        double chance, cost, cups, cupsSold, price, profit, income, expense;
+        double sc = 0.15;   // sign cost
         double assests = 2.00;
-        double profit;
-        double income;
-        double expense;
         
         // Print out menus
         printMenu1();
@@ -115,18 +106,17 @@ public class LemonadeStand {
                 System.out.println("On day " + day + ", the cost of lemonade is $.05\n" );
             }
             do {
-                
+                expense = 0;
             System.out.printf("%s \t %s %.2f%n", "Lemondade Stand 1", "Assests", assests);
             System.out.println("How many glasses of lemonade do you\n"
-                    + "wish to make?");
+                + "wish to make?");
             cups = in.nextInt();
             while ( ((cups*cost) > assests) || cups < 0  ) {
                 System.out.println("Sorry, you can't make that many cups of lemonade.");
                 System.out.println("Try a new number.");
                 cups = in.nextInt();
             }
-            expense = cups*cost;
-            assests -= expense;
+            assests -= cups*cost;
             System.out.println("How many signs (15 cents\n" +
                     "each) do you want to make?");
             signs = in.nextByte();
@@ -136,19 +126,18 @@ public class LemonadeStand {
                 signs = in.nextByte();
             }
             assests -= (signs*sc);
-            expense += signs*sc;
+            expense = (cups*cost) + (signs*sc);
             System.out.println("What price (in cents) do you wish to\n"
                     + "charge for lemonade?");
             price = in.nextInt();
             System.out.println("Do you want to change anything? Y/N");
             String ans = in.next();
-            if(ans.equalsIgnoreCase("Yes") || ans.equalsIgnoreCase("y")) {
-                assests += (cups*cost);
-                assests += (signs*.15);
-                tryAgain = true;
-                }
-            else {
-                break;
+            if(ans.equalsIgnoreCase("yes") || ans.equalsIgnoreCase("y")) {
+                    assests += (cups*cost);
+                    assests += (signs*sc);
+                    tryAgain = true;
+                } else {
+                    break;
                 }
             } while(tryAgain != false);
             
@@ -157,21 +146,22 @@ public class LemonadeStand {
             chance += (chance*(signs/100));
             chance += chance/price;
             chance = chance/100;
-            int d = rand.nextInt();
+            int d = rand.nextInt(101);
+            System.out.println(d);  // debug
             if(d < chance) {
                 cupsSold = cups;
             } else {
-                cupsSold = (int) Math.ceil(cups*chance);
+                cupsSold = Math.ceil(cups*chance);
             }
             
-            System.out.println("Expense:" + expense);
             income = (cupsSold * price) / 100;
             profit = income-expense;
             assests += profit;
             
+            System.out.println("Expense:" + expense);
             System.out.println("Income:" + income);
             System.out.println("Profit:" + profit);
-            System.out.println("Chance:" + chance);
+            System.out.println("Chance:" + chance); // debug
             System.out.println("Cups Sold:" + cupsSold);
             day++;
         }
