@@ -1,6 +1,6 @@
 /**
  * @author  Raul Aguilar
- * @date    2018-01-20
+ * @date    2018-06-16
  */
 package lemonadestand;
 import java.util.Random;
@@ -44,6 +44,12 @@ public class LemonadeStand {
             + "CAN'T SPEND MORE MONEY THAN YOU HAVE!" );
         System.out.println("\t(HIT RETURN TO CONTINUE)");
     }
+    static void financeReport(double cupsSold, double price, double income,
+            double cups, byte signs, double expense, double profit, double assests)
+    {
+        System.out.println("$$ LEMONSVILLE DAILY FINANCIAL REPORT $$\n");
+        
+    }
     
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -71,7 +77,7 @@ public class LemonadeStand {
             switch(weather) {
                 case 0: // hot and dry
                     System.out.println("The forecast today is hot and dry");
-                    chance = 70;
+                    chance = 80;
                     break;
                 case 1: // sunny
                     System.out.println("The forecast today is sunny");
@@ -105,33 +111,49 @@ public class LemonadeStand {
                 cost = 0.05;
                 System.out.println("On day " + day + ", the cost of lemonade is $.05\n" );
             }
+            // Game
             do {
                 expense = 0;
             System.out.printf("%s \t %s %.2f%n", "Lemondade Stand 1", "Assests", assests);
             System.out.println("How many glasses of lemonade do you\n"
                 + "wish to make?");
-            cups = in.nextInt();
-            while ( ((cups*cost) > assests) || cups < 0  ) {
-                System.out.println("Sorry, you can't make that many cups of lemonade.");
-                System.out.println("Try a new number.");
-                cups = in.nextInt();
+            cups = 0;
+            if (in.hasNextDouble()) {
+                cups = in.nextDouble();
+                while ( ((cups*cost) > assests) || cups < 0  ) {
+                    System.out.println("Sorry, you can't make that many cups of lemonade.");
+                    System.out.println("Try a new number.");
+                    cups = in.nextDouble();
+                }
             }
+            expense = cups*cost;
             assests -= cups*cost;
+            System.out.println("Expense: " + expense); // debug
+            System.out.println("Assests: " + assests); // debug
             System.out.println("How many signs (15 cents\n" +
                     "each) do you want to make?");
-            signs = in.nextByte();
-            while( ((signs*sc) > assests) || signs < 0  ) {
-                System.out.println("Sorry, you can't make that many signs.");
-                System.out.println("Try a new number.");
-                signs = in.nextByte();
-            }
+            signs = 0;
+            if(in.hasNext()) { signs = in.nextByte(); }
+                while( ((signs*sc) > assests) || signs < 0  ) {
+                    System.out.println("Sorry, you can't make that many signs.");
+                    System.out.println("Try a new number.");
+                    signs = in.nextByte();
+                }
+            expense += (signs*sc);
             assests -= (signs*sc);
-            expense = (cups*cost) + (signs*sc);
+            System.out.println("Expense: " + expense); // debug
+            System.out.println("Assests: " + assests); // debug
             System.out.println("What price (in cents) do you wish to\n"
                     + "charge for lemonade?");
-            price = in.nextInt();
+            price = 0;
+            if(in.hasNext()) {
+                price = in.nextInt();
+            }
             System.out.println("Do you want to change anything? Y/N");
-            String ans = in.next();
+            String ans = "e";
+            if(in.hasNext()) {
+                ans = in.next();
+            }
             if(ans.equalsIgnoreCase("yes") || ans.equalsIgnoreCase("y")) {
                     assests += (cups*cost);
                     assests += (signs*sc);
@@ -144,9 +166,13 @@ public class LemonadeStand {
             /* Selling the lemonade */
             // chance of selling
             chance += (chance*(signs/100));
+            System.out.println("Chance 1: " + chance); //debug
             chance += chance/price;
+            System.out.println("Chance 2: " + chance); //debug
             chance = chance/100;
-            int d = rand.nextInt(101);
+            System.out.println("Chance 3: " + chance); //debug
+            float d = rand.nextInt(101);
+            d = d/100;
             System.out.println(d);  // debug
             if(d < chance) {
                 cupsSold = cups;
@@ -158,11 +184,14 @@ public class LemonadeStand {
             profit = income-expense;
             assests += profit;
             
+            System.out.println();
             System.out.println("Expense:" + expense);
+            System.out.println("Assests: " + assests); // debug
             System.out.println("Income:" + income);
             System.out.println("Profit:" + profit);
             System.out.println("Chance:" + chance); // debug
             System.out.println("Cups Sold:" + cupsSold);
+            System.out.println();
             day++;
         }
     }
