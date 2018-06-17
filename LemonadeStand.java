@@ -44,11 +44,73 @@ public class LemonadeStand {
             + "CAN'T SPEND MORE MONEY THAN YOU HAVE!" );
         System.out.println("\t(HIT RETURN TO CONTINUE)");
     }
-    static void financeReport(double cupsSold, double price, double income,
-            double cups, byte signs, double expense, double profit, double assests)
+    public static void financeReport(byte day, double cupsSold, double price, double income,
+            double cups, byte signs, double expense, double profit, double assets)
     {
+        System.out.println();
+        System.out.println("________________________________________");
         System.out.println("$$ LEMONSVILLE DAILY FINANCIAL REPORT $$\n");
+        System.out.printf("%6S %d %25S %d\n", "day", day, "stand", 1);
+        System.out.println();
+        System.out.printf("%4.0f %S %n", cupsSold, "glasses sold");
+        System.out.printf("$.%.0f %S %17S $%.2f \n", price, "per glass", "income", income);
+        System.out.println();
+        System.out.printf("%4.0f %S %n", cups, "glasses made");
+        System.out.printf("%3d %11S %17S $%.2f\n", signs, "signs made", "expenses", expense);
+        System.out.println();
+        System.out.printf("%20S $%.2f\n", "Profit", profit);
+        System.out.printf("%20S $%.2f\n", "Assets", assets);
         
+    }
+    public static double cupsMade(Scanner in, double cost, double assets) {
+        int cups = 0;
+        System.out.println("How many glasses of lemonade do you\n"
+            + "wish to make?");
+        while (true) {
+            try {
+                cups = Integer.parseInt(in.next());
+                while ( ((cups*cost) > assets) || cups < 0  ) {
+                    System.out.println("Sorry, you can't make that many cups of lemonade.");
+                    System.out.println("Try a new number.");
+                    cups = Integer.parseInt(in.next());
+                }
+                break;
+            } catch (NumberFormatException ignore) {
+                System.out.println("Try a new number.");
+            }
+        }
+        System.out.println();
+        return cups;
+    }
+    public static byte signsMade(Scanner in, double sc, double assets) {
+        byte signs = 0;
+        System.out.println("How many signs (15 cents\n"
+            + "each) do you want to make?");
+        while (true) {
+            try {
+                signs = Byte.parseByte(in.next());
+                while( ((signs*sc) > assets) || signs < 0  ) {
+                    System.out.println("Sorry, you can't make that many signs.");
+                    System.out.println("Try a new number.");
+                    signs = Byte.parseByte(in.next());
+                } // checking if player has enough assets to make signs
+                break;
+            } catch (NumberFormatException ignore) {
+                System.out.println("Try a new number.");
+            }
+        }
+        System.out.println();
+        return signs;
+    }
+    public static double setPrice(Scanner in) {
+        double price = 0;
+        System.out.println("What price (in cents) do you wish to\n"
+            + "charge for lemonade?");
+        if(in.hasNextDouble()) {
+            price = in.nextDouble();
+        }
+        System.out.println();
+        return price;
     }
     
     public static void main(String[] args) {
@@ -58,7 +120,7 @@ public class LemonadeStand {
         byte day = 1 , weather, signs;
         double chance, cost, cups, cupsSold, price, profit, income, expense;
         double sc = 0.15;   // sign cost
-        double assests = 2.00;
+        double assets = 2.00;
         
         // Print out menus
         printMenu1();
@@ -88,7 +150,7 @@ public class LemonadeStand {
                     chance = 100/3;
                     break;
                 default:
-                    chance = 0;
+                    chance = 1;
                     break;
             }
             //deciding the cost of the day
@@ -102,8 +164,7 @@ public class LemonadeStand {
             } else if (day > 3 && day < 7) {
                 cost = 0.04;
                 System.out.println("On day " + day + ", the cost of lemonade is $.04\n" );
-            } 
-            else if (day == 7) {
+            } else if (day == 7) {
                 cost = 0.05;
                 System.out.println("On day " + day + ", the cost of lemonade is $.05" );
                 System.out.println("(The price of lemonade mix just went up)\n" );
@@ -114,86 +175,53 @@ public class LemonadeStand {
             // Game
             do {
                 expense = 0;
-            System.out.printf("%s \t %s %.2f%n", "Lemondade Stand 1", "Assests", assests);
-            System.out.println("How many glasses of lemonade do you\n"
-                + "wish to make?");
-            cups = 0;
-            if (in.hasNextDouble()) {
-                cups = in.nextDouble();
-                while ( ((cups*cost) > assests) || cups < 0  ) {
-                    System.out.println("Sorry, you can't make that many cups of lemonade.");
-                    System.out.println("Try a new number.");
-                    cups = in.nextDouble();
-                }
-            }
-            expense = cups*cost;
-            assests -= cups*cost;
-            System.out.println("Expense: " + expense); // debug
-            System.out.println("Assests: " + assests); // debug
-            System.out.println("How many signs (15 cents\n" +
-                    "each) do you want to make?");
-            signs = 0;
-            if(in.hasNext()) { signs = in.nextByte(); }
-                while( ((signs*sc) > assests) || signs < 0  ) {
-                    System.out.println("Sorry, you can't make that many signs.");
-                    System.out.println("Try a new number.");
-                    signs = in.nextByte();
-                }
-            expense += (signs*sc);
-            assests -= (signs*sc);
-            System.out.println("Expense: " + expense); // debug
-            System.out.println("Assests: " + assests); // debug
-            System.out.println("What price (in cents) do you wish to\n"
-                    + "charge for lemonade?");
-            price = 0;
-            if(in.hasNext()) {
-                price = in.nextInt();
-            }
+            System.out.printf("%s \t %s %.2f%n", "Lemondade Stand 1", "Assests", assets);
+            // Asking how many cups of lemonade to make
+            cups = cupsMade(in, cost, assets);
+
+            // Asking how many SIGNS to make
+            signs = signsMade(in, sc, assets);
+            
+            // Adding the cost of signs to the cost of making lemonade
+            // Subtracting expense of signs and lemonade from assests
+            expense = (cups*cost)+(signs*sc);
+            assets -= expense;
+            
+            // Ask price of lemonade
+            price = setPrice(in);
+            
+            // Ask to change anything
             System.out.println("Do you want to change anything? Y/N");
             String ans = "e";
-            if(in.hasNext()) {
+            if( in.hasNext() ) {
                 ans = in.next();
             }
             if(ans.equalsIgnoreCase("yes") || ans.equalsIgnoreCase("y")) {
-                    assests += (cups*cost);
-                    assests += (signs*sc);
-                    tryAgain = true;
-                } else {
-                    break;
-                }
+                assets += expense;
+                tryAgain = true;
+            } else { break; }
+            
             } while(tryAgain != false);
             
             /* Selling the lemonade */
             // chance of selling
             chance += (chance*(signs/100));
-            System.out.println("Chance 1: " + chance); //debug
             chance += chance/price;
-            System.out.println("Chance 2: " + chance); //debug
             chance = chance/100;
-            System.out.println("Chance 3: " + chance); //debug
-            float d = rand.nextInt(101);
-            d = d/100;
-            System.out.println(d);  // debug
-            if(d < chance) {
-                cupsSold = cups;
-            } else {
-                cupsSold = Math.ceil(cups*chance);
-            }
+            float d = rand.nextInt(101); // rng to use against chance
+            d = d/100; // rng turned into percentage
+            // rng vs chance
+            if(d < chance) { cupsSold = cups; }
+            else { cupsSold = Math.ceil(cups*chance); }
             
             income = (cupsSold * price) / 100;
             profit = income-expense;
-            assests += profit;
+            assets += income;
             
-            System.out.println();
-            System.out.println("Expense:" + expense);
-            System.out.println("Assests: " + assests); // debug
-            System.out.println("Income:" + income);
-            System.out.println("Profit:" + profit);
-            System.out.println("Chance:" + chance); // debug
-            System.out.println("Cups Sold:" + cupsSold);
-            System.out.println();
+            financeReport(day, cupsSold, price, income, cups, signs, expense,
+                    profit, assets);
+            
             day++;
         }
     }
-    
 }
