@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="LemonadeStand">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/LemonadeStand.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
