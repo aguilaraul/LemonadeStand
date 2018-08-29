@@ -1,6 +1,6 @@
 /**
  * @author  Raul Aguilar
- * @date    2018-06-16
+ * @date    2018-08-29
  */
 package lemonadestand;
 import java.util.Random;
@@ -158,6 +158,7 @@ public class LemonadeStand {
         // How many players
         System.out.println("HOW MANY PEOPLE WILL BE PLAYING?");
         int numOfPlayers = Integer.parseInt(in.next());
+        in.nextLine();
         printMenu2();
         in.nextLine();
         printMenu3();
@@ -168,7 +169,7 @@ public class LemonadeStand {
         for(int i = 0; i < numOfPlayers; i++){
             s[i] = new Stand(i+1);
         }
-        
+        for(Stand stands : s){ System.out.println(stands); }
         // Process of one day
         do {
             weather = (byte) rand.nextInt(3); // Randomly choosing weather byte
@@ -181,15 +182,15 @@ public class LemonadeStand {
                 switch(weather) {
                     case 0: // hot and dry
                         System.out.println("The forecast today is hot and dry");
-                        chance = 80;
+                        chance = (double) rand.nextInt(22+1) + 78;
                         break;
                     case 1: // sunny
                         System.out.println("The forecast today is sunny");
-                        chance = 50;
+                        chance = (double) rand.nextInt(43+1) + 34;
                         break;
                     case 2: // cloudy
                         System.out.println("The forecast today is cloudy");
-                        chance = 100/3;
+                        chance = (double) rand.nextInt(33+1);
                         break;
                     default:
                         chance = 1;
