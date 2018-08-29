@@ -8,28 +8,31 @@ import java.util.Scanner;
 
 class Stand {
     int id;
-    double assests;
+    double assets;
 
     public Stand() {
         this.id = 0;
-        assests = 2.00;
+        assets = 2.00;
     }
     public Stand(int id) {
         this.id = id;
-        assests = 2.00;
+        assets = 2.00;
     }
+    
+    public void setId(int i) { id = i; }
+    public void setAssets(double a) { assets = a;}
 
-    public int getStandId() {
+    public int getId() {
         return id;
     }
-    public double getStandAssests() {
-        return assests;
+    public double getAssets() {
+        return assets;
     }
 
     @Override
     public String toString(){
         return "Lemonade Stand " + id
-                + " Assests " + assests;
+                + "\nAssets " + assets;
     }
 }
 
@@ -72,13 +75,13 @@ public class LemonadeStand {
             + "CAN'T SPEND MORE MONEY THAN YOU HAVE!" );
         System.out.println("\t(HIT RETURN TO CONTINUE)");
     }
-    public static void financeReport(byte day, double cupsSold, double price, double income,
+    public static void financeReport(int id, byte day, double cupsSold, double price, double income,
             double cups, byte signs, double expense, double profit, double assets)
     {
         System.out.println();
         System.out.println("________________________________________");
         System.out.println("$$ LEMONSVILLE DAILY FINANCIAL REPORT $$\n");
-        System.out.printf("%6S %d %25S %d\n", "day", day, "stand", 1);
+        System.out.printf("%6S %d %25S %d\n", "day", day, "stand", id);
         System.out.println();
         System.out.printf("%4.0f %S %n", cupsSold, "glasses sold");
         System.out.printf("$.%.0f %S %17S $%.2f \n", price, "per glass", "income", income);
@@ -88,7 +91,6 @@ public class LemonadeStand {
         System.out.println();
         System.out.printf("%20S $%.2f\n", "Profit", profit);
         System.out.printf("%20S $%.2f\n", "Assets", assets);
-        
     }
 
     public static double cupsMade(Scanner in, double cost, double assets) {
@@ -149,7 +151,6 @@ public class LemonadeStand {
         byte day = 1 , weather, signs;
         double chance, cost, cups, cupsSold, price, profit, income, expense;
         double sc = 0.15;   // sign cost
-        double assets = 2.00;
         
         // Print out menus
         printMenu1();
@@ -157,110 +158,117 @@ public class LemonadeStand {
         // How many players
         System.out.println("HOW MANY PEOPLE WILL BE PLAYING?");
         int numOfPlayers = Integer.parseInt(in.next());
-        Stand[] s = new Stand[numOfPlayers];
-        for(int i = 0; i < numOfPlayers; i++){
-            s[i] = new Stand(i+1);
-        }
-        for (Stand stands: s) {System.out.println(stands);}
         printMenu2();
         in.nextLine();
         printMenu3();
         in.nextLine();
 
-
+        // Instantiating number of player
+        Stand[] s = new Stand[numOfPlayers];
+        for(int i = 0; i < numOfPlayers; i++){
+            s[i] = new Stand(i+1);
+        }
         
         // Process of one day
-        while(day < 13) {
-            //text border
-            System.out.println("________________________________________");
-            
-            weather = (byte) rand.nextInt(3);
-            switch(weather) {
-                case 0: // hot and dry
-                    System.out.println("The forecast today is hot and dry");
-                    chance = 80;
-                    break;
-                case 1: // sunny
-                    System.out.println("The forecast today is sunny");
-                    chance = 50;
-                    break;
-                case 2: // cloudy
-                    System.out.println("The forcast today is cloudy");
-                    chance = 100/3;
-                    break;
-                default:
-                    chance = 1;
-                    break;
-            }
-            //deciding the cost of the day
-            if(day < 3) {
-                cost = 0.02;
-                System.out.println("On day " + day + ", the cost of lemonade is $.02\n" );
-            } else if (day == 3) {
-                cost = 0.04;
-                System.out.println("On day " + day + ", the cost of lemonade is $.04" );
-                System.out.println("(Your mom quit giving you free sugar.)\n" );
-            } else if (day > 3 && day < 7) {
-                cost = 0.04;
-                System.out.println("On day " + day + ", the cost of lemonade is $.04\n" );
-            } else if (day == 7) {
-                cost = 0.05;
-                System.out.println("On day " + day + ", the cost of lemonade is $.05" );
-                System.out.println("(The price of lemonade mix just went up)\n" );
-            } else {
-                cost = 0.05;
-                System.out.println("On day " + day + ", the cost of lemonade is $.05\n" );
-            }
-            // Game
-            do {
-                expense = 0;
-            System.out.printf("%s \t %s %.2f%n", "Lemondade Stand 1", "Assests", assets);
-            // Asking how many cups of lemonade to make
-            cups = cupsMade(in, cost, assets);
+        do {
+            weather = (byte) rand.nextInt(3); // Randomly choosing weather byte
+            int currentStand = 0;
+            while(currentStand < numOfPlayers) {
+                int id = s[currentStand].getId();
+                double assets = s[currentStand].getAssets();
+                System.out.println("________________________________________"); //text border
+                // Deciding weather based on weather byte
+                switch(weather) {
+                    case 0: // hot and dry
+                        System.out.println("The forecast today is hot and dry");
+                        chance = 80;
+                        break;
+                    case 1: // sunny
+                        System.out.println("The forecast today is sunny");
+                        chance = 50;
+                        break;
+                    case 2: // cloudy
+                        System.out.println("The forecast today is cloudy");
+                        chance = 100/3;
+                        break;
+                    default:
+                        chance = 1;
+                        break;
+                }
 
-            // Asking how many SIGNS to make
-            signs = signsMade(in, sc, assets);
-            
-            // Adding the cost of signs to the cost of making lemonade
-            // Subtracting expense of signs and lemonade from assests
-            expense = (cups*cost)+(signs*sc);
-            assets -= expense;
-            
-            // Ask price of lemonade
-            price = setPrice(in);
-            
-            // Ask to change anything
-            System.out.println("Do you want to change anything? Y/N");
-            String ans = "e";
-            if( in.hasNext() ) {
-                ans = in.next();
-            }
-            if(ans.equalsIgnoreCase("yes") || ans.equalsIgnoreCase("y")) {
-                assets += expense;
-                tryAgain = true;
-            } else { break; }
-            
-            } while(tryAgain != false);
-            
-            /* Selling the lemonade */
-            // chance of selling
-            chance += (chance*(signs/100));
-            chance += chance/price;
-            chance = chance/100;
-            float d = rand.nextInt(101); // rng to use against chance
-            d = d/100; // rng turned into percentage
-            // rng vs chance
-            if(d < chance) { cupsSold = cups; }
-            else { cupsSold = Math.ceil(cups*chance); }
-            
-            income = (cupsSold * price) / 100;
-            profit = income-expense;
-            assets += income;
-            
-            financeReport(day, cupsSold, price, income, cups, signs, expense,
-                    profit, assets);
-            
+                // Deciding the cost of the day
+                if(day < 3) {
+                    cost = 0.02;
+                    System.out.println("On day " + day + ", the cost of lemonade is $.02\n" );
+                } else if (day == 3) {
+                    cost = 0.04;
+                    System.out.println("On day " + day + ", the cost of lemonade is $.04" );
+                    System.out.println("(Your mom quit giving you free sugar.)\n" );
+                } else if (day > 3 && day < 7) {
+                    cost = 0.04;
+                    System.out.println("On day " + day + ", the cost of lemonade is $.04\n" );
+                } else if (day == 7) {
+                    cost = 0.05;
+                    System.out.println("On day " + day + ", the cost of lemonade is $.05" );
+                    System.out.println("(The price of lemonade mix just went up)\n" );
+                } else {
+                    cost = 0.05;
+                    System.out.println("On day " + day + ", the cost of lemonade is $.05\n" );
+                }
+                
+                // The Game
+                do {
+                    expense = 0;
+                    System.out.printf("%s \t %s %.2f%n", "Lemonade Stand " + id,
+                            "Assets", assets);
+
+                    // Asking how many cups of lemonade to make
+                    cups = cupsMade(in, cost, assets);
+
+                    // Asking how many SIGNS to make
+                    signs = signsMade(in, sc, assets);
+
+                    // Adding the cost of signs to the cost of making lemonade
+                    // Subtracting expense of signs and lemonade from assets
+                    expense = (cups*cost)+(signs*sc);
+                    s[currentStand].setAssets(assets - expense);
+
+                    // Ask price of lemonade
+                    price = setPrice(in);
+
+                    // Ask to change anything
+                    System.out.println("Do you want to change anything? Y/N");
+                    String ans = "e";
+                    if( in.hasNext() ) {
+                        ans = in.next();
+                    }
+                    if(ans.equalsIgnoreCase("yes") || ans.equalsIgnoreCase("y")) {
+                        s[currentStand].setAssets(assets+expense);
+                        tryAgain = true;
+                    } else { break; }
+
+                } while(tryAgain != false);
+
+                /* Selling the lemonade */
+                // chance of selling
+                chance += (chance*(signs/100));
+                chance += chance/price;
+                chance = chance/100;
+                float d = rand.nextInt(101); // rng to use against chance
+                d = d/100; // rng turned into percentage
+                // rng vs chance
+                if(d < chance) { cupsSold = cups; }
+                else { cupsSold = Math.ceil(cups*chance); }
+
+                income = (cupsSold * price) / 100;
+                profit = income-expense;
+                s[currentStand].setAssets(assets + profit);
+                assets = s[currentStand].getAssets();
+                financeReport(id, day, cupsSold, price, income, cups, signs, expense,
+                        profit, assets);
+                currentStand++;
+            } // end of current Stand
             day++;
-        }
+        } while(day < 13); // end of day
     }
 }

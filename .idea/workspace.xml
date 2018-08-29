@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="112c5f69-843c-479c-bda1-ec5d4b4e00fd" name="Default Changelist" comment="" />
+    <list default="true" id="64c617e1-3f9e-4c60-867a-3937d19252e8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lemonadestand/LemonadeStand.java" beforeDir="false" afterPath="$PROJECT_DIR$/lemonadestand/LemonadeStand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LemonadeStand/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LemonadeStand/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LemonadeStand/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LemonadeStand/dist/README.TXT" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LemonadeStand/dist/README.TXT" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LemonadeStand/lemonadestand/LemonadeStand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LemonadeStand/lemonadestand/LemonadeStand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LemonadeStand/lemonadestand/Stand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LemonadeStand/lemonadestand/Stand.class" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -10,28 +19,35 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FUSProjectUsageTrigger">
-    <session id="-290240805">
+    <session id="-743700700">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
-          <entry key="project.open.time.24" value="1" />
-          <entry key="project.open.time.26" value="1" />
-          <entry key="project.open.time.34" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="java" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JAVA" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1327" />
+          <entry key="java" value="622" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1327" />
+          <entry key="JAVA" value="622" />
         </counts>
       </usages-collector>
-      <usages-collector id="statistics.file.extensions.open" />
-      <usages-collector id="statistics.file.types.open" />
     </session>
   </component>
   <component name="FileEditorManager">
@@ -39,16 +55,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lemonadestand/LemonadeStand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="73" column="5" lean-forward="true" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
+            <state relative-caret-position="304">
+              <caret line="166" column="44" lean-forward="true" selection-start-line="166" selection-start-column="44" selection-end-line="166" selection-end-column="44" />
               <folding>
-                <element signature="imports" expanded="true" />
                 <element signature="method#printMenu1#0;class#LemonadeStand#0" />
                 <element signature="method#printMenu2#0;class#LemonadeStand#0" />
                 <element signature="method#printMenu3#0;class#LemonadeStand#0" />
-                <element signature="method#cupsMade#0;class#LemonadeStand#0" />
-                <element signature="method#signsMade#0;class#LemonadeStand#0" />
-                <element signature="method#setPrice#0;class#LemonadeStand#0" />
               </folding>
             </state>
           </provider>
@@ -56,31 +68,61 @@
       </file>
     </leaf>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>assests</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/LemonadeStand.java" />
         <option value="$PROJECT_DIR$/lemonadestand/LemonadeStand.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="633" />
-    <option name="width" value="654" />
-    <option name="height" value="727" />
+    <option name="x" value="-15" />
+    <option name="y" value="90" />
+    <option name="width" value="3500" />
+    <option name="height" value="1810" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="LemonadeStand" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LemonadeStand" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LemonadeStand" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LemonadeStand" type="462c0819:PsiDirectoryNode" />
+              <item name="lemonadestand" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="LemonadeStand" type="b2602c69:ProjectViewProjectNode" />
+              <item name="LemonadeStand" type="462c0819:PsiDirectoryNode" />
+              <item name="lemonadestand" type="462c0819:PsiDirectoryNode" />
+              <item name="LemonadeStand.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1535349674386" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1535576322489" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -119,28 +161,18 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="112c5f69-843c-479c-bda1-ec5d4b4e00fd" name="Default Changelist" comment="" />
-      <created>1535177841338</created>
+      <changelist id="64c617e1-3f9e-4c60-867a-3937d19252e8" name="Default Changelist" comment="" />
+      <created>1535568354890</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1535177841338</updated>
+      <updated>1535568354890</updated>
     </task>
     <servers />
   </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-  </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="736" extended-state="6" />
-    <editor active="true" />
+    <frame x="-6" y="-6" width="1549" height="837" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.5286195" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.25285044" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -149,11 +181,11 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3283582" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32956153" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39886847" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.3283582" />
+      <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" />
@@ -174,16 +206,12 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/lemonadestand/LemonadeStand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="73" column="5" lean-forward="true" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
+        <state relative-caret-position="304">
+          <caret line="166" column="44" lean-forward="true" selection-start-line="166" selection-start-column="44" selection-end-line="166" selection-end-column="44" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="method#printMenu1#0;class#LemonadeStand#0" />
             <element signature="method#printMenu2#0;class#LemonadeStand#0" />
             <element signature="method#printMenu3#0;class#LemonadeStand#0" />
-            <element signature="method#cupsMade#0;class#LemonadeStand#0" />
-            <element signature="method#signsMade#0;class#LemonadeStand#0" />
-            <element signature="method#setPrice#0;class#LemonadeStand#0" />
           </folding>
         </state>
       </provider>
@@ -193,7 +221,6 @@
     <states>
       <state key="ProjectJDKs.UI">
         <settings>
-          <last-edited>10</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
