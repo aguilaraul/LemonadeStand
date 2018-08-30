@@ -7,12 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64c617e1-3f9e-4c60-867a-3937d19252e8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lemonadestand/Menus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lemonadestand/Stand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lemonadestand/Mechanics.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LemonadeStand.iml" beforeDir="false" afterPath="$PROJECT_DIR$/LemonadeStand.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lemonadestand/LemonadeStand.java" beforeDir="false" afterPath="$PROJECT_DIR$/lemonadestand/LemonadeStand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/LemonadeStand_jar/LemonadeStand.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/LemonadeStand_jar/LemonadeStand.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LemonadeStand/lemonadestand/LemonadeStand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LemonadeStand/lemonadestand/LemonadeStand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lemonadestand/Menus.java" beforeDir="false" afterPath="$PROJECT_DIR$/lemonadestand/Menus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lemonadestand/Stand.java" beforeDir="false" afterPath="$PROJECT_DIR$/lemonadestand/Stand.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,42 +25,70 @@
     <session id="-743700700">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
-          <entry key="project.open.time.5" value="1" />
+          <entry key="project.closed" value="3" />
+          <entry key="project.open.time.5" value="2" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="3" />
+          <entry key="java" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="3" />
+          <entry key="JAVA" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="2732" />
+          <entry key="java" value="8027" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2732" />
+          <entry key="JAVA" value="8027" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lemonadestand/LemonadeStand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1870">
-              <caret line="74" column="32" selection-start-line="74" selection-start-column="32" selection-end-line="74" selection-end-column="32" />
+            <state relative-caret-position="355">
+              <caret line="87" column="42" lean-forward="true" selection-start-line="87" selection-start-column="42" selection-end-line="87" selection-end-column="42" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lemonadestand/Mechanics.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="151">
+              <caret line="55" column="60" selection-start-line="55" selection-start-column="60" selection-end-line="55" selection-end-column="60" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="docComment;method#setNumberOfPlayers#0;class#Mechanics#0" />
+                <element signature="method#setNumberOfPlayers#0;class#Mechanics#0" />
+                <element signature="docComment;method#weather#0;class#Mechanics#0" />
+                <element signature="method#weather#0;class#Mechanics#0" />
+                <element signature="docComment;method#setCost#0;class#Mechanics#0" />
+                <element signature="method#setCost#0;class#Mechanics#0" />
+                <element signature="docComment;method#setCups#0;class#Mechanics#0" />
+                <element signature="method#setCups#0;class#Mechanics#0" />
+                <element signature="docComment;method#setSigns#0;class#Mechanics#0" />
+                <element signature="method#setSigns#0;class#Mechanics#0" />
+                <element signature="docComment;method#setPrice#0;class#Mechanics#0" />
+                <element signature="method#setPrice#0;class#Mechanics#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -68,8 +96,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lemonadestand/Stand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+            <state relative-caret-position="51">
+              <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -77,9 +108,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lemonadestand/Menus.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="66" column="56" selection-start-line="66" selection-start-column="56" selection-end-line="66" selection-end-column="56" />
+            <state relative-caret-position="379">
+              <caret line="91" column="17" selection-start-line="91" selection-start-column="17" selection-end-line="91" selection-end-column="17" />
               <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="docComment;method#border#0;class#Menus#0" />
                 <element signature="docComment;method#printMenu1#0;class#Menus#0" />
                 <element signature="method#printMenu1#0;class#Menus#0" />
                 <element signature="docComment;method#printMenu2#0;class#Menus#0" />
@@ -87,7 +120,6 @@
                 <element signature="docComment;method#printMenu3#0;class#Menus#0" />
                 <element signature="method#printMenu3#0;class#Menus#0" />
                 <element signature="docComment;method#financeReport#0;class#Menus#0" />
-                <element signature="method#financeReport#0;class#Menus#0" />
               </folding>
             </state>
           </provider>
@@ -113,24 +145,23 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/lemonadestand/Menus.java" />
+        <option value="$PROJECT_DIR$/lemonadestand/Stand.java" />
+        <option value="$PROJECT_DIR$/lemonadestand/Mechanics.java" />
         <option value="$PROJECT_DIR$/lemonadestand/LemonadeStand.java" />
+        <option value="$PROJECT_DIR$/lemonadestand/Menus.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-15" />
-    <option name="y" value="90" />
-    <option name="width" value="3500" />
-    <option name="height" value="1810" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="1905" />
+    <option name="width" value="1950" />
+    <option name="height" value="2075" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -147,11 +178,16 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1535587245431" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1535604363028" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/out/artifacts/LemonadeStand_jar/LemonadeStand.jar" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.0" />
@@ -220,7 +256,7 @@
     <frame x="-6" y="-6" width="1549" height="837" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25285044" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14956406" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -229,7 +265,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32956153" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32956153" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39886847" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -251,12 +287,26 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/lemonadestand/Menus.java</url>
+          <line>19</line>
+          <properties />
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/lemonadestand/Menus.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="66" column="56" selection-start-line="66" selection-start-column="56" selection-end-line="66" selection-end-column="56" />
+        <state relative-caret-position="379">
+          <caret line="91" column="17" selection-start-line="91" selection-start-column="17" selection-end-line="91" selection-end-column="17" />
           <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="docComment;method#border#0;class#Menus#0" />
             <element signature="docComment;method#printMenu1#0;class#Menus#0" />
             <element signature="method#printMenu1#0;class#Menus#0" />
             <element signature="docComment;method#printMenu2#0;class#Menus#0" />
@@ -264,22 +314,50 @@
             <element signature="docComment;method#printMenu3#0;class#Menus#0" />
             <element signature="method#printMenu3#0;class#Menus#0" />
             <element signature="docComment;method#financeReport#0;class#Menus#0" />
-            <element signature="method#financeReport#0;class#Menus#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lemonadestand/Stand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+        <state relative-caret-position="51">
+          <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lemonadestand/LemonadeStand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1870">
-          <caret line="74" column="32" selection-start-line="74" selection-start-column="32" selection-end-line="74" selection-end-column="32" />
+        <state relative-caret-position="355">
+          <caret line="87" column="42" lean-forward="true" selection-start-line="87" selection-start-column="42" selection-end-line="87" selection-end-column="42" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lemonadestand/Mechanics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="55" column="60" selection-start-line="55" selection-start-column="60" selection-end-line="55" selection-end-column="60" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;method#setNumberOfPlayers#0;class#Mechanics#0" />
+            <element signature="method#setNumberOfPlayers#0;class#Mechanics#0" />
+            <element signature="docComment;method#weather#0;class#Mechanics#0" />
+            <element signature="method#weather#0;class#Mechanics#0" />
+            <element signature="docComment;method#setCost#0;class#Mechanics#0" />
+            <element signature="method#setCost#0;class#Mechanics#0" />
+            <element signature="docComment;method#setCups#0;class#Mechanics#0" />
+            <element signature="method#setCups#0;class#Mechanics#0" />
+            <element signature="docComment;method#setSigns#0;class#Mechanics#0" />
+            <element signature="method#setSigns#0;class#Mechanics#0" />
+            <element signature="docComment;method#setPrice#0;class#Mechanics#0" />
+            <element signature="method#setPrice#0;class#Mechanics#0" />
+          </folding>
         </state>
       </provider>
     </entry>

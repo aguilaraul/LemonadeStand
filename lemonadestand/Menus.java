@@ -1,6 +1,18 @@
+/**
+ * @author  Raul Aguilar
+ * @date    2018-08-29
+ */
 package lemonadestand;
 
 public class Menus {
+
+    /**
+     * Prints out underscore border
+     */
+    static void border() {
+        System.out.println("________________________________________");
+    }
+
     /**
      * Displays menu 1
      */
@@ -52,22 +64,32 @@ public class Menus {
 
     /**
      * Displays the end of the day financial report for the business
-     * @param id lemonade stand number
-     * @param day feeds in current day
-     * @param cupsSold number of cups sold
-     * @param price the price of lemonade
-     * @param income income is equal to profit minus expenses
-     * @param cups number of cups made
-     * @param signs number of signs made
-     * @param expense cost of cups and signs
-     * @param profit net earnings
-     * @param assets money available
+     * @param id
+     *  lemonade stand number
+     * @param day
+     *  feeds in current day
+     * @param cupsSold
+     *  number of cups sold
+     * @param price
+     *  the price of lemonade
+     * @param income
+     *  income is equal to profit minus expenses
+     * @param cups
+     *  number of cups made
+     * @param signs
+     *  number of signs made
+     * @param expense
+     *  cost of cups and signs
+     * @param profit
+     *  net earnings
+     * @param assets
+     *  money available
      */
     public static void financeReport(int id, byte day, double cupsSold, double price, double income,
                                      double cups, double signs, double expense, double profit, double assets)
     {
         System.out.println();
-        System.out.println("________________________________________");
+        border();
         System.out.println("$$ LEMONSVILLE DAILY FINANCIAL REPORT $$\n");
         System.out.printf("%6S %d %25S %d\n", "day", day, "stand", id);
         System.out.println();
@@ -75,7 +97,7 @@ public class Menus {
         System.out.printf("$.%.0f %S %17S $%.2f \n", price, "per glass", "income", income);
         System.out.println();
         System.out.printf("%4.0f %S %n", cups, "glasses made");
-        System.out.printf("%3d %11S %17S $%.2f\n", signs, "signs made", "expenses", expense);
+        System.out.printf("%3.0f %11S %17S $%.2f\n", signs, "signs made", "expenses", expense);
         System.out.println();
         System.out.printf("%20S $%.2f\n", "Profit", profit);
         System.out.printf("%20S $%.2f\n", "Assets", assets);

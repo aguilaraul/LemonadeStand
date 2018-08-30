@@ -1,3 +1,7 @@
+/**
+ * @author  Raul Aguilar
+ * @date    2018-08-29
+ */
 package lemonadestand;
 
 class Stand {
@@ -14,7 +18,8 @@ class Stand {
 
     /**
      * Constructor to set id only
-     * @param id sets lemonade stand number
+     * @param id
+     *  sets lemonade stand number
      */
     public Stand(int id) {
         this.id = id;
@@ -23,8 +28,10 @@ class Stand {
 
     /**
      * Full constructor
-     * @param id sets lemonade stand number
-     * @param assets sets assets for lemonade stand
+     * @param id
+     *  sets lemonade stand number
+     * @param assets
+     *  sets assets for lemonade stand
      */
     public Stand(int id, double assets) {
         this.id = id;
@@ -33,7 +40,8 @@ class Stand {
 
     /**
      * Deep copy constructor
-     * @param other used to store deep copy
+     * @param other
+     *  used to store deep copy
      */
     public Stand(Stand other) {
         this.id = other.id;
@@ -42,28 +50,56 @@ class Stand {
 
     /**
      * Sets the lemonade stand number
-     * @param i lemonade stand number
+     * @param i
+     *  lemonade stand number
      */
-    public void setId(int i) { id = i; }
+    public void setId(int i) {
+        id = i;
+    }
 
     /**
      * Sets the assets for the lemonade stand
-     * @param a available funds
+     * @param a
+     *  available funds
      */
-    public void setAssets(double a) { assets = a;}
+    public void setAssets(double a) {
+        assets = a;
+    }
 
     /**
      * Accessor for lemonade stand number
      * @return lemonade stand number integer value
      */
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
 
     /**
      * Accessor for lemonade stand assets
      * @return assets available double value
      */
-    public double getAssets() { return assets; }
+    public double getAssets() {
+        return assets;
+    }
 
+    /**
+     * Equals method checks all instance variable are equal
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Stand other = (Stand) obj;
+
+        return (this.id != other.id || this.assets != other.assets);
+    }
+
+    /**
+     * toString representing objects value
+     * @return formatted string of lemonade stand and its assets
+     */
     @Override
     public String toString(){
         return "Lemonade Stand " + id
