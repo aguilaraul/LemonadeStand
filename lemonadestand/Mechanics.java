@@ -222,4 +222,74 @@ public class Mechanics {
         System.out.println();
         return price;
     }
+
+    /**
+     * Asks if the user wants to change any of their inputs
+     * Any answer other than 'yes' or 'y' will reset day
+     * Else continue
+     * @param in
+     *  Uses Scanner to input user answer String
+     * @return
+     *  True or false depending on user input
+     */
+    public static boolean askToChangeAnything(Scanner in) {
+        System.out.println("Do you want to change anything? Y/N");
+        String ans = "e";
+        if( in.hasNext() ) {
+            ans = in.next();
+        }
+        if(!(ans.equalsIgnoreCase("yes") || ans.equalsIgnoreCase("y")) ) {
+            System.out.println();
+            return false;
+        } else {
+            System.out.println();
+            return true;
+        }
+    }
+
+    /**
+     * Calculates the chance of selling lemonade by taking into account signs made,
+     * and price of lemonade.
+     * @param chance
+     *  Starting chance Double value is set randomly depending on type of weather
+     * @param signs
+     *  Number of signs made Double value
+     * @param price
+     *  Price of lemonade Double value
+     * @return
+     *  Double chance value
+     */
+    public static double calculateChanceOfSelling(double chance, double signs, double price) {
+
+        chance += (chance*(signs/100));
+        chance += chance/price;
+        chance = chance/100;
+
+        return chance;
+    }
+
+    /**
+     * Calculates number of cups sold by comparing chance of selling to a random value
+     * If the chance of selling is greater than random number, then all cups made are sold
+     * else, a percentage of cups made are sold based on the chance
+     * @param rand
+     * Random class sets Double value to d to compare against chance of selling
+     * @param chance
+     * Chance of selling lemonade Double value
+     * @param cupsSold
+     * Number of cups sold Double value
+     * @param cups
+     * Number of cups made Double value
+     * @return
+     * Double value representing number of cups sold
+     */
+    public static double cupsSold(Random rand, double chance, double cupsSold, double cups) {
+        float d = rand.nextInt(101); // rng to use against chance
+        d = d/100; // rng turned into percentage
+        // rng vs chance
+        if(d < chance) { cupsSold = cups; }
+        else { cupsSold = Math.ceil(cups*chance); }
+
+        return cupsSold;
+    }
 }

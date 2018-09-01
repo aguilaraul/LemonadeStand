@@ -13,7 +13,7 @@ public class LemonadeStand {
         Random rand = new Random();
         boolean tryAgain;
         byte day = 1 , weather;
-        double chance, cost, cups, cupsSold, price, profit, income, expense, signs;
+        double chance, cost, cups, cupsSold = 0, price, profit, income, expense, signs;
         double sc = 0.15;   // sign cost
         int numOfPlayers = 1;
         
@@ -42,8 +42,8 @@ public class LemonadeStand {
 
             while(currentStand < numOfPlayers) {
 
-                int id = s[currentStand].getId();
-                double assets = s[currentStand].getAssets();
+                int id;
+                double assets;
 
                 // Deciding chance of selling lemonade based on weather
                 Menus.border(); //text border
@@ -54,6 +54,8 @@ public class LemonadeStand {
                 
                 // The Game
                 do {
+                    id = s[currentStand].getId();
+                    assets = s[currentStand].getAssets();
                     expense = 0;
                     System.out.printf("%s \t %s %.2f%n", "Lemonade Stand " + id,
                             "Assets", assets);
@@ -67,42 +69,30 @@ public class LemonadeStand {
                     // Adding the cost of signs to the cost of making lemonade
                     // Subtracting expense of signs and lemonade from assets
                     expense = (cups*cost)+(signs*sc);
-                    s[currentStand].setAssets(assets - expense);
 
                     // Ask price of lemonade
                     price = Mechanics.setPrice(in);
 
                     // Ask to change anything
-                    System.out.println("Do you want to change anything? Y/N");
-                    String ans = "e";
-                    if( in.hasNext() ) {
-                        ans = in.next();
-                    }
-                    if(ans.equalsIgnoreCase("yes") || ans.equalsIgnoreCase("y")) {
-                        s[currentStand].setAssets(assets+expense);
-                        tryAgain = true;
-                    } else { break; }
+                    tryAgain = Mechanics.askToChangeAnything(in);
 
                 } while(tryAgain);
 
                 /* Selling the lemonade */
                 // chance of selling
-                chance += (chance*(signs/100));
-                chance += chance/price;
-                chance = chance/100;
+                chance = Mechanics.calculateChanceOfSelling(chance, signs, price);
 
-                float d = rand.nextInt(101); // rng to use against chance
-                d = d/100; // rng turned into percentage
-                // rng vs chance
-                if(d < chance) { cupsSold = cups; }
-                else { cupsSold = Math.ceil(cups*chance); }
+                cupsSold = Mechanics.cupsSold(rand, chance, cupsSold, cups);
 
                 income = (cupsSold * price) / 100;
                 profit = income-expense;
-                s[currentStand].setAssets(assets + profit);
-                assets = s[currentStand].getAssets();
+                assets = assets + profit;
+
+                s[currentStand].setAssets(assets);
+
                 Menus.financeReport(id, day, cupsSold, price, income, cups, signs, expense,
                         profit, assets);
+
                 currentStand++;
             } // end of current Stand
             day++;
