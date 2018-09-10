@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7afcce1f-85ca-49dc-9897-d2d64e8ea11a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/LemonadeStand.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lemonadestand/LemonadeStand.java" beforeDir="false" afterPath="$PROJECT_DIR$/lemonadestand/LemonadeStand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lemonadestand/Mechanics.java" beforeDir="false" afterPath="$PROJECT_DIR$/lemonadestand/Mechanics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LemonadeStand/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LemonadeStand/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LemonadeStand/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LemonadeStand/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/LemonadeStand/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LemonadeStand/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/LemonadeStand/lemonadestand/LemonadeStand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LemonadeStand/lemonadestand/LemonadeStand.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/LemonadeStand/lemonadestand/Mechanics.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LemonadeStand/lemonadestand/Mechanics.class" afterDir="false" />
@@ -24,11 +18,12 @@
     <session id="-290240805">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -43,33 +38,37 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1858" />
+          <entry key="java" value="1897" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1858" />
+          <entry key="JAVA" value="1897" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lemonadestand/LemonadeStand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
+            <state relative-caret-position="85">
+              <caret line="6" column="25" lean-forward="true" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lemonadestand/Mechanics.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-138">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="391">
+              <caret line="169" selection-start-line="169" selection-end-line="169" />
               <folding>
+                <element signature="n#!!doc" expanded="true" />
                 <element signature="docComment;method#setNumberOfPlayers#0;class#Mechanics#0" />
                 <element signature="method#setNumberOfPlayers#0;class#Mechanics#0" />
                 <element signature="docComment;method#weather#0;class#Mechanics#0" />
@@ -143,6 +142,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -163,9 +165,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -234,7 +233,7 @@
     <frame x="-6" y="-6" width="1549" height="837" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2562039" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25955734" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -266,11 +265,22 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/lemonadestand/LemonadeStand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="6" column="25" lean-forward="true" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lemonadestand/Mechanics.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-138">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="391">
+          <caret line="169" selection-start-line="169" selection-end-line="169" />
           <folding>
+            <element signature="n#!!doc" expanded="true" />
             <element signature="docComment;method#setNumberOfPlayers#0;class#Mechanics#0" />
             <element signature="method#setNumberOfPlayers#0;class#Mechanics#0" />
             <element signature="docComment;method#weather#0;class#Mechanics#0" />
@@ -290,13 +300,6 @@
             <element signature="docComment;method#cupsSold#0;class#Mechanics#0" />
             <element signature="method#cupsSold#0;class#Mechanics#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lemonadestand/LemonadeStand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
         </state>
       </provider>
     </entry>

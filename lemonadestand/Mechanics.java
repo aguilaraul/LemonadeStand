@@ -29,19 +29,20 @@ public class Mechanics {
             try {
                 numOfPlayers = Integer.parseInt(in.next());
                 numOfPlayers = Math.abs(numOfPlayers);
+
                 while(numOfPlayers == 0 ) {
                     System.out.println("Can't accept that many number of players.");
                     System.out.println("Please enter a new number:");
                     numOfPlayers = Integer.parseInt(in.next());
                     numOfPlayers = Math.abs(numOfPlayers);
                 }
-                break;
+                System.out.println();
+                return numOfPlayers;
+
             } catch (NumberFormatException ignore) {
                 System.out.println("Try a new number.");
             }
         }
-        System.out.println();
-        return numOfPlayers;
     }
 
     /**
@@ -139,13 +140,15 @@ public class Mechanics {
                     cups = Integer.parseInt(in.next());
                     cups = Math.abs(cups);
                 }
-                break;
+
+                System.out.println();
+                return cups;
+
             } catch (NumberFormatException ignore) {
                 System.out.println("Try a new number.");
             }
         }
-        System.out.println();
-        return cups;
+
     }
 
     /**
@@ -179,13 +182,14 @@ public class Mechanics {
                     signs = Double.parseDouble(in.next());
                     signs = Math.abs(signs);
                 }
-                break;
+
+                System.out.println();
+                return signs;
+
             } catch (NumberFormatException ignore) {
                 System.out.println("Try a new number.");
             }
         }
-        System.out.println();
-        return signs;
     }
 
     /**
@@ -214,13 +218,14 @@ public class Mechanics {
                     price = Double.parseDouble(in.next());
                     price = Math.abs(price);
                 }
-                break;
+
+                System.out.println();
+                return price;
+
             } catch (NumberFormatException ignore) {
                 System.out.println("Try a new number.");
             }
         }
-        System.out.println();
-        return price;
     }
 
     /**
