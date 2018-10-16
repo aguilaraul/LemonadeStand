@@ -1,6 +1,6 @@
 /**
  * @author  Raul Aguilar
- * @date    2018-08-29
+ * @date    2018-10-16
  */
 package lemonadestand;
 import java.util.Random;
@@ -16,16 +16,17 @@ public class LemonadeStand {
         double chance, cost, cups, cupsSold = 0, price, profit, income, expense, signs;
         double sc = 0.15;   // sign cost
         int numOfPlayers = 1;
-        
+
         // Print out menus
-        Menus.printMenu1();
+        Text.printMenu1();
         in.nextLine();
         // How many players
-        numOfPlayers = Mechanics.setNumberOfPlayers(in);
+        Text.askHowManyPlayers();
+        numOfPlayers = Mechanics.setNumberOfPlayers(numOfPlayers);
         in.nextLine();
-        Menus.printMenu2();
+        Text.printMenu2();
         in.nextLine();
-        Menus.printMenu3();
+        Text.printMenu3();
         in.nextLine();
 
         // Instantiating number of player
@@ -33,7 +34,6 @@ public class LemonadeStand {
         for(int i = 0; i < numOfPlayers; i++){
             s[i] = new Stand(i+1);
         }
-        for(Stand stands : s){ System.out.println(stands); } //debug
 
         // Process of one day
         do {
@@ -46,7 +46,7 @@ public class LemonadeStand {
                 double assets;
 
                 // Deciding chance of selling lemonade based on weather
-                Menus.border(); //text border
+                Text.border(); //text border
                 chance = Mechanics.weather(weather, rand);
 
                 // Deciding the cost of the day
@@ -57,24 +57,27 @@ public class LemonadeStand {
                     id = s[currentStand].getId();
                     assets = s[currentStand].getAssets();
                     expense = 0;
-                    System.out.printf("%s \t %s %.2f%n", "Lemonade Stand " + id,
-                            "Assets", assets);
+                    System.out.printf("%s \t %s %.2f%n", "Lemonade Stand " + id, "Assets", assets);
 
                     // Asking how many cups of lemonade to make
-                    cups = Mechanics.setCups(in, cost, assets);
+                    Text.askHowManyCups();
+                    cups = Mechanics.setCups(cost, assets);
 
                     // Asking how many SIGNS to make
-                    signs = Mechanics.setSigns(in, sc, assets);
+                    Text.askHowManySigns();
+                    signs = Mechanics.setSigns(sc, assets);
 
                     // Adding the cost of signs to the cost of making lemonade
                     // Subtracting expense of signs and lemonade from assets
                     expense = (cups*cost)+(signs*sc);
 
                     // Ask price of lemonade
-                    price = Mechanics.setPrice(in);
+                    Text.askToSetPrice();
+                    price = Mechanics.setPrice();
 
                     // Ask to change anything
-                    tryAgain = Mechanics.askToChangeAnything(in);
+                    Text.askToChangeAnything();
+                    tryAgain = Mechanics.changeAnything();
 
                 } while(tryAgain);
 
@@ -90,7 +93,7 @@ public class LemonadeStand {
 
                 s[currentStand].setAssets(assets);
 
-                Menus.financeReport(id, day, cupsSold, price, income, cups, signs, expense,
+                Text.financeReport(id, day, cupsSold, price, income, cups, signs, expense,
                         profit, assets);
 
                 currentStand++;

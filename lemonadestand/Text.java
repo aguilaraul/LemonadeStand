@@ -1,10 +1,10 @@
 /**
  * @author  Raul Aguilar
- * @date    2018-08-29
+ * @date    2018-10-16
  */
 package lemonadestand;
 
-public class Menus {
+public class Text {
 
     /**
      * Prints out underscore border
@@ -63,27 +63,72 @@ public class Menus {
     }
 
     /**
+     * Error message when user inputs unacceptable number of players
+     */
+    public static void cantAcceptThatMany() {
+        System.out.println("CAN'T ACCEPT THAT MANY PLAYERS.");
+        System.out.println("PLEASE ENTER A NEW NUMBER:");
+    }
+
+    /**
+     * Error message when user can't afford to make specified number
+     * of cups and signs
+     */
+    public static void cantMakeThatMany() {
+        System.out.println("YOU CAN'T AFFORD TO MAKE THAT MANY.");
+        System.out.println("TRY A NEW NUMBER.");
+    }
+
+    /**
+     * Asks user how many users are playing
+     */
+    public static void askHowManyPlayers() {
+        System.out.println("HOW MANY PEOPLE WILL BE PLAYING?");
+    }
+
+    /**
+     * Asks user how many cups of lemonade to make
+     */
+    public static void askHowManyCups() {
+        System.out.println("HOW MANY GLASSES OF LEMONADE DO YOU\n"
+                + "WISH TO MAKE?");
+    }
+
+    /**
+     * Asks user how many signs to make
+     */
+    public static void askHowManySigns() {
+        System.out.println("HOW MANY SIGNS (15 CENTS\n"
+                + "EACH) DO YOU WANT TO MAKE?");
+    }
+
+    /**
+     * Asks user to set price of lemonade
+     */
+    public static void askToSetPrice() {
+        System.out.println("WHAT PRICE (IN CENTS) DO YOU WISH TO\n"
+                + "CHARGE FOR LEMONADE?");
+    }
+
+    /**
+     * Asks player if they want to change anything
+     */
+    public static void askToChangeAnything() {
+        System.out.println("DO YOU WANT TO CHANGE ANYTHING? Y/N");
+    }
+
+    /**
      * Displays the end of the day financial report for the business
-     * @param id
-     *  lemonade stand number
-     * @param day
-     *  feeds in current day
-     * @param cupsSold
-     *  number of cups sold
-     * @param price
-     *  the price of lemonade
-     * @param income
-     *  income is equal to profit minus expenses
-     * @param cups
-     *  number of cups made
-     * @param signs
-     *  number of signs made
-     * @param expense
-     *  cost of cups and signs
-     * @param profit
-     *  net earnings
-     * @param assets
-     *  money available
+     * @param id lemonade stand number
+     * @param day feeds in current day
+     * @param cupsSold number of cups sold
+     * @param price the price of lemonade
+     * @param income income is equal to profit minus expenses
+     * @param cups number of cups made
+     * @param signs number of signs made
+     * @param expense cost of cups and signs
+     * @param profit net earnings
+     * @param assets money available
      */
     public static void financeReport(int id, byte day, double cupsSold, double price, double income,
                                      double cups, double signs, double expense, double profit, double assets)
@@ -91,15 +136,15 @@ public class Menus {
         System.out.println();
         border();
         System.out.println("$$ LEMONSVILLE DAILY FINANCIAL REPORT $$\n");
-        System.out.printf("%6S %d %25S %d\n", "day", day, "stand", id);
+        System.out.printf("%6S %d %25S %d\n", "DAY", day, "STAND", id);
         System.out.println();
-        System.out.printf("%4.0f %S %n", cupsSold, "glasses sold");
-        System.out.printf("$.%.0f %S %17S $%.2f \n", price, "per glass", "income", income);
+        System.out.printf("%4.0f %S %n", cupsSold, "GLASSES SOLD");
+        System.out.printf("$.%.0f %S %17S $%.2f \n", price, "PER GLASS", "INCOME", income);
         System.out.println();
-        System.out.printf("%4.0f %S %n", cups, "glasses made");
-        System.out.printf("%3.0f %11S %17S $%.2f\n", signs, "signs made", "expenses", expense);
+        System.out.printf("%4.0f %S %n", cups, "GLASSES MADE");
+        System.out.printf("%3.0f %11S %17S $%.2f\n", signs, "SIGNS MADE", "EXPENSES", expense);
         System.out.println();
-        System.out.printf("%20S $%.2f\n", "Profit", profit);
-        System.out.printf("%20S $%.2f\n", "Assets", assets);
+        System.out.printf("%20S $%.2f\n", "PROFIT", profit);
+        System.out.printf("%20S $%.2f\n", "ASSETS", assets);
     }
 }

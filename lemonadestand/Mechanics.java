@@ -1,38 +1,31 @@
 /**
  * @author  Raul Aguilar
- * @date    2018-08-29
+ * @date    2018-10-16
  */
-
 package lemonadestand;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Mechanics {
+    private static Scanner in = new Scanner(System.in);
 
     /**
      * Sets number of players based on user Integer value input
-     * Checks if number of player is not zero
-     * If true, sets number of player to Integer value input
+     * Checks if number of players is not zero
+     * If true, sets number of players to Integer value input
      * If false, asks user for a new Integer
      * Turns all Integers into their absolute values
      * Ignores all non-Integers by asking for a new number
-     * @param in
-     *  Uses Scanner to input Integer value
-     * @return
-     *  Integer value of players
+     * @return Integer value of players
      */
-    public static int setNumberOfPlayers(Scanner in) {
-        int numOfPlayers = 1;
-        System.out.println("HOW MANY PEOPLE WILL BE PLAYING?");
-
+    public static int setNumberOfPlayers(int numOfPlayers) {
         while(true) {
             try {
                 numOfPlayers = Integer.parseInt(in.next());
                 numOfPlayers = Math.abs(numOfPlayers);
 
                 while(numOfPlayers == 0 ) {
-                    System.out.println("Can't accept that many number of players.");
-                    System.out.println("Please enter a new number:");
+                    Text.cantAcceptThatMany();
                     numOfPlayers = Integer.parseInt(in.next());
                     numOfPlayers = Math.abs(numOfPlayers);
                 }
@@ -117,27 +110,19 @@ public class Mechanics {
      * If false, asks for a new number
      * Ignores all non-Integer by asking for new number
      * Converts inputs to their absolute value
-     * @param in
-     *  Uses Scanner to input Integer value
-     * @param cost
-     *  Cost of making one cup of lemonade
-     * @param assets
-     *  Current available funds
-     * @return
-     *  Integer value of number of cups
+     * @param cost Cost of making one cup of lemonade
+     * @param assets Current available funds
+     * @return Double value of number of cups
      */
-    public static int setCups(Scanner in, double cost, double assets) {
-        int cups = 0;
-        System.out.println("How many glasses of lemonade do you\n"
-                + "wish to make?");
+    public static double setCups(double cost, double assets) {
+        double cups = 0;
         while (true) {
             try {
-                cups = Integer.parseInt(in.next());
+                cups = Double.parseDouble(in.next());
                 cups = Math.abs(cups);
                 while(!( (cups*cost) < assets) ) {
-                    System.out.println("Sorry, you can't make that many signs.");
-                    System.out.println("Try a new number.");
-                    cups = Integer.parseInt(in.next());
+                    Text.cantMakeThatMany();
+                    cups = Double.parseDouble(in.next());
                     cups = Math.abs(cups);
                 }
 
@@ -148,7 +133,6 @@ public class Mechanics {
                 System.out.println("Try a new number.");
             }
         }
-
     }
 
     /**
@@ -158,27 +142,18 @@ public class Mechanics {
      * If false, asks user for a new number
      * Ignores all non-Double values by asking for new Double
      * Coverts doubles to their absolute values
-     * @param in
-     *  Uses Scanner to input double value
-     * @param sc
-     *  Cost of signs
-     * @param assets
-     *  Current available funds
-     * @return
-     *  Integer value of number of signs
+     * @param sc Cost of signs
+     * @param assets Current available funds
+     * @return Double value of number of signs
      */
-    public static double setSigns(Scanner in, double sc, double assets) {
+    public static double setSigns(double sc, double assets) {
         double signs = 0;
-        boolean tryAgain = false;
-        System.out.println("How many signs (15 cents\n"
-                + "each) do you want to make?");
         while (true) {
             try {
                 signs = Double.parseDouble(in.next());
                 signs = Math.abs(signs);
                 while(!( (signs*sc) < assets) ) {
-                    System.out.println("Sorry, you can't make that many signs.");
-                    System.out.println("Try a new number.");
+                    Text.cantMakeThatMany();
                     signs = Double.parseDouble(in.next());
                     signs = Math.abs(signs);
                 }
@@ -199,22 +174,17 @@ public class Mechanics {
      * If false, sets price
      * Ignores all non-Doubles by asking for new Double
      * Turns all Doubles into their absolute values
-     * @param in
-     *  Uses Scanner to input price double value
      * @return
      *  Verified double value to set price
      */
-    public static double setPrice(Scanner in) {
+    public static double setPrice() {
         double price = 0;
-        System.out.println("What price (in cents) do you wish to\n"
-                + "charge for lemonade?");
         while (true) {
             try {
                 price = Double.parseDouble(in.next());
                 price = Math.abs(price);
                 while(price >= 100) {
-                    System.out.println("Sorry, you can't set a price higher than $1.");
-                    System.out.println("Try a new number.");
+                    Text.cantMakeThatMany();
                     price = Double.parseDouble(in.next());
                     price = Math.abs(price);
                 }
@@ -232,14 +202,10 @@ public class Mechanics {
      * Asks if the user wants to change any of their inputs
      * Any answer other than 'yes' or 'y' will reset day
      * Else continue
-     * @param in
-     *  Uses Scanner to input user answer String
-     * @return
-     *  True or false depending on user input
+     * @return True or false depending on user input
      */
-    public static boolean askToChangeAnything(Scanner in) {
-        System.out.println("Do you want to change anything? Y/N");
-        String ans = "e";
+    public static boolean changeAnything() {
+        String ans = "";
         if( in.hasNext() ) {
             ans = in.next();
         }
