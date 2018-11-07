@@ -18,8 +18,7 @@ class Stand {
 
     /**
      * Constructor to set id only
-     * @param id
-     *  sets lemonade stand number
+     * @param id sets lemonade stand number
      */
     public Stand(int id) {
         this.id = id;
@@ -28,10 +27,8 @@ class Stand {
 
     /**
      * Full constructor
-     * @param id
-     *  sets lemonade stand number
-     * @param assets
-     *  sets assets for lemonade stand
+     * @param id sets lemonade stand number
+     * @param assets sets assets for lemonade stand
      */
     public Stand(int id, double assets) {
         this.id = id;
@@ -40,8 +37,7 @@ class Stand {
 
     /**
      * Deep copy constructor
-     * @param other
-     *  used to store deep copy
+     * @param other used to store deep copy
      */
     public Stand(Stand other) {
         this.id = other.id;
@@ -50,8 +46,7 @@ class Stand {
 
     /**
      * Sets the lemonade stand number
-     * @param i
-     *  lemonade stand number
+     * @param i lemonade stand number
      */
     public void setId(int i) {
         id = i;
@@ -59,8 +54,7 @@ class Stand {
 
     /**
      * Sets the assets for the lemonade stand
-     * @param a
-     *  available funds
+     * @param a available funds
      */
     public void setAssets(double a) {
         assets = a;

@@ -9,14 +9,14 @@ public class Text {
     /**
      * Prints out underscore border
      */
-    static void border() {
+    void border() {
         System.out.println("________________________________________");
     }
 
     /**
      * Displays menu 1
      */
-    static void printMenu1() {
+    void printMenu1() {
         System.out.println("HI! WELCOME TO LEMONSVILLE, CALIFORNIA!");
         System.out.println("IN THIS SMALL TOWN, YOU ARE IN CHARGE OF\n" +
                 "RUNNING YOUR OWN LEMONADE STAND. YOU CAN\n" +
@@ -31,7 +31,7 @@ public class Text {
     /**
      * Displays menu 2
      */
-    static void printMenu2() {
+    void printMenu2() {
         System.out.println("TO MANAGE YOUR LEMONADE STAND, YOU WILL\n"
                 + "NEED TO MAKE THESE DECISIONS EVERY DAY:\n");
         System.out.println("1. HOW MANY GLASSES OF LEMONADE TO MAKE");
@@ -49,7 +49,7 @@ public class Text {
     /**
      * Displays menu 3
      */
-    static void printMenu3() {
+    void printMenu3() {
         System.out.println("YOUR EXPENSE ARE THE SUM OF THE COST OF\n"
                 + "THE LEMONADE AND THE COST OF THE SIGNS.\n" );
         System.out.println("YOUR PROFITS ARE THE DIFFERENCE BETWEEN\n"
@@ -65,7 +65,7 @@ public class Text {
     /**
      * Error message when user inputs unacceptable number of players
      */
-    public static void cantAcceptThatMany() {
+    public void cantAcceptThatMany() {
         System.out.println("CAN'T ACCEPT THAT MANY PLAYERS.");
         System.out.println("PLEASE ENTER A NEW NUMBER:");
     }
@@ -74,7 +74,7 @@ public class Text {
      * Error message when user can't afford to make specified number
      * of cups and signs
      */
-    public static void cantMakeThatMany() {
+    public void cantMakeThatMany() {
         System.out.println("YOU CAN'T AFFORD TO MAKE THAT MANY.");
         System.out.println("TRY A NEW NUMBER.");
     }
@@ -82,14 +82,14 @@ public class Text {
     /**
      * Asks user how many users are playing
      */
-    public static void askHowManyPlayers() {
+    public void askHowManyPlayers() {
         System.out.println("HOW MANY PEOPLE WILL BE PLAYING?");
     }
 
     /**
      * Asks user how many cups of lemonade to make
      */
-    public static void askHowManyCups() {
+    public void askHowManyCups() {
         System.out.println("HOW MANY GLASSES OF LEMONADE DO YOU\n"
                 + "WISH TO MAKE?");
     }
@@ -97,15 +97,15 @@ public class Text {
     /**
      * Asks user how many signs to make
      */
-    public static void askHowManySigns() {
-        System.out.println("HOW MANY SIGNS (15 CENTS\n"
+    public void askHowManySigns() {
+        System.out.println("HOW MANY ADVERTISING SIGNS (15 CENTS\n"
                 + "EACH) DO YOU WANT TO MAKE?");
     }
 
     /**
      * Asks user to set price of lemonade
      */
-    public static void askToSetPrice() {
+    public void askToSetPrice() {
         System.out.println("WHAT PRICE (IN CENTS) DO YOU WISH TO\n"
                 + "CHARGE FOR LEMONADE?");
     }
@@ -113,7 +113,7 @@ public class Text {
     /**
      * Asks player if they want to change anything
      */
-    public static void askToChangeAnything() {
+    public void askToChangeAnything() {
         System.out.println("DO YOU WANT TO CHANGE ANYTHING? Y/N");
     }
 
@@ -130,7 +130,7 @@ public class Text {
      * @param profit net earnings
      * @param assets money available
      */
-    public static void financeReport(int id, byte day, double cupsSold, double price, double income,
+    public void financeReport(int id, byte day, double cupsSold, double price, double income,
                                      double cups, double signs, double expense, double profit, double assets)
     {
         System.out.println();
