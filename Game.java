@@ -19,20 +19,19 @@ public class Game {
     private double chance;
     private double cost;
     private double price;
-    private double expense;
-    private double cups;
-    private double signs;
+    private double expense, totalExpense;
+    private double cups, totalCupsMade;
+    private double signs, totalSignsMade;
     private String answer;
     private boolean tryAgain;
-    private double cupsSold;
-    private double income;
+    private double cupsSold, totalCupsSold;
+    private double income, revenue;
     private double profit;
     private int id;
     private double assets;
 
     public void Game() {
         intro();
-        instantiatePlayers();
         // Process of one day
         do {
             weather = (byte) rand.nextInt(3); // Randomly choosing weather byte
@@ -81,6 +80,7 @@ public class Game {
                 cupsSold();
                 setIncome();
                 setProfit();
+
                 assets = assets + getProfit();
 
                 s[currentStand].setAssets(assets);
@@ -99,16 +99,75 @@ public class Game {
      * will play
      */
     private void intro() {
-        text.printMenu1();
+        text.opening1();
+        if(hasPlayedBefore()) {
+            System.out.println();
+            // How many players
+            text.askHowManyPlayers();
+            setNumberOfPlayers();
+            instantiatePlayers();
+        } else {
+            System.out.println();
+            // How many players
+            text.askHowManyPlayers();
+            setNumberOfPlayers();
+            instantiatePlayers();
+            text.playedBefore1();
+            setDay();
+            System.out.println("OKAY - WE'LL START WITH DAY NO. " + (day+1) );
+            int currentStand = 0;
+            while(currentStand < numOfPlayers) {
+                boolean assetSet = false;
+                id = s[currentStand].getId();
+                System.out.println("PLAYER NO. " + id + ", HOW MUCH MONEY (ASSETS)");
+                System.out.println("DID YOU HAVE? ");
+
+                while(assetSet == false) {
+                    try {
+                        assets = Double.parseDouble(in.next());
+                        if (assets < 2) {
+                            System.out.println("O.K. - WE'LL START YOU OUT WITH $2.00");
+                            System.out.println();
+                            assets = 2.00;
+                            assetSet = true;
+                        } else if (assets > 40) {
+                            System.out.println("JUST TO BE FAIR, LET'S MAKE THAT $10.00");
+                            System.out.println();
+                            assets = 10.00;
+                            assetSet = true;
+                        } else {
+                            assetSet = true;
+                        }
+                    } catch (NumberFormatException e) {
+                        assetSet = false;
+                        text.tryNewNumber();
+                    }
+                }
+
+                s[currentStand].setAssets(assets);
+                currentStand++;
+            }
+            System.out.println("...READY TO BEGIN? ");
+            in.nextLine();
+        }
+
         in.nextLine();
-        // How many players
-        text.askHowManyPlayers();
-        setNumberOfPlayers();
+        text.opening2();
         in.nextLine();
-        text.printMenu2();
+        text.opening3();
         in.nextLine();
-        text.printMenu3();
-        in.nextLine();
+    }
+
+    /**
+     * Boolean check to ask player if they have played before
+     * @return true if 'yes' or 'y', anything else returns false
+     */
+    private boolean hasPlayedBefore() {
+        answer = "";
+        if( in.hasNext() ) {
+            answer = in.next();
+        }
+        return answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y");
     }
 
     /**
@@ -130,19 +189,24 @@ public class Game {
      * Ignores all non-Integers by asking for a new number
      */
     private void setNumberOfPlayers() {
-        try {
-            numOfPlayers = Integer.parseInt(in.next());
-            numOfPlayers = Math.abs(numOfPlayers);
+        boolean playersSet = false;
 
-            while(numOfPlayers == 0 ) {
-                text.cantAcceptThatMany();
+        while(!playersSet) {
+            try {
                 numOfPlayers = Integer.parseInt(in.next());
                 numOfPlayers = Math.abs(numOfPlayers);
+                if(numOfPlayers > 0 && numOfPlayers < 30) {
+                    playersSet = true;
+                } else {
+                    text.cantAcceptThatMany();
+                }
+                System.out.println();
+            } catch (NumberFormatException ignore) {
+                text.tryNewNumber();
+                playersSet = false;
             }
-            System.out.println();
-        } catch (NumberFormatException ignore) {
-            System.out.println("Try a new number.");
         }
+
     }
 
     /**
@@ -314,6 +378,7 @@ public class Game {
         // rng vs chance
         if(d < chance) { cupsSold = cups; }
         else { cupsSold = Math.ceil(cups*chance); }
+        totalCupsSold += cupsSold;
     }
 
     private void setIncome() {
@@ -324,6 +389,23 @@ public class Game {
         profit = income-expense;
     }
 
+    /**
+     * Sets the day at the start of the game after asking
+     * players if they have played before
+     * Checks if the day is in between 0 and 100
+     */
+    private void setDay() {
+        try {
+            day = Byte.parseByte(in.next());
+            while(!(day > 0 && day < 100)) {
+                text.cantAcceptThatMany();
+                day = Byte.parseByte(in.next());
+            }
+            System.out.println();
+        } catch (NumberFormatException ignore) {
+            System.out.println("Try a new number.");
+        }
+    }
 
     /**
      * Getter for the current day

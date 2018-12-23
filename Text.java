@@ -16,22 +16,23 @@ public class Text {
     /**
      * Displays menu 1
      */
-    void printMenu1() {
+    void opening1() {
         System.out.println("HI! WELCOME TO LEMONSVILLE, CALIFORNIA!");
-        System.out.println("IN THIS SMALL TOWN, YOU ARE IN CHARGE OF\n" +
-                "RUNNING YOUR OWN LEMONADE STAND. YOU CAN\n" +
-                "COMPETE WITH AS MANY OTHER PEOPLE AS YOU\n" +
-                "WISH, BUT HOW MUCH PROFIT YOU MAKE IS UP\n" +
-                "TO YOU (THE OTHER STANDS' SALES WILL NOT\n" +
-                "AFFECT YOUR BUSINESS IN ANY WAY). IF YOU\n" +
-                "MAKE THE MOST MONEY, YOU'RE THE WINNER!!") ;
-        System.out.println("\t(HIT RETURN TO CONTINUE)");
+        System.out.println("IN THIS SMALL TOWN, YOU ARE IN CHARGE OF");
+        System.out.println("RUNNING YOUR OWN LEMONADE STAND. YOU CAN");
+        System.out.println("COMPETE WITH AS MANY OTHER PEOPLE AS YOU");
+        System.out.println("WISH, BUT HOW MUCH PROFIT YOU MAKE IS UP");
+        System.out.println("TO YOU (THE OTHER STANDS' SALES WILL NOT");
+        System.out.println("AFFECT YOUR BUSINESS IN ANY WAY). IF YOU");
+        System.out.println("MAKE THE MOST MONEY, YOU'RE THE WINNER!!" );
+        System.out.println("ARE YOU STARTING A NEW GAME? (YES OR NO)");
+        System.out.println("TYPE YOUR ANSWER AND HIT RETURN ==> ");
     }
 
     /**
      * Displays menu 2
      */
-    void printMenu2() {
+    void opening2() {
         System.out.println("TO MANAGE YOUR LEMONADE STAND, YOU WILL\n"
                 + "NEED TO MAKE THESE DECISIONS EVERY DAY:\n");
         System.out.println("1. HOW MANY GLASSES OF LEMONADE TO MAKE");
@@ -49,7 +50,7 @@ public class Text {
     /**
      * Displays menu 3
      */
-    void printMenu3() {
+    void opening3() {
         System.out.println("YOUR EXPENSE ARE THE SUM OF THE COST OF\n"
                 + "THE LEMONADE AND THE COST OF THE SIGNS.\n" );
         System.out.println("YOUR PROFITS ARE THE DIFFERENCE BETWEEN\n"
@@ -60,6 +61,13 @@ public class Text {
         System.out.println("KEEP TRACK OF YOUR ASSETS, BECAUSE YOU\n"
                 + "CAN'T SPEND MORE MONEY THAN YOU HAVE!" );
         System.out.println("\t(HIT RETURN TO CONTINUE)");
+    }
+
+    void playedBefore1() {
+        System.out.println("HI AGAIN! WELCOME BACK TO LEMONSVILLE! ");
+        System.out.println("LET'S CONTINUE YOUR LAST GAME FROM WHERE");
+        System.out.println("YOU LEFT IT LAST TIME. DO YOU REMEMBER ");
+        System.out.println("WHAT DAY NUMBER IT WAS? ");
     }
 
     /**
@@ -77,6 +85,10 @@ public class Text {
     public void cantMakeThatMany() {
         System.out.println("YOU CAN'T AFFORD TO MAKE THAT MANY.");
         System.out.println("TRY A NEW NUMBER.");
+    }
+
+    void tryNewNumber() {
+        System.out.println("Try a new number.");
     }
 
     /**
@@ -130,7 +142,7 @@ public class Text {
      * @param profit net earnings
      * @param assets money available
      */
-    public void financeReport(int id, byte day, double cupsSold, double price, double income,
+    void financeReport(int id, byte day, double cupsSold, double price, double income,
                                      double cups, double signs, double expense, double profit, double assets)
     {
         System.out.println();
@@ -142,9 +154,15 @@ public class Text {
         System.out.printf("$.%.0f %S %17S $%.2f \n", price, "PER GLASS", "INCOME", income);
         System.out.println();
         System.out.printf("%4.0f %S %n", cups, "GLASSES MADE");
-        System.out.printf("%3.0f %11S %17S $%.2f\n", signs, "SIGNS MADE", "EXPENSES", expense);
+        System.out.printf("%3.0f %11S %17S $%.2f%n", signs, "SIGNS MADE", "EXPENSES", expense);
         System.out.println();
-        System.out.printf("%20S $%.2f\n", "PROFIT", profit);
-        System.out.printf("%20S $%.2f\n", "ASSETS", assets);
+        System.out.printf("%20S $%.2f%n", "PROFIT", profit);
+        System.out.printf("%20S $%.2f%n", "ASSETS", assets);
+    }
+
+    void bankrupt(int id) {
+        System.out.println("STAND" + id);
+        System.out.println("...YOU DON'T HAVE ENOUGH MONEY LEFT"
+            + " TO STAY IN BUSINESS YOU'RE BANKRUPT!");
     }
 }
