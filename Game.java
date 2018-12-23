@@ -1,6 +1,6 @@
 /**
  * @author  Raul Aguilar
- * @date    2018-10-16
+ * @date    December 22, 2018
  */
 package lemonadestand;
 import java.util.Random;
@@ -56,6 +56,7 @@ public class Game {
                     // Asking how many cups of lemonade to make
                     text.askHowManyCups();
                     setCups(cost, assets);
+                    assets -= (cups*cost);
 
                     // Asking how many SIGNS to make
                     text.askHowManySigns();
@@ -92,6 +93,8 @@ public class Game {
             } // end of current Stand
             day++;
         } while(day < 13); // end of day
+
+        //text.endgameScreen(totalCupsSold);
     }
 
     /**
@@ -114,7 +117,6 @@ public class Game {
             instantiatePlayers();
             text.playedBefore1();
             setDay();
-            System.out.println("OKAY - WE'LL START WITH DAY NO. " + (day+1) );
             int currentStand = 0;
             while(currentStand < numOfPlayers) {
                 boolean assetSet = false;
@@ -122,7 +124,7 @@ public class Game {
                 System.out.println("PLAYER NO. " + id + ", HOW MUCH MONEY (ASSETS)");
                 System.out.println("DID YOU HAVE? ");
 
-                while(assetSet == false) {
+                while(!assetSet) {
                     try {
                         assets = Double.parseDouble(in.next());
                         if (assets < 2) {
@@ -140,7 +142,7 @@ public class Game {
                         }
                     } catch (NumberFormatException e) {
                         assetSet = false;
-                        text.tryNewNumber();
+                        text.tryANewNumber();
                     }
                 }
 
@@ -194,7 +196,6 @@ public class Game {
         while(!playersSet) {
             try {
                 numOfPlayers = Integer.parseInt(in.next());
-                numOfPlayers = Math.abs(numOfPlayers);
                 if(numOfPlayers > 0 && numOfPlayers < 30) {
                     playersSet = true;
                 } else {
@@ -202,8 +203,30 @@ public class Game {
                 }
                 System.out.println();
             } catch (NumberFormatException ignore) {
-                text.tryNewNumber();
-                playersSet = false;
+                text.tryANewNumber();
+            }
+        }
+    }
+
+    /**
+     * Sets the day at the start of the game after asking
+     * players if they have played before
+     * Checks if the day is in between 0 and 100
+     */
+    private void setDay() {
+        boolean daySet = false;
+
+        while(!daySet) {
+            try {
+                day = Byte.parseByte(in.next());
+                if(day > 1 && day < 99) {
+                    day++;
+                    System.out.println("OKAY - WE'LL START WITH DAY NO. " + day);
+                    daySet = true;
+                }
+                System.out.println();
+            } catch (NumberFormatException ignore) {
+                System.out.println("Try a new number.");
             }
         }
 
@@ -258,17 +281,35 @@ public class Game {
     }
 
     /**
-     * Verifies that number of cups set by user is acceptable
-     * Checks if user can afford to make number of cups
-     * If true, sets the number of cups to make
-     * If false, asks for a new number
-     * Ignores all non-Integer by asking for new number
-     * Converts inputs to their absolute value
-     * @param cost Cost of making one cup of lemonade
-     * @param assets Current available funds
+     * Sets number of cups
+     * @param cost cost lemonade set by the day
+     * @param assets available assets of the stand
      */
     private void setCups(double cost, double assets) {
-        cups = setCupsAndSigns(cost, assets);
+        boolean cupsSet = false;
+
+        while(!cupsSet) {
+            try {
+                cups = Double.parseDouble(in.next());
+                if (cups > 0 && cups < 1000) {
+                    if( (cups*cost) > assets) {
+                        System.out.printf("THINK AGAIN!!! YOU HAVE ONLY $%.2f", assets);
+                        System.out.println();
+                        System.out.printf("IN CASH AND TO MAKE %.0f GLASSES OF", cups);
+                        System.out.println();
+                        System.out.printf("LEMONADE YOU NEED $%.2f IN CASH.", (cost*cups));
+                        System.out.println();
+                    } else {
+                        cupsSet = true;
+                    }
+                } else {
+                    System.out.println("COME ON, LET'S BE REASONABLE NOW!!!");
+                    System.out.println("TRY AGAIN");
+                }
+            } catch (NumberFormatException ignore) {
+                text.tryANewNumber();
+            }
+        }
     }
 
     /**
@@ -281,35 +322,24 @@ public class Game {
      * @param assets Current available funds
      */
     private void setSigns(double assets) {
-        signs = setCupsAndSigns(SC, assets);
-    }
+        boolean signsSet = false;
 
-    /**
-     * Verifies number for signs to make by user is acceptable
-     * Checks if user can afford to make enough signs
-     * If true, then sets number of signs to make
-     * If false, asks user for a new number
-     * Ignores all non-Double values by asking for new Double
-     * Coverts doubles to their absolute values
-     * @param cost Cost of signs
-     * @param assets Current available funds
-     * @return Double value of number of signs
-     */
-    private double setCupsAndSigns(double cost, double assets) {
-        double cs;
-        while (true) {
+        while(!signsSet) {
             try {
-                cs = Double.parseDouble(in.next());
-                cs = Math.abs(cs);
-                while(!( (cs*cost) < assets) ) {
-                    text.cantMakeThatMany();
-                    cs = Double.parseDouble(in.next());
-                    cs = Math.abs(cs);
+                signs = Double.parseDouble(in.next());
+                if(signs >= 0 && signs < 50) {
+                    if(signs*SC > assets) {
+                        System.out.printf("THINK AGAIN, YOU HAVE ONLY $%.2f", assets);
+                        System.out.println();
+                        System.out.println("IN CASH LEFT AFTER MAKING YOUR LEMONADE.");
+                    } else {
+                        signsSet = true;
+                    }
+                } else {
+                    System.out.println("COME ON, BE REASONABLE!!! TRY AGAIN.");
                 }
-                System.out.println();
-                return cs;
             } catch (NumberFormatException ignore) {
-                System.out.println("Try a new number.");
+                text.tryANewNumber();
             }
         }
     }
@@ -323,17 +353,21 @@ public class Game {
      * Turns all Doubles into their absolute values
      */
     private void setPrice() {
-        try {
-            price = Double.parseDouble(in.next());
-            price = Math.abs(price);
-            while(price >= 100) {
-                text.cantMakeThatMany();
+        boolean priceSet = false;
+
+        while(!priceSet) {
+            try {
                 price = Double.parseDouble(in.next());
                 price = Math.abs(price);
+                if(!(price >= 100)) {
+                    priceSet = true;
+                } else {
+                    System.out.println("COME ON, BE REASONABLE!!! TRY AGAIN.");
+                }
+                System.out.println();
+            } catch (NumberFormatException ignore) {
+                text.tryANewNumber();
             }
-            System.out.println();
-        } catch (NumberFormatException ignore) {
-            System.out.println("Try a new number.");
         }
     }
 
@@ -341,20 +375,14 @@ public class Game {
      * Asks if the user wants to change any of their inputs
      * Any answer other than 'yes' or 'y' will reset day
      * Else continue
-     * @return True or false depending on user input
+     * @return false if 'yes' or 'y', else true
      */
     private boolean changeAnything() {
         answer = "";
         if( in.hasNext() ) {
             answer = in.next();
         }
-        if(!(answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) ) {
-            System.out.println();
-            return false;
-        } else {
-            System.out.println();
-            return true;
-        }
+        return answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y");
     }
 
     /**
@@ -387,24 +415,6 @@ public class Game {
 
     private void setProfit() {
         profit = income-expense;
-    }
-
-    /**
-     * Sets the day at the start of the game after asking
-     * players if they have played before
-     * Checks if the day is in between 0 and 100
-     */
-    private void setDay() {
-        try {
-            day = Byte.parseByte(in.next());
-            while(!(day > 0 && day < 100)) {
-                text.cantAcceptThatMany();
-                day = Byte.parseByte(in.next());
-            }
-            System.out.println();
-        } catch (NumberFormatException ignore) {
-            System.out.println("Try a new number.");
-        }
     }
 
     /**

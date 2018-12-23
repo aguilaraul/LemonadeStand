@@ -87,7 +87,10 @@ public class Text {
         System.out.println("TRY A NEW NUMBER.");
     }
 
-    void tryNewNumber() {
+    /**
+     * Prints with NumberFormatException
+     */
+    void tryANewNumber() {
         System.out.println("Try a new number.");
     }
 
@@ -158,6 +161,10 @@ public class Text {
         System.out.println();
         System.out.printf("%20S $%.2f%n", "PROFIT", profit);
         System.out.printf("%20S $%.2f%n", "ASSETS", assets);
+    }
+
+    void endgameScreen(double tcs) {
+        System.out.println("Total number of cups sold: " + tcs);
     }
 
     void bankrupt(int id) {
