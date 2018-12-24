@@ -1,17 +1,33 @@
 /**
  * @author  Raul Aguilar
- * @date    2018-10-16
+ * @date    December 23, 2018
  */
 package lemonadestand;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.util.Scanner;
 
 public class LemonadeStand {
 
     public static void main(String[] args) {
-        Game game = new Game();
-        game.Game();
+        Scanner in = new Scanner(System.in);
+        boolean tryAgain = true;
+        String answer;
+
+        while(tryAgain) {
+            Game game = new Game();
+            game.Game();
+
+            System.out.println("WOULD YOU LIKE TO PLAY AGAIN? ");
+            answer = "";
+            if( in.hasNext() ) {
+                answer = in.next();
+            }
+            if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
+                tryAgain = true;
+            } else {
+                tryAgain = false;
+            }
+        }
+
     }
 }

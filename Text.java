@@ -1,6 +1,6 @@
 /**
  * @author  Raul Aguilar
- * @date    2018-10-16
+ * @date    December 23, 2018
  */
 package lemonadestand;
 
@@ -163,8 +163,18 @@ public class Text {
         System.out.printf("%20S $%.2f%n", "ASSETS", assets);
     }
 
-    void endgameScreen(double tcs) {
+    void endGameScreen(byte day, int id, double tcm, double tcs, double tsm, double te, double tr) {
+        System.out.println();
+        border();
+        System.out.println("$$ LEMONSVILLE DAILY FINANCIAL REPORT $$\n");
+        System.out.printf("%6S %d %25S %d\n", "DAY", day, "STAND", id);
+        System.out.println();
+        System.out.println("Total number of cups made: " + tcm);
         System.out.println("Total number of cups sold: " + tcs);
+        System.out.println("Total number of signs made: " + tsm);
+        System.out.println("Total expenses: $" + te);
+        System.out.println("Total revenue: $" + tr);
+        System.out.println("Total Profit: $" + (tr-te) );
     }
 
     void bankrupt(int id) {

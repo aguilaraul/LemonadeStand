@@ -1,6 +1,6 @@
 /**
  * @author  Raul Aguilar
- * @date    December 22, 2018
+ * @date    December 23, 2018
  */
 package lemonadestand;
 import java.util.Random;
@@ -83,6 +83,7 @@ public class Game {
                 setProfit();
 
                 assets = assets + getProfit();
+                totalExpense += expense;
 
                 s[currentStand].setAssets(assets);
 
@@ -94,7 +95,7 @@ public class Game {
             day++;
         } while(day < 13); // end of day
 
-        //text.endgameScreen(totalCupsSold);
+        //text.endGameScreen(day, id, totalCupsMade, totalCupsSold, totalSignsMade, totalExpense, revenue);
     }
 
     /**
@@ -300,6 +301,7 @@ public class Game {
                         System.out.printf("LEMONADE YOU NEED $%.2f IN CASH.", (cost*cups));
                         System.out.println();
                     } else {
+                        totalCupsMade += cups;
                         cupsSet = true;
                     }
                 } else {
@@ -333,6 +335,7 @@ public class Game {
                         System.out.println();
                         System.out.println("IN CASH LEFT AFTER MAKING YOUR LEMONADE.");
                     } else {
+                        totalSignsMade += signs;
                         signsSet = true;
                     }
                 } else {
@@ -411,6 +414,7 @@ public class Game {
 
     private void setIncome() {
         income = (cupsSold * price) / 100;
+        revenue += income;
     }
 
     private void setProfit() {
