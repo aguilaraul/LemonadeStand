@@ -1,28 +1,28 @@
-/**
+/*
  * @author  Raul Aguilar
- * @date    2018-10-16
+ * @date    December 25, 2018
  */
 package lemonadestand;
 
 class Stand {
-    private int id;
-    private double assets;
+    private byte id;
+    private float assets;
 
     /**
      * Default constructor with no arguments
      */
     public Stand() {
         this.id = 0;
-        this.assets = 2.00;
+        this.assets = 2.00f;
     }
 
     /**
      * Constructor to set id only
      * @param id sets lemonade stand number
      */
-    public Stand(int id) {
+    public Stand(byte id) {
         this.id = id;
-        this.assets = 2.00;
+        this.assets = 2.00f;
     }
 
     /**
@@ -30,7 +30,7 @@ class Stand {
      * @param id sets lemonade stand number
      * @param assets sets assets for lemonade stand
      */
-    public Stand(int id, double assets) {
+    public Stand(byte id, float assets) {
         this.id = id;
         this.assets =  assets;
     }
@@ -48,7 +48,7 @@ class Stand {
      * Sets the lemonade stand number
      * @param i lemonade stand number
      */
-    public void setId(int i) {
+    public void setId(byte i) {
         id = i;
     }
 
@@ -56,7 +56,7 @@ class Stand {
      * Sets the assets for the lemonade stand
      * @param a available funds
      */
-    public void setAssets(double a) {
+    public void setAssets(float a) {
         assets = a;
     }
 
@@ -64,7 +64,7 @@ class Stand {
      * Accessor for lemonade stand number
      * @return lemonade stand number integer value
      */
-    public int getId() {
+    public byte getId() {
         return id;
     }
 
@@ -72,7 +72,7 @@ class Stand {
      * Accessor for lemonade stand assets
      * @return assets available double value
      */
-    public double getAssets() {
+    public float getAssets() {
         return assets;
     }
 

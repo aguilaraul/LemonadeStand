@@ -1,6 +1,6 @@
-/**
+/*
  * @author  Raul Aguilar
- * @date    December 23, 2018
+ * @date    December 25, 2018
  */
 package lemonadestand;
 
@@ -16,7 +16,7 @@ public class Text {
     /**
      * Displays menu 1
      */
-    void opening1() {
+    void titlePage() {
         System.out.println("HI! WELCOME TO LEMONSVILLE, CALIFORNIA!");
         System.out.println("IN THIS SMALL TOWN, YOU ARE IN CHARGE OF");
         System.out.println("RUNNING YOUR OWN LEMONADE STAND. YOU CAN");
@@ -30,9 +30,9 @@ public class Text {
     }
 
     /**
-     * Displays menu 2
+     * Displays new business prompt 1
      */
-    void opening2() {
+    void newBusiness() {
         System.out.println("TO MANAGE YOUR LEMONADE STAND, YOU WILL\n"
                 + "NEED TO MAKE THESE DECISIONS EVERY DAY:\n");
         System.out.println("1. HOW MANY GLASSES OF LEMONADE TO MAKE");
@@ -48,9 +48,9 @@ public class Text {
     }
 
     /**
-     * Displays menu 3
+     * Displays prompt 2
      */
-    void opening3() {
+    void newBusiness2() {
         System.out.println("YOUR EXPENSE ARE THE SUM OF THE COST OF\n"
                 + "THE LEMONADE AND THE COST OF THE SIGNS.\n" );
         System.out.println("YOUR PROFITS ARE THE DIFFERENCE BETWEEN\n"
@@ -63,7 +63,10 @@ public class Text {
         System.out.println("\t(HIT RETURN TO CONTINUE)");
     }
 
-    void playedBefore1() {
+    /**
+     * Displays prompt if player starts old game
+     */
+    void continueOldGame() {
         System.out.println("HI AGAIN! WELCOME BACK TO LEMONSVILLE! ");
         System.out.println("LET'S CONTINUE YOUR LAST GAME FROM WHERE");
         System.out.println("YOU LEFT IT LAST TIME. DO YOU REMEMBER ");
@@ -79,32 +82,36 @@ public class Text {
     }
 
     /**
-     * Error message when user can't afford to make specified number
-     * of cups and signs
-     */
-    public void cantMakeThatMany() {
-        System.out.println("YOU CAN'T AFFORD TO MAKE THAT MANY.");
-        System.out.println("TRY A NEW NUMBER.");
-    }
-
-    /**
      * Prints with NumberFormatException
      */
     void tryANewNumber() {
-        System.out.println("Try a new number.");
+        System.out.println("TRY A NEW NUMBER.");
     }
 
     /**
      * Asks user how many users are playing
      */
-    public void askHowManyPlayers() {
+    void askHowManyPlayers() {
         System.out.println("HOW MANY PEOPLE WILL BE PLAYING?");
+    }
+
+    /**
+     * Displays current day and the cost of lemonade
+     * @param day current day
+     * @param cost cost of lemonade
+     */
+    void costOfLemonade(byte day, float cost) {
+        System.out.println("ON DAY " + day + ", THE COST OF LEMONADE IS $" + cost );
+    }
+
+    void forecastToday(String forecast) {
+        System.out.println("The forecast today is " + forecast);
     }
 
     /**
      * Asks user how many cups of lemonade to make
      */
-    public void askHowManyCups() {
+    void askHowManyCups() {
         System.out.println("HOW MANY GLASSES OF LEMONADE DO YOU\n"
                 + "WISH TO MAKE?");
     }
@@ -112,7 +119,7 @@ public class Text {
     /**
      * Asks user how many signs to make
      */
-    public void askHowManySigns() {
+    void askHowManySigns() {
         System.out.println("HOW MANY ADVERTISING SIGNS (15 CENTS\n"
                 + "EACH) DO YOU WANT TO MAKE?");
     }
@@ -120,7 +127,7 @@ public class Text {
     /**
      * Asks user to set price of lemonade
      */
-    public void askToSetPrice() {
+    void askToSetPrice() {
         System.out.println("WHAT PRICE (IN CENTS) DO YOU WISH TO\n"
                 + "CHARGE FOR LEMONADE?");
     }
@@ -128,7 +135,7 @@ public class Text {
     /**
      * Asks player if they want to change anything
      */
-    public void askToChangeAnything() {
+    void askToChangeAnything() {
         System.out.println("DO YOU WANT TO CHANGE ANYTHING? Y/N");
     }
 
@@ -145,28 +152,38 @@ public class Text {
      * @param profit net earnings
      * @param assets money available
      */
-    void financeReport(int id, byte day, double cupsSold, double price, double income,
-                                     double cups, double signs, double expense, double profit, double assets)
+    void financeReport(byte id, byte day, short cupsSold, float price, float income,
+                                     short cups, byte signs, float expense, float profit, float assets)
     {
         System.out.println();
         border();
         System.out.println("$$ LEMONSVILLE DAILY FINANCIAL REPORT $$\n");
         System.out.printf("%6S %d %25S %d\n", "DAY", day, "STAND", id);
         System.out.println();
-        System.out.printf("%4.0f %S %n", cupsSold, "GLASSES SOLD");
+        System.out.printf("%4d %S %n", cupsSold, "GLASSES SOLD");
         System.out.printf("$.%.0f %S %17S $%.2f \n", price, "PER GLASS", "INCOME", income);
         System.out.println();
-        System.out.printf("%4.0f %S %n", cups, "GLASSES MADE");
-        System.out.printf("%3.0f %11S %17S $%.2f%n", signs, "SIGNS MADE", "EXPENSES", expense);
+        System.out.printf("%4d %S %n", cups, "GLASSES MADE");
+        System.out.printf("%3d %11S %17S $%.2f%n", signs, "SIGNS MADE", "EXPENSES", expense);
         System.out.println();
         System.out.printf("%20S $%.2f%n", "PROFIT", profit);
         System.out.printf("%20S $%.2f%n", "ASSETS", assets);
     }
 
+    /**
+     * Displays at the end of the game, showing stats from the playthrough
+     * @param day the last day played
+     * @param id lemonade stand stats belong to
+     * @param tcm total cups made
+     * @param tcs total cups sold
+     * @param tsm total signs made
+     * @param te total expense
+     * @param tr total revenue
+     */
     void endGameScreen(byte day, int id, double tcm, double tcs, double tsm, double te, double tr) {
         System.out.println();
         border();
-        System.out.println("$$ LEMONSVILLE DAILY FINANCIAL REPORT $$\n");
+        System.out.println("$$ LEMONSVILLE FINAL FINANCIAL REPORT $$\n");
         System.out.printf("%6S %d %25S %d\n", "DAY", day, "STAND", id);
         System.out.println();
         System.out.println("Total number of cups made: " + tcm);
@@ -177,7 +194,7 @@ public class Text {
         System.out.println("Total Profit: $" + (tr-te) );
     }
 
-    void bankrupt(int id) {
+    void bankrupt(byte id) {
         System.out.println("STAND" + id);
         System.out.println("...YOU DON'T HAVE ENOUGH MONEY LEFT"
             + " TO STAY IN BUSINESS YOU'RE BANKRUPT!");

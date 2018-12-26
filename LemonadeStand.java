@@ -1,6 +1,6 @@
-/**
+/*
  * @author  Raul Aguilar
- * @date    December 23, 2018
+ * @date    December 25, 2018
  */
 package lemonadestand;
 
@@ -14,6 +14,7 @@ public class LemonadeStand {
         String answer;
 
         while(tryAgain) {
+            tryAgain = false;
             Game game = new Game();
             game.Game();
 

@@ -1,6 +1,6 @@
-/**
+/*
  * @author  Raul Aguilar
- * @date    December 23, 2018
+ * @date    December 25, 2018
  */
 package lemonadestand;
 import java.util.Random;
@@ -9,26 +9,27 @@ import java.util.Scanner;
 public class Game {
     private Text text = new Text();
 
-    private static final double SC = 0.15;
+    private static final float SC = 0.15f;
 
     private Scanner in = new Scanner(System.in);
     private Random rand = new Random();
-    private int numOfPlayers;
     private Stand[] s;
+    private byte id;
+    private float assets;
+    private byte numOfPlayers;
     private byte day = 1, weather;
     private double chance;
-    private double cost;
-    private double price;
-    private double expense, totalExpense;
-    private double cups, totalCupsMade;
-    private double signs, totalSignsMade;
+    private float cost;
+    private float price;
+    private float expense;
+    private float income;
+    private float profit;
+    private short cups;
+    private short cupsSold;
+    private byte signs;
     private String answer;
     private boolean tryAgain;
-    private double cupsSold, totalCupsSold;
-    private double income, revenue;
-    private double profit;
-    private int id;
-    private double assets;
+
 
     public void Game() {
         intro();
@@ -51,6 +52,7 @@ public class Game {
                     id = s[currentStand].getId();
                     assets = s[currentStand].getAssets();
                     expense = 0;
+                    System.out.println();
                     System.out.printf("%s \t %s %.2f%n", "Lemonade Stand " + id, "Assets", assets);
 
                     // Asking how many cups of lemonade to make
@@ -83,7 +85,6 @@ public class Game {
                 setProfit();
 
                 assets = assets + getProfit();
-                totalExpense += expense;
 
                 s[currentStand].setAssets(assets);
 
@@ -99,11 +100,10 @@ public class Game {
     }
 
     /**
-     * Prints out opening menus and asks how many players
-     * will play
+     * Prints out opening menus and asks how many players will play
      */
     private void intro() {
-        text.opening1();
+        text.titlePage();
         if(hasPlayedBefore()) {
             System.out.println();
             // How many players
@@ -112,12 +112,14 @@ public class Game {
             instantiatePlayers();
         } else {
             System.out.println();
-            // How many players
+            // Ask how many players
             text.askHowManyPlayers();
             setNumberOfPlayers();
             instantiatePlayers();
-            text.playedBefore1();
+
+            text.continueOldGame();
             setDay();
+
             int currentStand = 0;
             while(currentStand < numOfPlayers) {
                 boolean assetSet = false;
@@ -127,16 +129,16 @@ public class Game {
 
                 while(!assetSet) {
                     try {
-                        assets = Double.parseDouble(in.next());
+                        assets = Float.parseFloat(in.next());
                         if (assets < 2) {
                             System.out.println("O.K. - WE'LL START YOU OUT WITH $2.00");
                             System.out.println();
-                            assets = 2.00;
+                            assets = 2.00f;
                             assetSet = true;
                         } else if (assets > 40) {
                             System.out.println("JUST TO BE FAIR, LET'S MAKE THAT $10.00");
                             System.out.println();
-                            assets = 10.00;
+                            assets = 10.00f;
                             assetSet = true;
                         } else {
                             assetSet = true;
@@ -155,9 +157,9 @@ public class Game {
         }
 
         in.nextLine();
-        text.opening2();
+        text.newBusiness();
         in.nextLine();
-        text.opening3();
+        text.newBusiness2();
         in.nextLine();
     }
 
@@ -179,24 +181,22 @@ public class Game {
     private void instantiatePlayers() {
         s = new Stand[numOfPlayers];
         for(int i = 0; i < numOfPlayers; i++){
-            s[i] = new Stand(i+1);
+            s[i] = new Stand((byte) (i+1));
         }
     }
 
     /**
-     * Sets number of players based on user Integer value input
-     * Checks if number of players is not zero
-     * If true, sets number of players to Integer value input
-     * If false, asks user for a new Integer
-     * Turns all Integers into their absolute values
-     * Ignores all non-Integers by asking for a new number
+     * Sets number of players using a user input byte
+     * Checks if number is between 0 and 30
+     * if true, the value is acceptable
+     * if false, user is asked to enter a new number
      */
     private void setNumberOfPlayers() {
         boolean playersSet = false;
 
         while(!playersSet) {
             try {
-                numOfPlayers = Integer.parseInt(in.next());
+                numOfPlayers = Byte.parseByte(in.next());
                 if(numOfPlayers > 0 && numOfPlayers < 30) {
                     playersSet = true;
                 } else {
@@ -227,10 +227,9 @@ public class Game {
                 }
                 System.out.println();
             } catch (NumberFormatException ignore) {
-                System.out.println("Try a new number.");
+                text.tryANewNumber();
             }
         }
-
     }
 
     /**
@@ -239,15 +238,15 @@ public class Game {
     private void weather() {
         switch(weather) {
             case 0: // hot and dry
-                System.out.println("The forecast today is hot and dry");
+                text.forecastToday("HOT AND DRY");
                 chance = (double) rand.nextInt(22+1) + 78;
                 break;
             case 1: // sunny
-                System.out.println("The forecast today is sunny");
+                text.forecastToday("SUNNY");
                 chance = (double) rand.nextInt(43+1) + 34;
                 break;
             case 2: // cloudy
-                System.out.println("The forecast today is cloudy");
+                text.forecastToday("CLOUDY");
                 chance = (double) rand.nextInt(33+1);
                 break;
             default:
@@ -261,23 +260,23 @@ public class Game {
      * Checks the day against arguments and sets the cost accordingly
      */
     private void setCost() {
-        if(day < 3) {
-            cost = 0.02;
-            System.out.println("On day " + day + ", the cost of lemonade is $.02\n" );
-        } else if (day == 3) {
-            cost = 0.04;
-            System.out.println("On day " + day + ", the cost of lemonade is $.04" );
-            System.out.println("(Your mom quit giving you free sugar.)\n" );
-        } else if (day < 7) {
-            cost = 0.04;
-            System.out.println("On day " + day + ", the cost of lemonade is $.04\n" );
-        } else if (day == 7) {
-            cost = 0.05;
-            System.out.println("On day " + day + ", the cost of lemonade is $.05" );
-            System.out.println("(The price of lemonade mix just went up)\n" );
-        } else {
-            cost = 0.05;
-            System.out.println("On day " + day + ", the cost of lemonade is $.05\n" );
+        if ( day <= 2) {
+            cost = 0.02f;
+            text.costOfLemonade(day, cost);
+        }
+        if( day > 2 ) {
+            cost = 0.04f;
+            text.costOfLemonade(day, cost);
+            if (day == 3) {
+                System.out.println("(YOUR MOM QUIT GIVING YOU FREE SUGAR)" );
+            }
+        }
+        if ( day > 6) {
+            cost = 0.05f;
+            text.costOfLemonade(day, cost);
+            if( day == 7 ) {
+                System.out.println("(THE PRICE OF LEMONADE MIX JUST WENT UP)" );
+            }
         }
     }
 
@@ -286,22 +285,21 @@ public class Game {
      * @param cost cost lemonade set by the day
      * @param assets available assets of the stand
      */
-    private void setCups(double cost, double assets) {
+    private void setCups(float cost, float assets) {
         boolean cupsSet = false;
 
         while(!cupsSet) {
             try {
-                cups = Double.parseDouble(in.next());
+                cups = Short.parseShort(in.next());
                 if (cups > 0 && cups < 1000) {
                     if( (cups*cost) > assets) {
                         System.out.printf("THINK AGAIN!!! YOU HAVE ONLY $%.2f", assets);
                         System.out.println();
-                        System.out.printf("IN CASH AND TO MAKE %.0f GLASSES OF", cups);
+                        System.out.printf("IN CASH AND TO MAKE %d GLASSES OF", cups);
                         System.out.println();
                         System.out.printf("LEMONADE YOU NEED $%.2f IN CASH.", (cost*cups));
                         System.out.println();
                     } else {
-                        totalCupsMade += cups;
                         cupsSet = true;
                     }
                 } else {
@@ -315,27 +313,26 @@ public class Game {
     }
 
     /**
-     * Verifies number for signs to make by user is acceptable
-     * Checks if user can afford to make enough signs
-     * If true, then sets number of signs to make
-     * If false, asks user for a new number
-     * Ignores all non-Double values by asking for new Double
-     * Coverts doubles to their absolute values
-     * @param assets Current available funds
+     * Sets number of signs
+     * Checks if user input byte is valid
+     * Checks if value is greater or equal to 0 and less than 50
+     * if true, checks if user can afford to make # of signs
+     *  if true, number of signs is set
+     * if false, asks user to enter a new number
+     * @param assets current assets available to make signs
      */
-    private void setSigns(double assets) {
+    private void setSigns(float assets) {
         boolean signsSet = false;
 
         while(!signsSet) {
             try {
-                signs = Double.parseDouble(in.next());
+                signs = Byte.parseByte(in.next());
                 if(signs >= 0 && signs < 50) {
                     if(signs*SC > assets) {
                         System.out.printf("THINK AGAIN, YOU HAVE ONLY $%.2f", assets);
                         System.out.println();
                         System.out.println("IN CASH LEFT AFTER MAKING YOUR LEMONADE.");
                     } else {
-                        totalSignsMade += signs;
                         signsSet = true;
                     }
                 } else {
@@ -360,7 +357,7 @@ public class Game {
 
         while(!priceSet) {
             try {
-                price = Double.parseDouble(in.next());
+                price = Float.parseFloat(in.next());
                 price = Math.abs(price);
                 if(!(price >= 100)) {
                     priceSet = true;
@@ -393,7 +390,7 @@ public class Game {
      * and price of lemonade.
      */
     private void calculateChanceOfSelling() {
-        chance += (chance*(signs/100));
+        chance += (chance * (double) (signs/100));
         chance += chance/price;
         chance = chance/100;
     }
@@ -408,15 +405,20 @@ public class Game {
         d = d/100; // rng turned into percentage
         // rng vs chance
         if(d < chance) { cupsSold = cups; }
-        else { cupsSold = Math.ceil(cups*chance); }
-        totalCupsSold += cupsSold;
+        else { cupsSold = (short) Math.ceil(cups*chance); }
     }
 
+    /**
+     * Calculates and sets income
+     * # of cups sold * price of lemonade / 100
+     */
     private void setIncome() {
         income = (cupsSold * price) / 100;
-        revenue += income;
     }
 
+    /**
+     * Sets profit
+     */
     private void setProfit() {
         profit = income-expense;
     }
@@ -431,33 +433,33 @@ public class Game {
 
     /**
      * Getter for number of cups sold
-     * @return Double of cups sold
+     * @return Short number of cups sold
      */
-    public double getCupsSold() {
+    public short getCupsSold() {
         return cupsSold;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public double getIncome() {
+    public float getIncome() {
         return income;
     }
 
-    public double getCups() {
+    public short getCups() {
         return cups;
     }
 
-    public double getSigns() {
+    public byte getSigns() {
         return signs;
     }
 
-    public double getExpense() {
+    public float getExpense() {
         return expense;
     }
 
-    public double getProfit() {
+    public float getProfit() {
         return profit;
     }
 
