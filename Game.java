@@ -17,7 +17,8 @@ public class Game {
     private byte id;
     private float assets;
     private byte numOfPlayers;
-    private byte day = 1, weather;
+    private byte day = 1;
+    private double weather;
     private double chance;
     private float cost;
     private float price;
@@ -30,16 +31,16 @@ public class Game {
     private String answer;
     private boolean tryAgain;
 
+    byte randEvent;
+
 
     public void Game() {
         intro();
         // Process of one day
         do {
-            weather = (byte) rand.nextInt(3); // Randomly choosing weather byte
             int currentStand = 0;
 
             while(currentStand < numOfPlayers) {
-
                 // Deciding chance of selling lemonade based on weather
                 text.border(); //text border
                 weather();
@@ -57,7 +58,7 @@ public class Game {
 
                     // Asking how many cups of lemonade to make
                     text.askHowManyCups();
-                    setCups(cost, assets);
+                    setCups();
                     assets -= (cups*cost);
 
                     // Asking how many SIGNS to make
@@ -75,7 +76,6 @@ public class Game {
                     // Ask to change anything
                     text.askToChangeAnything();
                     tryAgain = changeAnything();
-
                 } while(tryAgain);
 
                 /* Selling the lemonade */
@@ -176,16 +176,6 @@ public class Game {
     }
 
     /**
-     * Instantiates number of players and their stands
-     */
-    private void instantiatePlayers() {
-        s = new Stand[numOfPlayers];
-        for(int i = 0; i < numOfPlayers; i++){
-            s[i] = new Stand((byte) (i+1));
-        }
-    }
-
-    /**
      * Sets number of players using a user input byte
      * Checks if number is between 0 and 30
      * if true, the value is acceptable
@@ -206,6 +196,16 @@ public class Game {
             } catch (NumberFormatException ignore) {
                 text.tryANewNumber();
             }
+        }
+    }
+
+    /**
+     * Instantiates number of players and their stands
+     */
+    private void instantiatePlayers() {
+        s = new Stand[numOfPlayers];
+        for(int i = 0; i < numOfPlayers; i++){
+            s[i] = new Stand((byte) (i+1));
         }
     }
 
@@ -236,22 +236,19 @@ public class Game {
      * Determines chance of selling lemonade based off the weather
      */
     private void weather() {
-        switch(weather) {
-            case 0: // hot and dry
-                text.forecastToday("HOT AND DRY");
-                chance = (double) rand.nextInt(22+1) + 78;
-                break;
-            case 1: // sunny
-                text.forecastToday("SUNNY");
-                chance = (double) rand.nextInt(43+1) + 34;
-                break;
-            case 2: // cloudy
-                text.forecastToday("CLOUDY");
-                chance = (double) rand.nextInt(33+1);
-                break;
-            default:
-                chance = 1;
-                break;
+        weather = rand.nextDouble();
+        if (weather < .6) {
+            weather = 2;
+            text.forecastToday("SUNNY");
+            chance = (double) rand.nextInt(43 + 1) + 34;
+        } else if (weather < .8) {
+            weather = 10;
+            text.forecastToday("CLOUDY");
+            chance = (double) rand.nextInt(33 + 1);
+        } else {
+            weather = 7;
+            text.forecastToday("HOT AND DRY");
+            chance = (double) rand.nextInt(22 + 1) + 78;
         }
     }
 
@@ -260,32 +257,47 @@ public class Game {
      * Checks the day against arguments and sets the cost accordingly
      */
     private void setCost() {
-        if ( day <= 2) {
+        if (day <= 2) {
             cost = 0.02f;
             text.costOfLemonade(day, cost);
         }
-        if( day > 2 ) {
+        if(day > 2) {
             cost = 0.04f;
             text.costOfLemonade(day, cost);
             if (day == 3) {
                 System.out.println("(YOUR MOM QUIT GIVING YOU FREE SUGAR)" );
             }
         }
-        if ( day > 6) {
+        if (day > 6) {
             cost = 0.05f;
             text.costOfLemonade(day, cost);
-            if( day == 7 ) {
+            if(day == 7) {
                 System.out.println("(THE PRICE OF LEMONADE MIX JUST WENT UP)" );
+            }
+        }
+    }
+
+    private void randomEvents(byte weather){
+        if(weather == 2) {
+            int J = 30 + (int) (rand.nextDouble()*5*10);
+            System.out.println("THERE IS A " + J + "% CHANCE OF LIGHT RAIN");
+            System.out.println("AND THE WEATHER IS COOLER TODAY.");
+        }
+
+        if(rand.nextDouble() < 0.25) {
+            randEvent = 2;
+            System.out.println("THE STREET DEPARTMENT IS WORKING TODAY.");
+            System.out.println("THERE WILL BE NO TRAFFIC ON YOUR STREET.");
+            if(rand.nextInt(2) < 1) {
+
             }
         }
     }
 
     /**
      * Sets number of cups
-     * @param cost cost lemonade set by the day
-     * @param assets available assets of the stand
      */
-    private void setCups(float cost, float assets) {
+    private void setCups() {
         boolean cupsSet = false;
 
         while(!cupsSet) {
@@ -375,7 +387,7 @@ public class Game {
      * Asks if the user wants to change any of their inputs
      * Any answer other than 'yes' or 'y' will reset day
      * Else continue
-     * @return false if 'yes' or 'y', else true
+     * @return true if 'yes' or 'y', else false
      */
     private boolean changeAnything() {
         answer = "";
