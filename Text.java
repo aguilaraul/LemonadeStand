@@ -1,6 +1,6 @@
 /*
  * @author  Raul Aguilar
- * @date    December 25, 2018
+ * @date    December 30, 2018
  */
 package lemonadestand;
 
@@ -18,6 +18,7 @@ public class Text {
      */
     void titlePage() {
         System.out.println("HI! WELCOME TO LEMONSVILLE, CALIFORNIA!");
+        System.out.println();
         System.out.println("IN THIS SMALL TOWN, YOU ARE IN CHARGE OF");
         System.out.println("RUNNING YOUR OWN LEMONADE STAND. YOU CAN");
         System.out.println("COMPETE WITH AS MANY OTHER PEOPLE AS YOU");
@@ -25,6 +26,7 @@ public class Text {
         System.out.println("TO YOU (THE OTHER STANDS' SALES WILL NOT");
         System.out.println("AFFECT YOUR BUSINESS IN ANY WAY). IF YOU");
         System.out.println("MAKE THE MOST MONEY, YOU'RE THE WINNER!!" );
+        System.out.println();
         System.out.println("ARE YOU STARTING A NEW GAME? (YES OR NO)");
         System.out.println("TYPE YOUR ANSWER AND HIT RETURN ==> ");
     }
@@ -194,9 +196,16 @@ public class Text {
         System.out.println("Total Profit: $" + (tr-te) );
     }
 
-    void bankrupt(byte id) {
-        System.out.println("STAND" + id);
-        System.out.println("...YOU DON'T HAVE ENOUGH MONEY LEFT"
-            + " TO STAY IN BUSINESS YOU'RE BANKRUPT!");
+    void streetCrewBoughtAllYourLemonade() {
+        System.out.println();
+        System.out.println("THE STREET CREWS BOUGHT ALL YOUR");
+        System.out.println("LEMONADE AT LUNCHTIME!!");
+    }
+
+    void thunderstorms() {
+        System.out.println("WEATHER REPORT: A SEVERE THUNDERSTORM");
+        System.out.println("HIT LEMONSVILLE EARLIER TODAY, JUST AS");
+        System.out.println("THE LEMONADE STANDS WERE BEING SET UP.");
+        System.out.println("UNFORTUNATELY, EVERYTHING WAS RUINED!!");
     }
 }

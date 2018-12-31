@@ -1,6 +1,6 @@
 /*
  * @author  Raul Aguilar
- * @date    December 25, 2018
+ * @date    December 30, 2018
  */
 package lemonadestand;
 import java.util.Random;
@@ -17,8 +17,10 @@ public class Game {
     private byte id;
     private float assets;
     private byte numOfPlayers;
-    private byte day = 1, weather;
+    private byte day = 1;
+    private double weather;
     private double chance;
+    private double R1 = 1.0;
     private float cost;
     private float price;
     private float expense;
@@ -29,23 +31,25 @@ public class Game {
     private byte signs;
     private String answer;
     private boolean tryAgain;
-
+    private boolean streetCrewThirsty = false;
+    private boolean thunderstorm = false;
 
     public void Game() {
         intro();
         // Process of one day
         do {
-            weather = (byte) rand.nextInt(3); // Randomly choosing weather byte
             int currentStand = 0;
 
             while(currentStand < numOfPlayers) {
-
                 // Deciding chance of selling lemonade based on weather
                 text.border(); //text border
                 weather();
+                if(day > 2) {
+                    randomEvents();
+                }
 
                 // Deciding the cost of the day
-                setCost();
+                costOfTheDay();
 
                 // The Game
                 do {
@@ -57,16 +61,16 @@ public class Game {
 
                     // Asking how many cups of lemonade to make
                     text.askHowManyCups();
-                    setCups(cost, assets);
+                    makeLemonade();
                     assets -= (cups*cost);
 
                     // Asking how many SIGNS to make
                     text.askHowManySigns();
-                    setSigns(assets);
+                    makeSigns(assets);
 
                     // Adding the cost of signs to the cost of making lemonade
                     // Subtracting expense of signs and lemonade from assets
-                    expense = (cups*cost)+(signs*SC);
+                    setExpense((cups*cost)+(signs*SC));
 
                     // Ask price of lemonade
                     text.askToSetPrice();
@@ -75,17 +79,23 @@ public class Game {
                     // Ask to change anything
                     text.askToChangeAnything();
                     tryAgain = changeAnything();
-
                 } while(tryAgain);
 
                 /* Selling the lemonade */
                 calculateChanceOfSelling();
-                cupsSold();
-                setIncome();
-                setProfit();
+                if(streetCrewThirsty) {
+                    text.streetCrewBoughtAllYourLemonade();
+                    setCupsSold(cups);
+                } else if (thunderstorm) {
+                    text.thunderstorms();
+                    setCupsSold((short) 0);
+                } else {
+                    sellLemonade();
+                }
+                setIncome(calculateIncome());
+                setProfit(calculateProfit());
 
-                assets = assets + getProfit();
-
+                assets = s[currentStand].getAssets() + getProfit();
                 s[currentStand].setAssets(assets);
 
                 text.financeReport(id, getDay(), getCupsSold(), getPrice(), getIncome(), getCups(), getSigns(),
@@ -176,16 +186,6 @@ public class Game {
     }
 
     /**
-     * Instantiates number of players and their stands
-     */
-    private void instantiatePlayers() {
-        s = new Stand[numOfPlayers];
-        for(int i = 0; i < numOfPlayers; i++){
-            s[i] = new Stand((byte) (i+1));
-        }
-    }
-
-    /**
      * Sets number of players using a user input byte
      * Checks if number is between 0 and 30
      * if true, the value is acceptable
@@ -206,6 +206,16 @@ public class Game {
             } catch (NumberFormatException ignore) {
                 text.tryANewNumber();
             }
+        }
+    }
+
+    /**
+     * Instantiates number of players and their stands
+     */
+    private void instantiatePlayers() {
+        s = new Stand[numOfPlayers];
+        for(int i = 0; i < numOfPlayers; i++){
+            s[i] = new Stand((byte) (i+1));
         }
     }
 
@@ -236,22 +246,19 @@ public class Game {
      * Determines chance of selling lemonade based off the weather
      */
     private void weather() {
-        switch(weather) {
-            case 0: // hot and dry
-                text.forecastToday("HOT AND DRY");
-                chance = (double) rand.nextInt(22+1) + 78;
-                break;
-            case 1: // sunny
-                text.forecastToday("SUNNY");
-                chance = (double) rand.nextInt(43+1) + 34;
-                break;
-            case 2: // cloudy
-                text.forecastToday("CLOUDY");
-                chance = (double) rand.nextInt(33+1);
-                break;
-            default:
-                chance = 1;
-                break;
+        weather = rand.nextDouble();
+        if (weather < .6) {
+            weather = 2;
+            text.forecastToday("SUNNY");
+            chance = (double) rand.nextInt(43 + 1) + 34;
+        } else if (weather < .8) {
+            weather = 10;
+            text.forecastToday("CLOUDY");
+            chance = (double) rand.nextInt(33 + 1);
+        } else {
+            weather = 7;
+            text.forecastToday("HOT AND DRY");
+            chance = (double) rand.nextInt(22 + 1) + 78;
         }
     }
 
@@ -259,33 +266,62 @@ public class Game {
      * Sets cost of making lemonade for the day
      * Checks the day against arguments and sets the cost accordingly
      */
-    private void setCost() {
-        if ( day <= 2) {
+    private void costOfTheDay() {
+        if (day < 3) {
             cost = 0.02f;
             text.costOfLemonade(day, cost);
-        }
-        if( day > 2 ) {
+        } else if (day < 7) {
             cost = 0.04f;
             text.costOfLemonade(day, cost);
             if (day == 3) {
                 System.out.println("(YOUR MOM QUIT GIVING YOU FREE SUGAR)" );
             }
-        }
-        if ( day > 6) {
+        } else {
             cost = 0.05f;
             text.costOfLemonade(day, cost);
-            if( day == 7 ) {
+            if(day == 7) {
                 System.out.println("(THE PRICE OF LEMONADE MIX JUST WENT UP)" );
             }
         }
     }
 
     /**
-     * Sets number of cups
-     * @param cost cost lemonade set by the day
-     * @param assets available assets of the stand
+     * Random Events
+     * Random events can occur as thunderstorms, street closure, and heat waves
      */
-    private void setCups(float cost, float assets) {
+    private void randomEvents(){
+        streetCrewThirsty = false;
+        thunderstorm = false;
+
+        if(rand.nextDouble() < 0.25) {
+            System.out.println("THE STREET DEPARTMENT IS WORKING TODAY.");
+            System.out.println("THERE WILL BE NO TRAFFIC ON YOUR STREET.");
+            if(rand.nextInt(2) < 1) {
+                streetCrewThirsty = true;
+            } else {
+                R1 = .1;
+            }
+        } else {
+            if(weather == 10) {
+                if(rand.nextDouble() < .25) {
+                    thunderstorm = true;
+                } else {
+                    int J = 30 + (int) Math.floor(rand.nextDouble()*5*10);
+                    System.out.println("THERE IS A " + J + "% CHANCE OF LIGHT RAIN");
+                    System.out.println("AND THE WEATHER IS COOLER TODAY.");
+                    R1 = 1 - J/100.0;
+                }
+            }
+            if(weather == 7) {
+                System.out.println("A HEAT WAVE IS PREDICTED FOR TODAY!");
+            }
+        }
+    }
+
+    /**
+     * Set number of cups of lemonade to make
+     */
+    private void makeLemonade() {
         boolean cupsSet = false;
 
         while(!cupsSet) {
@@ -321,7 +357,7 @@ public class Game {
      * if false, asks user to enter a new number
      * @param assets current assets available to make signs
      */
-    private void setSigns(float assets) {
+    private void makeSigns(float assets) {
         boolean signsSet = false;
 
         while(!signsSet) {
@@ -375,7 +411,7 @@ public class Game {
      * Asks if the user wants to change any of their inputs
      * Any answer other than 'yes' or 'y' will reset day
      * Else continue
-     * @return false if 'yes' or 'y', else true
+     * @return true if 'yes' or 'y', else false
      */
     private boolean changeAnything() {
         answer = "";
@@ -390,8 +426,11 @@ public class Game {
      * and price of lemonade.
      */
     private void calculateChanceOfSelling() {
-        chance += (chance * (double) (signs/100));
+        chance += (chance * (double) (signs/10));
         chance += chance/price;
+        if(R1 != 1) {
+            chance -= chance*R1;
+        }
         chance = chance/100;
     }
 
@@ -400,7 +439,7 @@ public class Game {
      * If the chance of selling is greater than random number, then all cups made are sold
      * else, a percentage of cups made are sold based on the chance
      */
-    private void cupsSold() {
+    private void sellLemonade() {
         float d = rand.nextInt(101); // rng to use against chance
         d = d/100; // rng turned into percentage
         // rng vs chance
@@ -410,17 +449,50 @@ public class Game {
 
     /**
      * Calculates and sets income
-     * # of cups sold * price of lemonade / 100
+     * @return # of cups sold * price of lemonade / 100
      */
-    private void setIncome() {
-        income = (cupsSold * price) / 100;
+    private float calculateIncome() {
+        return (cupsSold * price) / 100;
+    }
+
+    /**
+     * Calculates profit from sales
+     * @return profit = income - expense
+     */
+    private float calculateProfit() {
+        return (income-expense);
+    }
+
+    /**
+     * Sets income
+     * @param i Float income
+     */
+    private void setIncome(float i) {
+        income = i;
     }
 
     /**
      * Sets profit
+     * @param p Float profit
      */
-    private void setProfit() {
-        profit = income-expense;
+    private void setProfit(float p) {
+        profit = p;
+    }
+
+    /**
+     * Sets number of cups sold
+     * @param cs Short cups sold
+     */
+    private void setCupsSold(short cs) {
+        cupsSold = cs;
+    }
+
+    /**
+     * Sets expense
+     * @param e Float expense
+     */
+    private void setExpense(float e) {
+        expense = e;
     }
 
     /**
