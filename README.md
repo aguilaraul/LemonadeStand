@@ -13,10 +13,10 @@ as guide to build a Java version.
 DONE:
 * Fixed all checks
 * Added random events
+* Keep the same weather and chance for multiple players
 
 TODO:
-* Fix financial report for muliple players
 * Display endgame screen
-* Optimize chance of selling lemoade
+* Optimize chance of selling lemonade
 * Add bankruptcy state
 * Make it all in JFrame
