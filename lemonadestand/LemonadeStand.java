@@ -1,8 +1,8 @@
 /*
  * @author  Raul Aguilar
- * @date    December 30, 2018
+ * @date    January 02, 2019
  */
-
+package lemonadestand;
 import java.util.Scanner;
 
 public class LemonadeStand {

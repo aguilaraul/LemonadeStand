@@ -1,8 +1,8 @@
 /*
  * @author  Raul Aguilar
- * @date    December 30, 2018
+ * @date    January 02, 2019
  */
-
+package lemonadestand;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -36,31 +36,18 @@ public class Game {
 
     public void Game() {
         intro();
-	text.border();
 
         // Process of one day
         do {
-		int currentStand = 0;
-		// Deciding chance of selling lemonade based on the weather
-		weather();
-		if(day > 2) {
-			randomEvents();
-		}
+            // reset currentStand at the beginning of everyday
+            int currentStand = 0;
+            // set weather once per day
+            weather();
+            // weather report once per day at the start of day
+            text.border();
+            text.forecastToday(weather);
 
-            if(numOfPlayers != 1) {
-                if(s[currentStand].getIsBankrupt()) {
-                    currentStand++;
-                    processOfOneStand(currentStand);
-                } else {
-                    processOfOneStand(currentStand);
-                }
-            } else {
-                if(s[currentStand].getIsBankrupt()) {
-                    break;
-                } else {
-                    processOfOneStand(currentStand);
-                }
-            }
+            processOfOneStand(currentStand);
 
             day++;
         } while(day < 13); // end of day
@@ -210,40 +197,50 @@ public class Game {
                 id = s[currentStand].getId();
                 assets = s[currentStand].getAssets();
                 expense = 0;
-		if(currentStand == 0 && !s[currentStand].getIsBankrupt() ) {
-			text.forecastToday(weather);
-		} else if (currentStand > 0 && s[currentStand-1].getIsBankrupt() ) {
-		    text.forecastToday(weather);
-                }
-                // Deciding the cost of the day
+                
+		        // Deciding the cost of the day
                 costOfTheDay();
-                //Printing Stand information
-                System.out.println();
-                System.out.printf("%s \t %s %.2f%n", "Lemonade Stand " + id, "Assets", assets);
+                text.costOfLemonade(day, cost);
+                // Display stand info
+                text.standInfo(id, assets);
 
-                // Asking how many cups of lemonade to make
-                text.askHowManyCups();
-                makeLemonade();
-                assets -= (cups*cost);
+                // if bankrupt
+                // display You are bankrupt no decisions to make
+                // if not bankrupt
+                // ask questions
+                // always ask to change anything
+                if(s[currentStand].getIsBankrupt()) {
+                    text.youAreBankruptNoDecisions();
+                } else {
+                    // Asking how many cups of lemonade to make
+                    text.askHowManyCups();
+                    makeLemonade();
+                    assets -= (cups*cost);
 
-                // Asking how many SIGNS to make
-                text.askHowManySigns();
-                makeSigns(assets);
+                    // Asking how many SIGNS to make
+                    text.askHowManySigns();
+                    makeSigns(assets);
 
-                // Adding the cost of signs to the cost of making lemonade
-                // Subtracting expense of signs and lemonade from assets
-                setExpense((cups*cost)+(signs*SC));
+                    // Adding the cost of signs to the cost of making lemonade
+                    // Subtracting expense of signs and lemonade from assets
+                    setExpense((cups*cost)+(signs*SC));
 
-                // Ask price of lemonade
-                text.askToSetPrice();
-                setPrice();
-
-                // Ask to change anything
-                text.askToChangeAnything();
-                tryAgain = changeAnything();
+                    // Ask price of lemonade
+                    text.askToSetPrice();
+                    setPrice();
+                }
+                // ask to change anything
+                wouldYouLikeToChangeAnything();
             } while(tryAgain);
 
             /* Selling the lemonade */
+            // if street crew is thirsty
+            //  sell all the lemonade
+            // if thunderstorms
+            //  display weather report on financial report
+            //  sell no lemonade
+            // else
+            //  sell lemonade like normal
             if(streetCrewThirsty) {
                 text.streetCrewBoughtAllYourLemonade();
                 setCupsSold(getCups());
@@ -253,22 +250,42 @@ public class Game {
             } else {
                 sellLemonade(calculateChanceOfSelling());
             }
+            // set income and profit of the day
             setIncome(calculateIncome());
             setProfit(calculateProfit());
 
+            // Calculate assets and set to current stand
             assets = s[currentStand].getAssets() + getProfit();
             s[currentStand].setAssets(assets);
 
-            text.financeReport(id, getDay(), getCupsSold(), getPrice(), getIncome(), getCups(), getSigns(),
-                    getExpense(), getProfit(), assets);
+            // if current stand is bankrupt
+            //  display stand id is bankrupt
+            // else
+            //  display financial report
+            if(s[currentStand].getIsBankrupt()) {
+                text.standBankrupt(id);
+            } else {
+                text.financeReport(id, getDay(), getCupsSold(), getPrice(), getIncome(), getCups(), getSigns(),
+                        getExpense(), getProfit(), assets);
+            }
 
-            if(s[currentStand].getAssets() < cost) {
-                s[currentStand].setBankrupt(true);
-                text.bankrupt();
+            // if current stand assets < cost of lemonade
+            // then stand is bankrupt and display message
+            if (!s[currentStand].getIsBankrupt()) {
+                if(s[currentStand].getAssets() < cost) {
+                    s[currentStand].setBankrupt(true);
+                    text.youDontHaveEnoughMoney();
+                }
             }
 
             currentStand++;
         } // end of current Stand
+    }
+
+    private void wouldYouLikeToChangeAnything() {
+        // Ask to change anything
+        text.askToChangeAnything();
+        tryAgain = changeAnything();
     }
 
     /**
@@ -290,24 +307,14 @@ public class Game {
 
     /**
      * Sets cost of making lemonade for the day
-     * Checks the day against arguments and sets the cost accordingly
      */
     private void costOfTheDay() {
         if (day < 3) {
             cost = 0.02f;
-            text.costOfLemonade(day, cost);
         } else if (day < 7) {
             cost = 0.04f;
-            text.costOfLemonade(day, cost);
-            if (day == 3) {
-                System.out.println("(YOUR MOM QUIT GIVING YOU FREE SUGAR)" );
-            }
         } else {
             cost = 0.05f;
-            text.costOfLemonade(day, cost);
-            if(day == 7) {
-                System.out.println("(THE PRICE OF LEMONADE MIX JUST WENT UP)" );
-            }
         }
     }
 

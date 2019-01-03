@@ -1,8 +1,8 @@
 /*
  * @author  Raul Aguilar
- * @date    December 30, 2018
+ * @date    January 02, 2019
  */
-
+package lemonadestand;
 public class Text {
 
     /**
@@ -101,14 +101,8 @@ public class Text {
     }
 
     /**
-     * Displays current day and the cost of lemonade
-     * @param day current day
-     * @param cost cost of lemonade
+     * Displays the forecast determined by weather()
      */
-    void costOfLemonade(byte day, float cost) {
-        System.out.println("ON DAY " + day + ", THE COST OF LEMONADE IS $" + cost );
-    }
-
     void forecastToday(byte weather) {
         String forecast;
         switch (weather) {
@@ -125,6 +119,28 @@ public class Text {
                 forecast = "";
         }
         System.out.println("The forecast today is " + forecast);
+    }
+    
+    /**
+     * Displays current day and the cost of lemonade
+     * @param day current day
+     * @param cost cost of lemonade
+     */
+    void costOfLemonade(byte day, float cost) {
+        System.out.println("ON DAY " + day + ", THE COST OF LEMONADE IS $" + cost );
+	if (day == 3) {
+		System.out.println("(YOUR MOM QUIT GIVING YOU FREE SUGAR)" );
+	} else if (day == 7) {
+		System.out.println("(THE PRICE OF LEMONADE MIX JUST WENT UP)" );
+	}
+    }
+    
+    /**
+     * Prints stand information at top of the day
+     */
+    void standInfo(byte id, float assets) {
+	    System.out.println();
+	    System.out.printf("%s \t %s %.2f%n", "Lemonade Stand " + id, "Assets", assets);
     }
 
     /**
@@ -159,7 +175,7 @@ public class Text {
     }
 
     /**
-     * Displays the end of the day financial report for the business
+     * Displays the financial report for the stand at the end of the day
      * @param id lemonade stand number
      * @param day feeds in current day
      * @param cupsSold number of cups sold
@@ -191,6 +207,54 @@ public class Text {
         border();
     }
 
+    void streetCrewBoughtAllYourLemonade() {
+        System.out.println();
+        System.out.println("THE STREET CREWS BOUGHT ALL YOUR");
+        System.out.println("LEMONADE AT LUNCHTIME!!");
+    }
+
+    /**
+     * Prints on the financial report screen after a thunderstorm
+     */
+    void thunderstorms() {
+        System.out.println("WEATHER REPORT: A SEVERE THUNDERSTORM");
+        System.out.println("HIT LEMONSVILLE EARLIER TODAY, JUST AS");
+        System.out.println("THE LEMONADE STANDS WERE BEING SET UP.");
+        System.out.println("UNFORTUNATELY, EVERYTHING WAS RUINED!!");
+    }
+
+    /**
+     * Prints at the end of a financial report when a stand is bankrupt
+     * Bankrupt = true when assets > cost
+     */
+    void youDontHaveEnoughMoney() {
+        System.out.println();
+	System.out.println("...YOU DON'T HAVE ENOUGH MONEY LEFT");
+        System.out.println("TO STAY IN BUSINESS YOU'RE BANKRUPT!");
+        System.out.println();
+    }
+    
+    /**
+     * Prints when the current stand is bankrupt instead of asking
+     * questions
+     */
+    void youAreBankruptNoDecisions() {
+        System.out.println();
+	    System.out.println("YOU ARE BANKRUPT, NO DECISIONS");
+	    System.out.println("FOR YOU TO MAKE.");
+	    System.out.println();
+    }
+
+    /**
+     * Prints when a stand is already bankrupt has nothing to
+     * display in the financial report
+     */
+    void standBankrupt(byte id) {
+        System.out.println();
+	    System.out.println("STAND " + id + " BANKRUPT");
+	    System.out.println();
+    }
+
     /**
      * Displays at the end of the game, showing stats from the playthrough
      * @param day the last day played
@@ -214,30 +278,5 @@ public class Text {
         System.out.println("Total expenses: $" + te);
         System.out.println("Total revenue: $" + tr);
         System.out.println("Total Profit: $" + (tr-te) );
-    }
-
-    void streetCrewBoughtAllYourLemonade() {
-        System.out.println();
-        System.out.println("THE STREET CREWS BOUGHT ALL YOUR");
-        System.out.println("LEMONADE AT LUNCHTIME!!");
-    }
-
-    void thunderstorms() {
-        System.out.println("WEATHER REPORT: A SEVERE THUNDERSTORM");
-        System.out.println("HIT LEMONSVILLE EARLIER TODAY, JUST AS");
-        System.out.println("THE LEMONADE STANDS WERE BEING SET UP.");
-        System.out.println("UNFORTUNATELY, EVERYTHING WAS RUINED!!");
-    }
-
-    void standBankrupt(byte id) {
-        System.out.println();
-	System.out.println("STAND " + id + " BANKRUPT");
-    }
-
-    void bankrupt() {
-        System.out.println();
-	System.out.println("...YOU DON'T HAVE ENOUGH MONEY LEFT");
-        System.out.println("TO STAY IN BUSINESS YOU'RE BANKRUPT!");
-        System.out.println();
-    }
+     }
 }
