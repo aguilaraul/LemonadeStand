@@ -2,7 +2,6 @@
  * @author  Raul Aguilar
  * @date    December 30, 2018
  */
-package lemonadestand;
 
 public class Text {
 
@@ -80,6 +79,13 @@ public class Text {
     }
 
     /**
+     * Asks user how many users are playing
+     */
+    void askHowManyPlayers() {
+        System.out.println("HOW MANY PEOPLE WILL BE PLAYING?");
+    }
+
+    /**
      * Error message when user inputs unacceptable number of players
      */
     void cantAcceptThatMany() {
@@ -92,13 +98,6 @@ public class Text {
      */
     void tryANewNumber() {
         System.out.println("TRY A NEW NUMBER.");
-    }
-
-    /**
-     * Asks user how many users are playing
-     */
-    void askHowManyPlayers() {
-        System.out.println("HOW MANY PEOPLE WILL BE PLAYING?");
     }
 
     /**
@@ -189,6 +188,7 @@ public class Text {
         System.out.println();
         System.out.printf("%20S $%.2f%n", "PROFIT", profit);
         System.out.printf("%20S $%.2f%n", "ASSETS", assets);
+        border();
     }
 
     /**
@@ -227,5 +227,17 @@ public class Text {
         System.out.println("HIT LEMONSVILLE EARLIER TODAY, JUST AS");
         System.out.println("THE LEMONADE STANDS WERE BEING SET UP.");
         System.out.println("UNFORTUNATELY, EVERYTHING WAS RUINED!!");
+    }
+
+    void standBankrupt(byte id) {
+        System.out.println();
+	System.out.println("STAND " + id + " BANKRUPT");
+    }
+
+    void bankrupt() {
+        System.out.println();
+	System.out.println("...YOU DON'T HAVE ENOUGH MONEY LEFT");
+        System.out.println("TO STAY IN BUSINESS YOU'RE BANKRUPT!");
+        System.out.println();
     }
 }

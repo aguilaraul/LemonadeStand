@@ -2,7 +2,6 @@
  * @author  Raul Aguilar
  * @date    December 30, 2018
  */
-package lemonadestand;
 
 import java.util.Scanner;
 

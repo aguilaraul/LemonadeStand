@@ -2,7 +2,7 @@
  * @author  Raul Aguilar
  * @date    December 30, 2018
  */
-package lemonadestand;
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -36,78 +36,32 @@ public class Game {
 
     public void Game() {
         intro();
+	text.border();
 
         // Process of one day
         do {
-            int currentStand = 0;
+		int currentStand = 0;
+		// Deciding chance of selling lemonade based on the weather
+		weather();
+		if(day > 2) {
+			randomEvents();
+		}
 
-            // Deciding chance of selling lemonade based on weather
-            text.border(); //text border
-            weather();
-            if(day > 2) {
-                randomEvents();
+            if(numOfPlayers != 1) {
+                if(s[currentStand].getIsBankrupt()) {
+                    currentStand++;
+                    processOfOneStand(currentStand);
+                } else {
+                    processOfOneStand(currentStand);
+                }
+            } else {
+                if(s[currentStand].getIsBankrupt()) {
+                    break;
+                } else {
+                    processOfOneStand(currentStand);
+                }
             }
 
-            // Process of one player
-            while(currentStand < numOfPlayers) {
-
-                // The Game
-                do {
-                    id = s[currentStand].getId();
-                    assets = s[currentStand].getAssets();
-                    expense = 0;
-                    if(currentStand > 0) {
-                        text.border();
-                    }
-                    // Deciding the cost of the day
-                    costOfTheDay();
-                    //Printing Stand information
-                    System.out.println();
-                    System.out.printf("%s \t %s %.2f%n", "Lemonade Stand " + id, "Assets", assets);
-
-                    // Asking how many cups of lemonade to make
-                    text.askHowManyCups();
-                    makeLemonade();
-                    assets -= (cups*cost);
-
-                    // Asking how many SIGNS to make
-                    text.askHowManySigns();
-                    makeSigns(assets);
-
-                    // Adding the cost of signs to the cost of making lemonade
-                    // Subtracting expense of signs and lemonade from assets
-                    setExpense((cups*cost)+(signs*SC));
-
-                    // Ask price of lemonade
-                    text.askToSetPrice();
-                    setPrice();
-
-                    // Ask to change anything
-                    text.askToChangeAnything();
-                    tryAgain = changeAnything();
-                } while(tryAgain);
-
-                /* Selling the lemonade */
-                if(streetCrewThirsty) {
-                    text.streetCrewBoughtAllYourLemonade();
-                    setCupsSold(cups);
-                } else if (thunderstorm) {
-                    text.thunderstorms();
-                    setCupsSold((short) 0);
-                } else {
-                    sellLemonade(calculateChanceOfSelling());
-                }
-                setIncome(calculateIncome());
-                setProfit(calculateProfit());
-
-                assets = s[currentStand].getAssets() + getProfit();
-                s[currentStand].setAssets(assets);
-
-                text.financeReport(id, getDay(), getCupsSold(), getPrice(), getIncome(), getCups(), getSigns(),
-                        getExpense(), getProfit(), assets);
-
-                currentStand++;
-            } // end of current Stand
             day++;
         } while(day < 13); // end of day
 
@@ -235,7 +189,7 @@ public class Game {
         while(!daySet) {
             try {
                 day = Byte.parseByte(in.next());
-                if(day > 1 && day < 99) {
+                if(day >= 1 && day < 99) {
                     day++;
                     System.out.println("OKAY - WE'LL START WITH DAY NO. " + day);
                     daySet = true;
@@ -247,19 +201,89 @@ public class Game {
         }
     }
 
+    private void processOfOneStand(int currentStand) {
+        // Process of one player
+        while(currentStand < numOfPlayers) {
+
+            // The Game
+            do {
+                id = s[currentStand].getId();
+                assets = s[currentStand].getAssets();
+                expense = 0;
+		if(currentStand == 0 && !s[currentStand].getIsBankrupt() ) {
+			text.forecastToday(weather);
+		} else if (currentStand > 0 && s[currentStand-1].getIsBankrupt() ) {
+		    text.forecastToday(weather);
+                }
+                // Deciding the cost of the day
+                costOfTheDay();
+                //Printing Stand information
+                System.out.println();
+                System.out.printf("%s \t %s %.2f%n", "Lemonade Stand " + id, "Assets", assets);
+
+                // Asking how many cups of lemonade to make
+                text.askHowManyCups();
+                makeLemonade();
+                assets -= (cups*cost);
+
+                // Asking how many SIGNS to make
+                text.askHowManySigns();
+                makeSigns(assets);
+
+                // Adding the cost of signs to the cost of making lemonade
+                // Subtracting expense of signs and lemonade from assets
+                setExpense((cups*cost)+(signs*SC));
+
+                // Ask price of lemonade
+                text.askToSetPrice();
+                setPrice();
+
+                // Ask to change anything
+                text.askToChangeAnything();
+                tryAgain = changeAnything();
+            } while(tryAgain);
+
+            /* Selling the lemonade */
+            if(streetCrewThirsty) {
+                text.streetCrewBoughtAllYourLemonade();
+                setCupsSold(getCups());
+            } else if (thunderstorm) {
+                text.thunderstorms();
+                setCupsSold((short) 0);
+            } else {
+                sellLemonade(calculateChanceOfSelling());
+            }
+            setIncome(calculateIncome());
+            setProfit(calculateProfit());
+
+            assets = s[currentStand].getAssets() + getProfit();
+            s[currentStand].setAssets(assets);
+
+            text.financeReport(id, getDay(), getCupsSold(), getPrice(), getIncome(), getCups(), getSigns(),
+                    getExpense(), getProfit(), assets);
+
+            if(s[currentStand].getAssets() < cost) {
+                s[currentStand].setBankrupt(true);
+                text.bankrupt();
+            }
+
+            currentStand++;
+        } // end of current Stand
+    }
+
     /**
      * Determines chance of selling lemonade based off the weather
      */
     private void weather() {
         double random = rand.nextDouble();
         if (random < .6) {
-            text.forecastToday(weather = 2);
+            weather = 2;
             chance = (double) rand.nextInt(43 + 1) + 34;
         } else if (random < .8) {
-            text.forecastToday(weather = 10);
+            weather = 10;
             chance = (double) rand.nextInt(33 + 1);
         } else {
-            text.forecastToday(weather = 7);
+            weather = 7;
             chance = (double) rand.nextInt(22 + 1) + 78;
         }
     }
@@ -469,34 +493,34 @@ public class Game {
 
     /**
      * Sets income
-     * @param i Float income
+     * @param income Float income
      */
-    private void setIncome(float i) {
-        income = i;
+    private void setIncome(float income) {
+        this.income = income;
     }
 
     /**
      * Sets profit
-     * @param p Float profit
+     * @param profit Float profit
      */
-    private void setProfit(float p) {
-        profit = p;
+    private void setProfit(float profit) {
+        this.profit = profit;
     }
 
     /**
      * Sets number of cups sold
-     * @param cs Short cups sold
+     * @param cups Short cups sold
      */
-    private void setCupsSold(short cs) {
-        cupsSold = cs;
+    private void setCupsSold(short cups) {
+        this.cupsSold = cups;
     }
 
     /**
      * Sets expense
-     * @param e Float expense
+     * @param expense Float expense
      */
-    private void setExpense(float e) {
-        expense = e;
+    private void setExpense(float expense) {
+        this.expense = expense;
     }
 
     /**

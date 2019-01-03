@@ -2,11 +2,11 @@
  * @author  Raul Aguilar
  * @date    December 25, 2018
  */
-package lemonadestand;
 
 class Stand {
     private byte id;
     private float assets;
+    private boolean isBankrupt;
 
     /**
      * Default constructor with no arguments
@@ -14,6 +14,7 @@ class Stand {
     public Stand() {
         this.id = 0;
         this.assets = 2.00f;
+        this.isBankrupt = false;
     }
 
     /**
@@ -23,6 +24,7 @@ class Stand {
     public Stand(byte id) {
         this.id = id;
         this.assets = 2.00f;
+        this.isBankrupt = false;
     }
 
     /**
@@ -30,9 +32,10 @@ class Stand {
      * @param id sets lemonade stand number
      * @param assets sets assets for lemonade stand
      */
-    public Stand(byte id, float assets) {
+    public Stand(byte id, float assets, boolean bankrupt) {
         this.id = id;
         this.assets =  assets;
+        this.isBankrupt = bankrupt;
     }
 
     /**
@@ -61,6 +64,14 @@ class Stand {
     }
 
     /**
+     * Set the condition of isBankrupt
+     * @param condition true is stand is bankrupt, else false
+     */
+    public void setBankrupt(boolean condition) {
+        isBankrupt = condition;
+    }
+
+    /**
      * Accessor for lemonade stand number
      * @return lemonade stand number integer value
      */
@@ -74,6 +85,14 @@ class Stand {
      */
     public float getAssets() {
         return assets;
+    }
+
+    /**
+     * Acessor for boolean isBankrupt
+     * @return true if stand is bankrupt, else false
+     */
+    public boolean getIsBankrupt() {
+        return isBankrupt;
     }
 
     /**
