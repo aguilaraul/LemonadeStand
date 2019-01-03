@@ -14,9 +14,11 @@ DONE:
 * Fixed all checks
 * Added random events
 * Keep the same weather and chance for multiple players
+* Add bankruptcy state
+* Put financial report at the end of day
 
 TODO:
+* Fix formatting
 * Display endgame screen
 * Optimize chance of selling lemonade
-* Add bankruptcy state
 * Make it all in JFrame

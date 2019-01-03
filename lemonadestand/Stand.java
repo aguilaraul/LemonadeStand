@@ -1,11 +1,18 @@
 /*
  * @author  Raul Aguilar
- * @date    January 02, 2019
+ * @date    January 03, 2019
  */
 package lemonadestand;
 class Stand {
     private byte id;
     private float assets;
+    private float price;
+    private float income;
+    private float expense;
+    private float profit;
+    private byte signs;
+    private short cups;
+    private short cupsSold;
     private boolean isBankrupt;
 
     /**
@@ -45,6 +52,7 @@ class Stand {
     public Stand(Stand other) {
         this.id = other.id;
         this.assets = other.assets;
+        this.isBankrupt = other.isBankrupt;
     }
 
     /**
@@ -65,10 +73,64 @@ class Stand {
 
     /**
      * Set the condition of isBankrupt
+     * Testing case is in Game.java
      * @param condition true is stand is bankrupt, else false
      */
     public void setBankrupt(boolean condition) {
         isBankrupt = condition;
+    }
+
+    /**
+     * Sets price to price of lemonade by user
+     * Used to keep track for financial reports
+     * @param price price of lemonade
+     */
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    /**
+     * Sets income
+     * Used in financial reports
+     * @param income Float income
+     */
+    public void setIncome(float income) {
+        this.income = income;
+    }
+
+    /**
+     * Sets expense
+     * Used in financial reports
+     * @param expense Float expense
+     */
+    public void setExpense(float expense) {
+        this.expense = expense;
+    }
+
+    /**
+     * Sets profit
+     * Used in financial reports
+     * @param profit Float profit
+     */
+    public void setProfit(float profit) {
+        this.profit = profit;
+    }
+
+    public void setSigns(byte signs) {
+        this.signs = signs;
+    }
+
+    public void setCups(short cups) {
+        this.cups = cups;
+    }
+
+    /**
+     * Sets number of cups sold
+     * Used in financial reports
+     * @param cups Short cups sold
+     */
+    public void setCupsSold(short cups) {
+        this.cupsSold = cups;
     }
 
     /**
@@ -96,6 +158,39 @@ class Stand {
     }
 
     /**
+     * Getter for number of cups sold
+     * Used in financial reports
+     * @return Short number of cups sold
+     */
+    public short getCupsSold() {
+        return cupsSold;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public float getIncome() {
+        return income;
+    }
+
+    public short getCups() {
+        return cups;
+    }
+
+    public byte getSigns() {
+        return signs;
+    }
+
+    public float getExpense() {
+        return expense;
+    }
+
+    public float getProfit() {
+        return profit;
+    }
+
+    /**
      * Equals method checks all instance variable are equal
      */
     @Override
@@ -116,6 +211,13 @@ class Stand {
     @Override
     public String toString(){
         return "Lemonade Stand " + id
-                + "\nAssets " + assets;
+                + "\nAssets " + assets
+                + "\nSigns " + signs
+                + "\nCups " + cups
+                + "\nCups Sold " + cupsSold
+                + "\nPrice " + price
+                + "\nIncome " + income
+                + "\nExpense " + expense
+                + "\nProfit " + profit;
     }
 }

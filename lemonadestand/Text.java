@@ -127,12 +127,13 @@ public class Text {
      * @param cost cost of lemonade
      */
     void costOfLemonade(byte day, float cost) {
+        System.out.println();
         System.out.println("ON DAY " + day + ", THE COST OF LEMONADE IS $" + cost );
-	if (day == 3) {
-		System.out.println("(YOUR MOM QUIT GIVING YOU FREE SUGAR)" );
-	} else if (day == 7) {
-		System.out.println("(THE PRICE OF LEMONADE MIX JUST WENT UP)" );
-	}
+        if (day == 3) {
+            System.out.println("(YOUR MOM QUIT GIVING YOU FREE SUGAR)" );
+        } else if (day == 7) {
+            System.out.println("(THE PRICE OF LEMONADE MIX JUST WENT UP)" );
+        }
     }
     
     /**
@@ -229,7 +230,7 @@ public class Text {
      */
     void youDontHaveEnoughMoney() {
         System.out.println();
-	System.out.println("...YOU DON'T HAVE ENOUGH MONEY LEFT");
+	    System.out.println("...YOU DON'T HAVE ENOUGH MONEY LEFT");
         System.out.println("TO STAY IN BUSINESS YOU'RE BANKRUPT!");
         System.out.println();
     }
