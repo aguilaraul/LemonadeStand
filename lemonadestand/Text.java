@@ -1,6 +1,6 @@
 /*
  * @author  Raul Aguilar
- * @date    January 02, 2019
+ * @date    January 03, 2019
  */
 package lemonadestand;
 public class Text {
@@ -266,18 +266,25 @@ public class Text {
      * @param te total expense
      * @param tr total revenue
      */
-    void endGameScreen(byte day, int id, double tcm, double tcs, double tsm, double te, double tr) {
+    void endGameScreen(byte day, int id, short tcm, short tcs, short tsm, float tr, float te) {
         System.out.println();
         border();
         System.out.println("$$ LEMONSVILLE FINAL FINANCIAL REPORT $$");
         System.out.println();
         System.out.printf("%6S %d %25S %d\n", "DAY", day, "STAND", id);
         System.out.println();
-        System.out.println("Total number of cups made: " + tcm);
-        System.out.println("Total number of cups sold: " + tcs);
-        System.out.println("Total number of signs made: " + tsm);
-        System.out.println("Total expenses: $" + te);
-        System.out.println("Total revenue: $" + tr);
-        System.out.println("Total Profit: $" + (tr-te) );
+        System.out.printf("%s %d", "Total number of cups made: ", tcm);
+        System.out.println();
+        System.out.printf("%s %d", "Total Cups Sold: ", tcs);
+        System.out.println();
+        System.out.printf("%s %d", "Total Signs Made: ", tsm);
+        System.out.println();
+        System.out.printf("%s %.2f", "Total Revenue: $", tr);
+        System.out.println();
+        System.out.printf("%s %.2f", "Total Expense: $", te);
+        System.out.println();
+        System.out.printf("%s %.2f", "Total Profit: $", (tr-te) );
+        System.out.println();
+        border();
      }
 }

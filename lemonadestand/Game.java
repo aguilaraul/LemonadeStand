@@ -51,12 +51,18 @@ public class Game {
             }
 
             processOfOneStand(currentStand);
-            financialReport(currentStand);
+            financialReport();
 
             day++;
         } while(day < 13); // end of day
 
-        //text.endGameScreen(day, id, totalCupsMade, totalCupsSold, totalSignsMade, totalExpense, revenue);
+        int currentStand = 0;
+        while (currentStand < numOfPlayers) {
+            text.endGameScreen((byte) (day-1), s[currentStand].getId(), s[currentStand].getTotalCupsMade(),
+                    s[currentStand].getTotalCupsSold(), s[currentStand].getTotalSignsMade(),
+                    s[currentStand].getRevenue(), s[currentStand].getTotalExpense());
+            currentStand++;
+        }
     }
 
     /**
@@ -257,27 +263,31 @@ public class Game {
                 sellLemonade(calculateChanceOfSelling());
             }
             // set income and profit of the day
+            s[currentStand].setPrice(price);
+            s[currentStand].setSigns(signs);
+            s[currentStand].setTotalSignsMade(signs);
+            s[currentStand].setCups(cups);
+            s[currentStand].setTotalCupsMade(cups);
+            s[currentStand].setCupsSold(cupsSold);
+            s[currentStand].setTotalCupsSold(cupsSold);
+            s[currentStand].setExpense(expense);
+            s[currentStand].setTotalExpense(expense);
             income = calculateIncome();
             profit = calculateProfit();
+            s[currentStand].setIncome(income);
+            s[currentStand].setRevenue(income);
+            s[currentStand].setProfit(profit);
 
             // Calculate assets and set to current stand
             assets = assets + profit;
             s[currentStand].setAssets(assets);
 
-            s[currentStand].setCupsSold(cupsSold);
-            s[currentStand].setPrice(price);
-            s[currentStand].setIncome(income);
-            s[currentStand].setCups(cups);
-            s[currentStand].setSigns(signs);
-            s[currentStand].setExpense(expense);
-            s[currentStand].setProfit(profit);
-
             currentStand++;
         } // end of current Stand
     }
 
-    private void financialReport(int currentStand) {
-        currentStand = 0;
+    private void financialReport() {
+        int currentStand = 0;
         while (currentStand < numOfPlayers) {
             // if current stand is bankrupt
             //  display stand id is bankrupt
@@ -381,7 +391,7 @@ public class Game {
         while(!cupsSet) {
             try {
                 cups = Short.parseShort(in.next());
-                if (cups > 0 && cups < 1000) {
+                if (cups >= 0 && cups < 1000) {
                     if( (cups*cost) > assets) {
                         System.out.printf("THINK AGAIN!!! YOU HAVE ONLY $%.2f", assets);
                         System.out.println();

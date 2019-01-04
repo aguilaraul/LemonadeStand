@@ -16,9 +16,9 @@ DONE:
 * Keep the same weather and chance for multiple players
 * Add bankruptcy state
 * Put financial report at the end of day
+* Display endgame screen
 
 TODO:
 * Fix formatting
-* Display endgame screen
 * Optimize chance of selling lemonade
 * Make it all in JFrame
