@@ -2,7 +2,6 @@
  * @author  Raul Aguilar
  * @date    January 03, 2019
  */
-package lemonadestand;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -35,7 +34,8 @@ public class Game {
     private boolean thunderstorm = false;
 
     public void Game() {
-        intro();
+        day = 1;
+	intro();
         text.border();
 
         // Process of one day

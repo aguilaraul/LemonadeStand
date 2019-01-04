@@ -9,6 +9,10 @@ which is also using
 http://www.codenautics.com/lemonade/
 as guide to build a Java version.
 
+A playable version of Lemonade Stand (1979) can be found here:
+
+https://archive.org/details/Lemonade_Stand_1979_Apple
+
 
 DONE:
 * Fixed all checks

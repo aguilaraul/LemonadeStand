@@ -2,7 +2,6 @@
  * @author  Raul Aguilar
  * @date    January 03, 2019
  */
-package lemonadestand;
 class Stand {
     private byte id;
     private float assets;
