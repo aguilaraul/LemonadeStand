@@ -13,7 +13,7 @@ public class LemonadeStand {
         Game game = new Game();
 
         while(tryAgain) {
-            game.Game();
+            game.play();
 
             System.out.println("WOULD YOU LIKE TO PLAY AGAIN? ");
             answer = "";

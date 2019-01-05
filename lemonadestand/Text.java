@@ -1,6 +1,6 @@
 /*
  * @author  Raul Aguilar
- * @date    January 03, 2019
+ * @date    January 04, 2019
  */
 public class Text {
 
@@ -137,6 +137,8 @@ public class Text {
     
     /**
      * Prints stand information at top of the day
+     * @param id the id of the current stand
+     * @param assets assets of the current stand
      */
     void standInfo(byte id, float assets) {
 	    System.out.println();
@@ -207,6 +209,10 @@ public class Text {
         border();
     }
 
+    /**
+     * Random Event
+     * Prints if the street crew bought all your lemonade
+     */
     void streetCrewBoughtAllYourLemonade() {
         System.out.println();
         System.out.println("THE STREET CREWS BOUGHT ALL YOUR");
@@ -214,6 +220,7 @@ public class Text {
     }
 
     /**
+     * Random Event
      * Prints on the financial report screen after a thunderstorm
      */
     void thunderstorms() {
@@ -265,25 +272,27 @@ public class Text {
      * @param te total expense
      * @param tr total revenue
      */
-    void endGameScreen(byte day, int id, short tcm, short tcs, short tsm, float tr, float te) {
+    void endGameScreen(byte day, int id, short tcm, short tcs, short tsm, float tr, float te, float asset) {
         System.out.println();
         border();
         System.out.println("$$ LEMONSVILLE FINAL FINANCIAL REPORT $$");
         System.out.println();
         System.out.printf("%6S %d %25S %d\n", "DAY", day, "STAND", id);
         System.out.println();
-        System.out.printf("%s %d", "Total number of cups made: ", tcm);
+        System.out.printf("%20s  %d", "Total Cups Made:", tcm);
         System.out.println();
-        System.out.printf("%s %d", "Total Cups Sold: ", tcs);
+        System.out.printf("%20s  %d", "Total Cups Sold:", tcs);
         System.out.println();
-        System.out.printf("%s %d", "Total Signs Made: ", tsm);
+        System.out.printf("%20s  %d", "Total Signs Made:", tsm);
         System.out.println();
-        System.out.printf("%s %.2f", "Total Revenue: $", tr);
+        System.out.printf("%20s $%.2f", "Total Revenue:", tr);
         System.out.println();
-        System.out.printf("%s %.2f", "Total Expense: $", te);
+        System.out.printf("%20s $%.2f", "Total Expense:", te);
         System.out.println();
-        System.out.printf("%s %.2f", "Total Profit: $", (tr-te) );
+        System.out.printf("%20s $%.2f", "Total Profit:", (tr-te) );
+        System.out.println();
+        System.out.printf("%20s $%.2f", "Assets:", asset);
         System.out.println();
         border();
-     }
+    }
 }

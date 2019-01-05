@@ -1,10 +1,11 @@
 /*
  * @author  Raul Aguilar
- * @date    January 03, 2019
+ * @date    January 04, 2019
  */
 class Stand {
     private byte id;
     private float assets;
+    private boolean isBankrupt;
     private float price;
     private float income;
     private float revenue;
@@ -17,7 +18,6 @@ class Stand {
     private short totalCupsMade;
     private short cupsSold;
     private short totalCupsSold;
-    private boolean isBankrupt;
 
     /**
      * Default constructor with no arguments
@@ -60,12 +60,13 @@ class Stand {
         this.isBankrupt = other.isBankrupt;
     }
 
+// Setters
     /**
      * Sets the lemonade stand number
      * @param i lemonade stand number
      */
     public void setId(byte i) {
-        id = i;
+        this.id = i;
     }
 
     /**
@@ -73,7 +74,7 @@ class Stand {
      * @param a available funds
      */
     public void setAssets(float a) {
-        assets = a;
+        this.assets = a;
     }
 
     /**
@@ -82,12 +83,27 @@ class Stand {
      * @param condition true is stand is bankrupt, else false
      */
     public void setBankrupt(boolean condition) {
-        isBankrupt = condition;
+        this.isBankrupt = condition;
+    }
+
+    public void setAll(float price, float expense, float income, float profit, short cups, short cupsSold, byte signs) {
+	    this.price = price;
+	    this.expense = expense;
+	    this.income = income;
+	    this.profit = profit;
+	    this.cups = cups;
+	    this.cupsSold = cupsSold;
+	    this.signs = signs;
+	    setTotalSignsMade(signs);
+	    setTotalCupsMade(cups);
+	    setTotalCupsSold(cupsSold);
+	    setTotalExpense(expense);
+	    setRevenue(income);
     }
 
     /**
-     * Sets price to price of lemonade by user
-     * Used to keep track for financial reports
+     * Price of lemonade set by stand
+     * Used in financial reports
      * @param price price of lemonade
      */
     public void setPrice(float price) {
@@ -95,27 +111,37 @@ class Stand {
     }
 
     /**
-     * Sets income
+     * Income of stand for the day
      * Used in financial reports
-     * @param income Float income
+     * @param income income of the stand
      */
     public void setIncome(float income) {
         this.income = income;
     }
 
+    /**
+     * Add income of the day to the total revenue
+     * Used in the endgame screen
+     * @param income adds income from day to total revenue
+     */
     public void setRevenue(float income) {
         this.revenue += income;
     }
 
     /**
-     * Sets expense
+     * Sets expense of the day of the stand
      * Used in financial reports
-     * @param expense Float expense
+     * @param expense expense of the stand
      */
     public void setExpense(float expense) {
         this.expense = expense;
     }
 
+    /**
+     * Adds expense of the day to the total expense
+     * Used in the endgame screen
+     * @param expense adds to the total expense of the stand
+     */
     public void setTotalExpense(float expense) {
         this.totalExpense += expense;
     }
@@ -123,17 +149,23 @@ class Stand {
     /**
      * Sets profit
      * Used in financial reports
-     * @param profit Float profit
+     * @param profit profit of the stand for the day
      */
     public void setProfit(float profit) {
         this.profit = profit;
     }
 
+    /**
+    * Sets to the number of signs made by the stand for the day
+    * Used in financial reports
+    * @param signs byte of signs made during day
+    */
     public void setSigns(byte signs) {
         this.signs = signs;
     }
 
     /**
+     * Adds signs made in the day to total signs made by stand
      * Used in endgame screen
      * @param signs signs made during day adds to total made
      */
@@ -142,6 +174,7 @@ class Stand {
     }
 
     /**
+     * Cups of lemonade made by the stand
      * Used in financial report
      * @param cups number of cups made for the day
      */
@@ -150,6 +183,7 @@ class Stand {
     }
 
     /**
+     * Adds the cups made in the day to total cups made by stand
      * Used in the endgame screen
      * @param cups cups made for the day add to the total made
      */
@@ -158,7 +192,7 @@ class Stand {
     }
 
     /**
-     * Sets number of cups sold
+     * Sets number of cups sold by the stand in the day
      * Used in financial reports
      * @param cups Short cups sold
      */
@@ -167,6 +201,7 @@ class Stand {
     }
 
     /**
+     * Adds cups sold in the day to total cups sold
      * Used in the endgame screen
      * @param cupsSold adds to the total cups sold
      */
@@ -197,6 +232,89 @@ class Stand {
     public boolean getIsBankrupt() {
         return isBankrupt;
     }
+    
+    /**
+     * Used in financial report
+     * @return the price of lemonade
+     */
+    public float getPrice() {
+        return price;
+    }
+    
+    /**
+     * Used in financial report
+     * @return income made for the day
+     */
+    public float getIncome() {
+        return income;
+    }
+
+    /**
+     * Used in the endgame screen
+     * @return total revenue made by stand
+     */
+    public float getRevenue() {
+        return revenue;
+    }
+
+   /**
+     * Used in financial report
+     * @return the expense of the day
+     */
+    public float getExpense() {
+        return expense;
+    }
+
+    /**
+     * Used in the endgame screen
+     * @return total expense 
+     */
+    public float getTotalExpense() {
+        return totalExpense;
+    }
+
+    /**
+     * Used in financial report
+     * @return profit made for the day
+     */
+    public float getProfit() {
+        return profit;
+    }
+
+    /**
+     * Used in financial report
+     * @return number of signs made for the day
+     */
+    public byte getSigns() {
+        return signs;
+    }
+
+    /**
+     * Get the total number of signs made by the stand
+     * Used in the endgame screen
+     * @return total number of signs made
+     */
+    public short getTotalSignsMade() {
+        return totalSignsMade;
+    }
+
+    /**
+     * Gets the number of cups made by the stand during the day
+     * Used in financial report
+     * @return number of cups made for the day
+     */
+    public short getCups() {
+        return cups;
+    }
+
+    /**
+     * Gets the total number of cups made by the stand
+     * Used in the endgame screen
+     * @return total numbe of cups made
+     */
+    public short getTotalCupsMade() {
+        return totalCupsMade;
+    }
 
     /**
      * Getter for number of cups sold
@@ -208,75 +326,12 @@ class Stand {
     }
 
     /**
+     * Gets the total number of cups sold by the stand
      * Used in the endgame screen
      * @return the total number of cups sold throughout campaign
      */
     public short getTotalCupsSold() {
         return totalCupsSold;
-    }
-
-    /**
-     * Used in financial report
-     * @return the price of lemonade
-     */
-    public float getPrice() {
-        return price;
-    }
-
-    /**
-     * Used in financial report
-     * @return income made for the day
-     */
-    public float getIncome() {
-        return income;
-    }
-
-    public float getRevenue() {
-        return revenue;
-    }
-
-    /**
-     * Used in financial report
-     * @return number of cups made for the day
-     */
-    public short getCups() {
-        return cups;
-    }
-
-    public short getTotalCupsMade() {
-        return totalCupsMade;
-    }
-
-    /**
-     * Used in financial report
-     * @return number of signs made for the day
-     */
-    public byte getSigns() {
-        return signs;
-    }
-
-    public short getTotalSignsMade() {
-        return totalSignsMade;
-    }
-
-    /**
-     * Used in financial report
-     * @return the expense of the day
-     */
-    public float getExpense() {
-        return expense;
-    }
-
-    public float getTotalExpense() {
-        return totalExpense;
-    }
-
-    /**
-     * Used in financial report
-     * @return profit made for the day
-     */
-    public float getProfit() {
-        return profit;
     }
 
     /**
