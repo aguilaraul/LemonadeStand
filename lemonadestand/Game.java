@@ -1,6 +1,6 @@
 /*
  * @author  Raul Aguilar
- * @date    January 04, 2019
+ * @date    06 January 2019
  */
 import java.util.Random;
 import java.util.Scanner;
@@ -8,7 +8,9 @@ import java.util.Scanner;
 public class Game {
     private Text text = new Text();
 
-    private static final float SC = 0.15f;
+    private static final int P9 = 10;
+    private static final int S2 = 30;
+    private static final float S3 = 0.15f;
 
     private Scanner in = new Scanner(System.in);
     private Random rand = new Random();
@@ -20,6 +22,7 @@ public class Game {
     private byte weather;
     private double chance;
     private double R1 = 1.0;
+    private int G = 1;
     private float cost;
     private float price;
     private float expense;
@@ -41,25 +44,28 @@ public class Game {
         // Process of one day
         /*
          * The process of one day
-         * 1. displays the day and cost of lemonade
-         * 2. displays stand info
-         * 3. asks questions (cups/signs to make, set price)
-         * 3a. if stand is bankrupt
+         * 1. display weather report
+         * 2. displays the day and cost of lemonade
+         * 3. displays stand info
+         * 4. asks questions (cups/signs to make, set price)
+         * 5a. if stand is bankrupt
          * 	   display YouAreBankruptNoDecisions
-         * 4. would you like to change anything?
-         * 4a. if yes, reset to (2.)
-         * 5. calculate cups sold, income, profit
-         * 6. set values to current stand
-         * 7. move on to next stand
-         * 6. display financial report
-         * 6a. if stand becomes bankrupt
+         * 5. would you like to change anything?
+         * 5a. if yes, reset to (2.)
+         * 6. calculate cups sold, income, profit
+         * 7. set values to current stand
+         * 8. move on to next stand
+         * 9. display financial report
+         * 9a. if stand becomes bankrupt
          * 	   display YouDontHaveEnoughMoney
-         * 6b. if stand is already bankrupt
+         * 9b. if stand is already bankrupt
          * 	   DO NOT display financial report
          * 	   display STAND id BANKRUPT
-         * 6c. move on to next stand
+         * 9c. move on to next stand
+         * 10. move on to next day
          */ 
         do {
+        	G = 1;
             // reset currentStand at the beginning of everyday
             int currentStand = 0;
             // set weather once per day
@@ -222,6 +228,7 @@ public class Game {
      * Determines chance of selling lemonade based off the weather
      */
     private void weather() {
+    	R1 = 1;
         double random = rand.nextDouble();
         if (random < .6) {
             weather = 2;
@@ -267,6 +274,7 @@ public class Game {
         } else {
             if(weather == 10) {
                 if(rand.nextDouble() < .25) {
+                	G = 0;
                     thunderstorm = true;
                 } else {
                     int J = 30 + (int) Math.floor(rand.nextDouble()*5*10);
@@ -277,6 +285,7 @@ public class Game {
             }
             if(weather == 7) {
                 System.out.println("A HEAT WAVE IS PREDICTED FOR TODAY!");
+                R1 = 2;
             }
         }
     }
@@ -313,11 +322,11 @@ public class Game {
                 // Display stand info
                 text.standInfo(id, assets);
 
-                // if bankrupt
-                // display You are bankrupt no decisions to make
-                // if not bankrupt
-                // ask questions
-                // always ask to change anything
+                // 1. if bankrupt
+                // 1a. display You are bankrupt no decisions to make
+                // 2. if not bankrupt
+                // 2a.  ask questions
+                // 3. always ask to change anything
                 if(s[currentStand].getIsBankrupt()) {
                     text.youAreBankruptNoDecisions();
                 } else {
@@ -332,7 +341,7 @@ public class Game {
 
                     // Adding the cost of signs to the cost of making lemonade
                     // Subtracting expense of signs and lemonade from assets
-                    expense = ((cups*cost)+(signs*SC));
+                    expense = ((cups*cost)+(signs*S3));
 
                     // Ask price of lemonade
                     text.askToSetPrice();
@@ -358,12 +367,9 @@ public class Game {
                 text.thunderstorms();
                 cupsSold = (short) 0;
             } else {
-                sellLemonade(calculateChanceOfSelling());
+                sellLemonade();
             }
-            // set income and profit of the day
-            income = calculateIncome();
-            profit = calculateProfit();
-        s[currentStand].setAll(price, expense, income, profit, cups, cupsSold, signs);
+        	s[currentStand].setAll(price, expense, income, profit, cups, cupsSold, signs);
 
             // Calculate assets and set to current stand
             assets = assets + profit;
@@ -371,43 +377,6 @@ public class Game {
 
             currentStand++;
         } // end of current Stand
-    }
-
-    /**
-     * Displays the financial report and sets the bankruptcy state of a stand
-     * 1. If the stand is bankrupt
-     *     then display STAND id BANKRUPT
-     *    Else
-     *     then display the financial report
-     * 2. If the current stands assets < the cost of lemonade
-     *     then the stand is bankrupt and display message
-     * 3. Move on to next stand
-     */
-    private void financialReport() {
-        int currentStand = 0;
-        while (currentStand < numOfPlayers) {
-            // if current stand is bankrupt
-            //  display stand id is bankrupt
-            // else
-            //  display financial report
-            if(s[currentStand].getIsBankrupt()) {
-                text.standBankrupt(id);
-            } else {
-                text.financeReport(s[currentStand].getId(), day, s[currentStand].getCupsSold(), s[currentStand].getPrice(),
-                        s[currentStand].getIncome(), s[currentStand].getCups(), s[currentStand].getSigns(),
-                        s[currentStand].getExpense(), s[currentStand].getProfit(), s[currentStand].getAssets());
-            }
-
-            // if current stand assets < cost of lemonade
-            // then stand is bankrupt and display message
-            if (!s[currentStand].getIsBankrupt()) {
-                if(s[currentStand].getAssets() < cost) {
-                    s[currentStand].setBankrupt(true);
-                    text.youDontHaveEnoughMoney();
-                }
-            }
-            currentStand++;
-        }
     }
 
     /**
@@ -456,7 +425,7 @@ public class Game {
             try {
                 signs = Byte.parseByte(in.next());
                 if(signs >= 0 && signs < 50) {
-                    if(signs*SC > assets) {
+                    if(signs*S3 > assets) {
                         System.out.printf("THINK AGAIN, YOU HAVE ONLY $%.2f", assets);
                         System.out.println();
                         System.out.println("IN CASH LEFT AFTER MAKING YOUR LEMONADE.");
@@ -514,50 +483,61 @@ public class Game {
     }
 
     /**
-     * Calculates the chance of selling lemonade by taking into account signs made,
-     * and price of lemonade.
-     * @return the chance of selling lemonade
-     */
-    private double calculateChanceOfSelling() {
-        double chanceOfSelling = chance;
-        chanceOfSelling += (chanceOfSelling * (double) (signs/10));
-        chanceOfSelling += chanceOfSelling/price;
-        if(R1 != 1) {
-            chanceOfSelling -= chanceOfSelling*R1;
-        }
-        chanceOfSelling = chanceOfSelling/100;
-        return chanceOfSelling;
-    }
-
-    /**
      * Sets the number of cups sold
-     * Calculates number of cups sold by comparing chance of selling to a random value
-     * If the chance of selling is greater than random number, then all cups made are sold
-     * else, a percentage of cups made are sold based on the chance
-     * @param chanceOfSelling the chance of selling lemonade
      */
-    private void sellLemonade(double chanceOfSelling) {
-        float d = rand.nextInt(101); // rng to use against chance
-        d = d/100; // rng turned into percentage
-        // rng vs chance
-        if(d < chanceOfSelling) { cupsSold = cups; }
-        else { cupsSold = (short) Math.ceil(cups*chanceOfSelling); }
+    private void sellLemonade() {
+    	double N1;
+    	if(price >= P9) {
+    		N1 = (Math.pow(P9,2)*S2 / Math.pow(price, 2));
+    	} else {
+    		N1 = ( (P9 - price)/P9*.8*S2+S2);
+    	}
+    	double W = -signs*P9;
+    	double V = 1 - (Math.exp(W)*1);
+    	cupsSold = (short) (R1 * (N1 + (N1 * V)));
+    	cupsSold = (short) (cupsSold * G);
+    	if( !(cupsSold <= cups)) {
+    		cupsSold = cups;
+    	}
+    	income = (float) (cupsSold * price * 0.01); //income
+    	expense = signs * S3 + cups * cost; //expense
+    	profit = income - expense; // profit
     }
 
     /**
-     * Calculates income
-     * @return # of cups sold * price of lemonade / 100
+     * Displays the financial report and sets the bankruptcy state of a stand
+     * 1. If the stand is bankrupt
+     *     then display STAND id BANKRUPT
+     *    Else
+     *     then display the financial report
+     * 2. If the current stands assets < the cost of lemonade
+     *     then the stand is bankrupt and display message
+     * 3. Move on to next stand
      */
-    private float calculateIncome() {
-        return (cupsSold * price) / 100;
-    }
+    private void financialReport() {
+        int currentStand = 0;
+        while (currentStand < numOfPlayers) {
+            // if current stand is bankrupt
+            //  display stand id is bankrupt
+            // else
+            //  display financial report
+            if(s[currentStand].getIsBankrupt()) {
+                text.standBankrupt(id);
+            } else {
+                text.financeReport(s[currentStand].getId(), day, s[currentStand].getCupsSold(), s[currentStand].getPrice(),
+                        s[currentStand].getIncome(), s[currentStand].getCups(), s[currentStand].getSigns(),
+                        s[currentStand].getExpense(), s[currentStand].getProfit(), s[currentStand].getAssets());
+            }
 
-    /**
-     * Calculates profit from sales
-     * @return profit = income - expense
-     */
-    private float calculateProfit() {
-        return (income-expense);
+            // if current stand assets < cost of lemonade
+            // then stand is bankrupt and display message
+            if (!s[currentStand].getIsBankrupt()) {
+                if(s[currentStand].getAssets() < cost) {
+                    s[currentStand].setBankrupt(true);
+                    text.youDontHaveEnoughMoney();
+                }
+            }
+            currentStand++;
+        }
     }
-
 }

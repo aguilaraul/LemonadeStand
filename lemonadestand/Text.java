@@ -271,6 +271,7 @@ public class Text {
      * @param tsm total signs made
      * @param te total expense
      * @param tr total revenue
+     * @param asset assets of the current stand
      */
     void endGameScreen(byte day, int id, short tcm, short tcs, short tsm, float tr, float te, float asset) {
         System.out.println();

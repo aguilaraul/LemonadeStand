@@ -21,8 +21,8 @@ DONE:
 * Add bankruptcy state
 * Put financial report at the end of day
 * Display endgame screen
+* Optimize chance of selling lemonade
 
 TODO:
 * Fix formatting
-* Optimize chance of selling lemonade
 * Make it all in JFrame
