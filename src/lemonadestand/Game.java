@@ -1,121 +1,116 @@
 /*
  * @author  Raul Aguilar
- * @date    06 January 2019
+ * @date    March 30, 2019
  */
+package lemonadestand;
+
 import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
-	private Text text = new Text();
+	private final Text text = new Text();
+	private final float S3 = 0.15f;
+	private final Scanner in = new Scanner(System.in);
+	private final Random rand = new Random();
 
-    	private final int P9 = 10;
-    	private final int S2 = 30;
-    	private final float S3 = 0.15f;
-
-    	private Scanner in = new Scanner(System.in);
-    	private Random rand = new Random();
-    	private Stand[] s;
-    	private byte id;
-    	private float assets;
-    	private byte numOfPlayers;
+	private Stand[] s;
+	private byte id;
+	private float assets;
+	private byte numOfPlayers;
 	private byte day;
 	private byte weather;
-    	private double chance;
-    	private double R1 = 1.0;
-    	private int G = 1;
-    	private float cost;
-    	private float price;
-    	private float expense;
-    	private float income;
-    	private float profit;
-    	private short cups;
-    	private short cupsSold;
-    	private byte signs;
-    	private String answer;
-    	private boolean tryAgain;
-    	private boolean streetCrewThirsty = false;
-    	private boolean thunderstorm = false;
+	private double R1 = 1.0;
+	private int G = 1;
+	private float cost;
+	private float price;
+	private float expense;
+	private float income;
+	private float profit;
+	private short cups;
+	private short cupsSold;
+	private byte signs;
+	private boolean streetCrewThirsty = false;
+	private boolean thunderstorm = false;
 	
 	public void play() {
-        	day = 1;
-        	intro();
-        	text.border();
+		day = 1;
+		intro();
+		text.border();
 
-        	// Process of one day
-        	/*
-         	 * The process of one day
-         	 * 1. display weather report
-         	 * 2. displays the day and cost of lemonade
-         	 * 3. displays stand info
-         	 * 4. asks questions (cups/signs to make, set price)
-         	 * 4a. if stand is bankrupt
-         	 * 	   display YouAreBankruptNoDecisions
-         	 * 5. would you like to change anything?
-         	 * 5a. if yes, reset to (2.)
-         	 * 6. calculate cups sold, income, profit
-         	 * 7. set values to current stand
-         	 * 8. move on to next stand
-         	 * 9. display financial report
-         	 * 9a. if stand becomes bankrupt
-         	 * 	   display YouDontHaveEnoughMoney
-         	 * 9b. if stand is already bankrupt
-         	 * 	   DO NOT display financial report
-         	 * 	   display STAND id BANKRUPT
-         	 * 9c. move on to next stand
-         	 * 10. move on to next day
-         	 */ 		
+		// Process of one day
+		/*
+		 * The process of one day
+		 * 1. display weather report
+		 * 2. displays the day and cost of lemonade
+		 * 3. displays stand info
+		 * 4. asks questions (cups/signs to make, set price)
+		 * 4a. if stand is bankrupt
+		 * 	   display YouAreBankruptNoDecisions
+		 * 5. would you like to change anything?
+		 * 5a. if yes, reset to (2.)
+		 * 6. calculate cups sold, income, profit
+		 * 7. set values to current stand
+		 * 8. move on to next stand
+		 * 9. display financial report
+		 * 9a. if stand becomes bankrupt
+		 * 	   display YouDontHaveEnoughMoney
+		 * 9b. if stand is already bankrupt
+		 * 	   DO NOT display financial report
+		 * 	   display STAND id BANKRUPT
+		 * 9c. move on to next stand
+		 * 10. move on to next day
+		 */
 		do {
 			G = 1;
 			// reset currentStand at the beginning of everyday
-            		int currentStand = 0;
-            		// set weather once per day
-            		weather();
-            		// weather report once per day at the start of day
-            		text.forecastToday(weather);
-	       		// Random events can occur after day 2
-	       		if (day > 2) {
-                		randomEvents();
-            		}
+			int currentStand = 0;
+			// set weather once per day
+			weather();
+			// weather report once per day at the start of day
+			text.forecastToday(weather);
+			// Random events can occur after day 2
+			if (day > 2) {
+				randomEvents();
+			}
 
-            		processOfOneStand(currentStand);
-            		financialReport();
+			processOfOneStand(currentStand);
+			financialReport();
+			day++;
+		} while(day < 13); // end of day
 
-            		day++;
-        	} while(day < 13); // end of day
-
-        	int currentStand = 0;
-        	while (currentStand < numOfPlayers) {
-            		text.endGameScreen((byte) (day-1), s[currentStand].getId(), s[currentStand].getTotalCupsMade(),
+		int currentStand = 0;
+		while (currentStand < numOfPlayers) {
+			text.endGameScreen((byte) (day-1), s[currentStand].getId(), s[currentStand].getTotalCupsMade(),
 					s[currentStand].getTotalCupsSold(), s[currentStand].getTotalSignsMade(),
 					s[currentStand].getRevenue(), s[currentStand].getTotalExpense(), s[currentStand].getAssets());
 			currentStand++;
-        	}
+		}
 	}
 	
 	/**
-     	 * Prints out opening menus, starts a new game or not,  and instatntiates number of players playing
-     	 */
+	 * Prints out opening menus, starts a new game or not, and instantiates number of players playing
+	 */
 	private void intro() {
-        	text.titlePage();
-        	if(askYesOrNo()) {
-            		//if the player has played before
+		text.titlePage();
+		if(askYesOrNo()) {
+			//if the player has played before
 			System.out.println();
-            		// How many players
-            		text.askHowManyPlayers();
-            		setNumberOfPlayers();
+			// How many players
+			text.askHowManyPlayers();
+			setNumberOfPlayers();
 			instantiatePlayers();
-        	} else {
+		} else {
 			//if the player has not played before
 			System.out.println();
 			// Ask how many players
-            		text.askHowManyPlayers();
-            		setNumberOfPlayers();
-            		instantiatePlayers();
+			text.askHowManyPlayers();
+			setNumberOfPlayers();
+			instantiatePlayers();
 
-            		text.continueOldGame();
-            		setDay();
+			text.continueOldGame();
+			setDay();
 
-            		int currentStand = 0;
+			int currentStand = 0;
 			while(currentStand < numOfPlayers) {
 				boolean assetSet = false;
 				id = s[currentStand].getId();
@@ -163,10 +158,10 @@ public class Game {
 	
 	/**
 	 * Boolean check to ask player if they have played before
-     	 * @return true if 'yes' or 'y', anything else returns false
-     	 */
+	 * @return true if 'yes' or 'y', anything else returns false
+	 */
 	private boolean askYesOrNo() {
-		answer = "";
+		String answer = "";
 		if(in.hasNext()) {
 			answer = in.next();
 		}
@@ -177,10 +172,10 @@ public class Game {
 	
 	/**
 	 * Sets number of players using a user input byte
-    	 * Checks if number is between 0 and 30
-    	 * if true, the value is acceptable
-    	 * if false, user is asked to enter a new number
-    	 */
+	 * Checks if number is between 0 and 30
+	 * if true, the value is acceptable
+	 * if false, user is asked to enter a new number
+	 */
 	private void setNumberOfPlayers() {
 		boolean playersSet = false;
 		
@@ -204,7 +199,7 @@ public class Game {
 	
 	/**
 	 * Instantiates number of players and their stands
-    	 */
+	 */
 	private void instantiatePlayers() {
 		s = new Stand[numOfPlayers];
 		for(int i = 0; i < numOfPlayers; i++){
@@ -212,20 +207,20 @@ public class Game {
 		}
 	}
 
-    	/**
-    	 * Used to set day after user has played before
-    	 * Checks if the day is in between 0 and 100
-    	 */
+	/**
+	 * Used to set day after user has played before
+	 * Checks if the day is in between 0 and 100
+	 */
 	private void setDay() {
-        	boolean daySet = false;
+		boolean daySet = false;
 
-        	while(!daySet) {
-            		try {
+		while(!daySet) {
+			try {
 				String d = in.next();
 				exit(d);
 
 				day = Byte.parseByte(d);
-                		if(day >= 1 && day < 99) {
+				if(day >= 1 && day < 99) {
 					day++;
 					System.out.println("OKAY - WE'LL START WITH DAY NO. " + day);
 					daySet = true;
@@ -238,27 +233,24 @@ public class Game {
 	}
 	
 	/**
-    	 * Determines chance of selling lemonade based off the weather
-    	 */
+	 * Determines chance of selling lemonade based off the weather
+	 */
 	private void weather() {
 		R1 = 1;
 		double random = rand.nextDouble();
-		
+
 		if (random < .6) {
 			weather = 2;
-			chance = (double) rand.nextInt(43 + 1) + 34;
 		} else if (random < .8) {
 			weather = 10;
-			chance = (double) rand.nextInt(33 + 1);
 		} else {
 			weather = 7;
-			chance = (double) rand.nextInt(22 + 1) + 78;
 		}
 	}
 	
 	/**
 	 * Sets cost of making lemonade for the day
-    	 */
+	 */
 	private void costOfTheDay() {
 		if (day < 3) {
 			cost = 0.02f;
@@ -271,8 +263,8 @@ public class Game {
 	
 	/**
 	 * Random Events
-    	 * Random events can occur as thunderstorms, street closure, and heat waves
-    	 */
+	 * Random events can occur as thunderstorms, street closure, and heat waves
+	 */
 	private void randomEvents(){
 		streetCrewThirsty = false;
 		thunderstorm = false;
@@ -306,22 +298,23 @@ public class Game {
 	
 	/*
 	 * The process of one stand
-    	 * 1. displays the day and cost of lemonade
-    	 * 2. displays stand info
-    	 * 3. asks questions (cups/signs to make, set price)
-    	 * 3a. if stand is bankrupt
-    	 *     display YouAreBankruptNoDecisions
-    	 * 4. would you like to change anything?
-    	 * 4a. if yes, reset to (2.)
-     	 * 5. calculate cups sold, income, profit
-    	 * 6. set values to current stand
-    	 * 7. move on to next stand while currentStand < numOfPlayers
-    	 * @param currentStand the current stand playing
-     	 */ 
+	 * 1. displays the day and cost of lemonade
+	 * 2. displays stand info
+	 * 3. asks questions (cups/signs to make, set price)
+	 * 3a. if stand is bankrupt
+	 *     display YouAreBankruptNoDecisions
+	 * 4. would you like to change anything?
+	 * 4a. if yes, reset to (2.)
+	 * 5. calculate cups sold, income, profit
+	 * 6. set values to current stand
+	 * 7. move on to next stand while currentStand < numOfPlayers
+	 * @param currentStand the current stand playing
+	 */
 	private void processOfOneStand(int currentStand) {
 		// Process of one player
-        	while(currentStand < numOfPlayers) {
+		while(currentStand < numOfPlayers) {
 			// The Game
+			boolean tryAgain;
 			do {
 				id = s[currentStand].getId();
 				assets = s[currentStand].getAssets();
@@ -337,10 +330,10 @@ public class Game {
 				text.standInfo(id, assets);
 			
 				// 1. if bankrupt
-                		// 1a. display You are bankrupt no decisions to make
-                		// 2. if not bankrupt
-                		// 2a.  ask questions
-                		// 3. always ask to change anything
+				// 1a. display You are bankrupt no decisions to make
+				// 2. if not bankrupt
+				// 2a.  ask questions
+				// 3. always ask to change anything
 				if(s[currentStand].getIsBankrupt()) {
 					text.youAreBankruptNoDecisions();
 				} else {
@@ -350,31 +343,31 @@ public class Game {
 					assets -= (cups*cost);
 				
 					// Asking how many SIGNS to make
-                    			text.askHowManySigns();
+					text.askHowManySigns();
 					makeSigns(assets);
 
-                    			// Adding the cost of signs to the cost of making lemonade
-                    			// Subtracting expense of signs and lemonade from assets
-                    			expense = ((cups*cost)+(signs*S3));
+					// Adding the cost of signs to the cost of making lemonade
+					// Subtracting expense of signs and lemonade from assets
+					expense = ((cups*cost)+(signs*S3));
 
-                    			// Ask price of lemonade
-                    			text.askToSetPrice();
-                    			setPrice();
+					// Ask price of lemonade
+					text.askToSetPrice();
+					setPrice();
 				}
 			
 				// Ask to change anything
-            			text.askToChangeAnything();
+				text.askToChangeAnything();
 				tryAgain = askYesOrNo();
 			} while(tryAgain);
 		
 			/* Selling the lemonade */
 			// if street crew is thirsty
 			// sell all the lemonade
-            		// if thunderstorms
-            		//  display weather report on financial report
-            		//  sell no lemonade
-            		// else
-            		//  sell lemonade like normal
+			// if thunderstorms
+			//  display weather report on financial report
+			//  sell no lemonade
+			// else
+			//  sell lemonade like normal
 			if(streetCrewThirsty) {
 				text.streetCrewBoughtAllYourLemonade();
 				cupsSold = (cups);
@@ -387,23 +380,23 @@ public class Game {
 		
 			s[currentStand].setAll(price, expense, income, profit, cups, cupsSold, signs);
 
-            		// Calculate assets and set to current stand
-            		assets = assets + profit;
-            		s[currentStand].setAssets(assets);
+			// Calculate assets and set to current stand
+			assets = assets + profit;
+			s[currentStand].setAssets(assets);
 
-            		currentStand++;
+			currentStand++;
 		} // end of current Stand
 	}
 	
 	/**
-    	 * Set number of cups of lemonade to make
-    	 */
+	 * Set number of cups of lemonade to make
+	 */
 	private void makeLemonade() {
-        	boolean cupsSet = false;
+		boolean cupsSet = false;
 
 		while(!cupsSet) {
-            		try {
-		    		String c = in.next();
+			try {
+				String c = in.next();
 				exit(c);
 
 				cups = Short.parseShort(c);
@@ -430,12 +423,12 @@ public class Game {
 	
 	/**
 	 * Sets number of signs
-    	 * Checks if user input byte is valid
-    	 * Checks if value is greater or equal to 0 and less than 50
-    	 * if true, checks if user can afford to make # of signs
-    	 *  if true, number of signs is set
-    	 * if false, asks user to enter a new number
-    	 * @param assets current assets available to make signs
+	 * Checks if user input byte is valid
+	 * Checks if value is greater or equal to 0 and less than 50
+	 * if true, checks if user can afford to make # of signs
+	 *  if true, number of signs is set
+	 * if false, asks user to enter a new number
+	 * @param assets current assets available to make signs
 	 */
 	private void makeSigns(float assets) {
 		boolean signsSet = false;
@@ -464,12 +457,12 @@ public class Game {
 	}
 	/**
 	 * Verifies if price Double input by user is acceptable
-    	 * Checks if price is greater or equal to one hundred
-    	 * If true, asks for a new number
-    	 * If false, sets price
-    	 * Ignores all non-Float by asking for new Double
-    	 * Turns all Floats into their absolute values
-    	 */
+	 * Checks if price is greater or equal to one hundred
+	 * If true, asks for a new number
+	 * If false, sets price
+	 * Ignores all non-Float by asking for new Double
+	 * Turns all Floats into their absolute values
+	 */
 	private void setPrice() {
 		boolean priceSet = false;
 
@@ -494,15 +487,17 @@ public class Game {
 	
 	/**
 	 * Sets the number of cups sold
-    	 */
+	 */
 	private void sellLemonade() {
 		double N1;
-		if(price >= P9) {
-			N1 = (Math.pow(P9,2)*S2 / Math.pow(price, 2));
+		int p9 = 10;
+		int s2 = 30;
+		if(price >= p9) {
+			N1 = (Math.pow(p9,2)* s2 / Math.pow(price, 2));
 		} else {
-			N1 = ( (P9 - price)/P9*.8*S2+S2);
+			N1 = ( (p9 - price)/ p9 *.8* s2 + s2);
 		}
-    		double W = -signs*P9;
+    		double W = -signs* p9;
     		double V = 1 - (Math.exp(W)*1);
     		cupsSold = (short) (R1 * (N1 + (N1 * V)));
     		cupsSold = (short) (cupsSold * G);
@@ -517,20 +512,20 @@ public class Game {
 	/*
 	 * Displays the financial report and sets the bankruptcy state of a stand
 	 * 1. If the stand is bankrupt
-    	 *     then display STAND id BANKRUPT
-    	 *    Else
-    	 *     then display the financial report
-    	 * 2. If the current stands assets < the cost of lemonade
-    	 *     then the stand is bankrupt and display message
-    	 * 3. Move on to next stand
-    	 */
+	 *     then display STAND id BANKRUPT
+	 *    Else
+	 *     then display the financial report
+	 * 2. If the current stands assets < the cost of lemonade
+	 *     then the stand is bankrupt and display message
+	 * 3. Move on to next stand
+	 */
 	private void financialReport() {
-        	int currentStand = 0;
+		int currentStand = 0;
 		while (currentStand < numOfPlayers) {
 			// if current stand is bankrupt
 			// display stand id is bankrupt
-            		// else
-            		//  display financial report
+			// else
+			// display financial report
 			if(s[currentStand].getIsBankrupt()) {
 				text.standBankrupt(id);
 			} else {

@@ -1,11 +1,13 @@
 /*
  * @author  Raul Aguilar
- * @date    January 02, 2019
+ * @date    March 30, 2019
  */
+
+package lemonadestand;
+
 import java.util.Scanner;
 
 public class LemonadeStand {
-
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         boolean tryAgain = true;
@@ -22,6 +24,7 @@ public class LemonadeStand {
             }
             tryAgain = answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y");
         }
+        in.close();
         System.exit(0);
     }
 }
