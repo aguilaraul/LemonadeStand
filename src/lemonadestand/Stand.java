@@ -1,7 +1,10 @@
 /*
  * @author  Raul Aguilar
- * @date    January 04, 2019
+ * @date    March 30, 2019
  */
+
+package lemonadestand;
+
 class Stand {
     private byte id;
     private float assets;
@@ -23,7 +26,6 @@ class Stand {
      * Default constructor with no arguments
      */
     public Stand() {
-        this.id = 0;
         this.assets = 2.00f;
         this.isBankrupt = false;
     }
@@ -87,13 +89,13 @@ class Stand {
     }
 
     public void setAll(float price, float expense, float income, float profit, short cups, short cupsSold, byte signs) {
-	    this.price = price;
-	    this.expense = expense;
-	    this.income = income;
-	    this.profit = profit;
-	    this.cups = cups;
-	    this.cupsSold = cupsSold;
-	    this.signs = signs;
+	    setPrice(price);
+	    setExpense(expense);
+	    setIncome(income);
+	    setProfit(profit);
+	    setCups(cups);
+	    setCupsSold(cupsSold);
+	    setSigns(signs);
 	    setTotalSignsMade(signs);
 	    setTotalCupsMade(cups);
 	    setTotalCupsSold(cupsSold);
@@ -310,7 +312,7 @@ class Stand {
     /**
      * Gets the total number of cups made by the stand
      * Used in the endgame screen
-     * @return total numbe of cups made
+     * @return total number of cups made
      */
     public short getTotalCupsMade() {
         return totalCupsMade;

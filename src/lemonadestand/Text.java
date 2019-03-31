@@ -1,7 +1,9 @@
 /*
  * @author  Raul Aguilar
- * @date    January 04, 2019
+ * @date    March 30, 2019
  */
+package lemonadestand;
+
 public class Text {
 
     /**
