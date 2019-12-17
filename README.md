@@ -12,17 +12,3 @@ as guide to build a Java version.
 A playable version of Lemonade Stand (1979) can be found here:
 
 https://archive.org/details/Lemonade_Stand_1979_Apple
-
-
-DONE:
-* Fixed all checks
-* Added random events
-* Keep the same weather and chance for multiple players
-* Add bankruptcy state
-* Put financial report at the end of day
-* Display endgame screen
-* Optimize chance of selling lemonade
-
-TODO:
-* Fix formatting
-* Make it all in JFrame
